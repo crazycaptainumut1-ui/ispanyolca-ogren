@@ -920,6 +920,7 @@
             }
 
             const voices = speechSynthesis.getVoices();
+            console.log('Mevcut tüm sesler:', voices.map(v => ({ name: v.name, lang: v.lang })));
 
             if (voiceGender === 'female') {
                 const preferredVoices = ['Google español', 'Microsoft Sabina', 'Paulina', 'Monica'];
