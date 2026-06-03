@@ -566,17 +566,31 @@
 
         // Sidebar Menü Fonksiyonları
         function toggleSidebar() {
+            console.log('toggleSidebar çağrıldı');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
+
+            if (!sidebar || !overlay) {
+                console.error('Sidebar veya overlay bulunamadı!');
+                console.log('Sidebar:', sidebar);
+                console.log('Overlay:', overlay);
+                return;
+            }
+
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
+            console.log('Sidebar aktif:', sidebar.classList.contains('active'));
         }
 
         function closeSidebar() {
+            console.log('closeSidebar çağrıldı');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
+
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
         }
 
         function goToPageAndCloseSidebar(pageName) {
@@ -584,12 +598,6 @@
             closeSidebar();
         }
 
-        // ESC tuşu ile menüyü kapat
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeSidebar();
-            }
-        });
 
         // Sayfa Değiştirme
         function goToPage(pageName) {
@@ -860,6 +868,21 @@
 
         // Sayfa Yüklendiğinde
         window.addEventListener('load', function() {
+            console.log('Sayfa yüklendi, sidebar kontrol ediliyor...');
+
+            // Sidebar'ın mevcut olduğunu kontrol et
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            console.log('Sidebar HTML:', sidebar);
+            console.log('Overlay HTML:', overlay);
+
+            // ESC tuşu ile menüyü kapat
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeSidebar();
+                }
+            });
+
             displayWords();
             document.getElementById('learnedCount').textContent = words.length;
             document.getElementById('quizAttempts').textContent = Math.floor(Math.random() * 20) + 5;
