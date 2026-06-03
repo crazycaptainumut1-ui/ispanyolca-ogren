@@ -485,146 +485,6 @@
             opacity: 0.9;
         }
 
-        /* CHAT */
-        .chat-card {
-            background: rgba(60, 60, 60, 0.5);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
-        body.light-mode .chat-card {
-            background: rgba(200, 200, 200, 0.3);
-        }
-
-        .api-input-wrapper {
-            margin-bottom: 20px;
-        }
-
-        .api-label {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 8px;
-            color: #a78bfa;
-            font-weight: 600;
-        }
-
-        .api-input {
-            width: 100%;
-            padding: 10px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid #667eea;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            outline: none;
-        }
-
-        body.light-mode .api-input {
-            background: rgba(102, 126, 234, 0.08);
-            color: #333;
-        }
-
-        .api-input:focus {
-            border-color: #a78bfa;
-            background: rgba(102, 126, 234, 0.15);
-        }
-
-        .api-hint {
-            font-size: 12px;
-            color: #707070;
-            margin-top: 6px;
-        }
-
-        body.light-mode .api-hint {
-            color: #999;
-        }
-
-        .chat-box {
-            background: rgba(20, 20, 20, 0.8);
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            margin-top: 10px;
-        }
-
-        body.light-mode .chat-box {
-            background: rgba(240, 240, 240, 0.8);
-        }
-
-        .messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            padding: 12px 15px;
-            border-radius: 8px;
-            max-width: 75%;
-            word-wrap: break-word;
-            font-size: 14px;
-        }
-
-        .message.user {
-            background: #667eea;
-            align-self: flex-end;
-        }
-
-        .message.ai {
-            background: rgba(102, 126, 234, 0.2);
-            border: 1px solid #667eea;
-            align-self: flex-start;
-        }
-
-        .chat-input-area {
-            padding: 12px;
-            border-top: 1px solid #667eea;
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 10px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid #667eea;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 14px;
-            outline: none;
-        }
-
-        body.light-mode .chat-input {
-            background: rgba(102, 126, 234, 0.08);
-            color: #333;
-        }
-
-        .chat-input:focus {
-            border-color: #a78bfa;
-            background: rgba(102, 126, 234, 0.15);
-        }
-
-        .send-btn {
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .send-btn:hover {
-            background: #764ba2;
-        }
-
         /* BUTONLAR */
         .btn-group {
             display: flex;
@@ -680,10 +540,6 @@
 
             .cards-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-
-            .message {
-                max-width: 90%;
             }
 
             .module-header h2 {
@@ -757,11 +613,6 @@
                     <h3>Quiz</h3>
                     <p>Bilgini test et</p>
                 </div>
-                <div class="menu-card" onclick="goToModule('chat')">
-                    <div class="menu-card-icon">💬</div>
-                    <h3>AI Chat</h3>
-                    <p>Claude ile sohbet et</p>
-                </div>
             </div>
         </div>
 
@@ -811,27 +662,6 @@
             </div>
         </div>
 
-        <!-- CHAT MODÜLÜ -->
-        <div id="chatScreen" class="screen">
-            <div class="module-header">
-                <h2>💬 AI Chat</h2>
-                <p style="margin-top: 8px; color: #a0a0a0;">Gemini AI ile İspanyolca pratik yap</p>
-            </div>
-            <div class="chat-card">
-                <div class="api-input-wrapper">
-                    <label class="api-label">Google Gemini API Key:</label>
-                    <input type="password" id="apiKeyInput" class="api-input" placeholder="AIza..." value="">
-                    <div class="api-hint">Ücretsiz. console.cloud.google.com adresinden alabilirsiniz</div>
-                </div>
-                <div class="chat-box">
-                    <div class="messages" id="chatMessages"></div>
-                    <div class="chat-input-area">
-                        <input type="text" class="chat-input" id="chatInput" placeholder="İspanyolca yaz...">
-                        <button class="send-btn" onclick="sendMessage()">Gönder</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -984,9 +814,6 @@
             } else if (module === 'quiz') {
                 showScreen('quizScreen');
                 initQuiz();
-            } else if (module === 'chat') {
-                showScreen('chatScreen');
-                initChat();
             }
         }
 
@@ -1145,81 +972,6 @@
             if (selected === correct) quizScore++;
             currentQuestion++;
             showQuizQuestion();
-        }
-
-        // CHAT
-        function initChat() {
-            const apiInput = document.getElementById('apiKeyInput');
-            if (!apiInput.value) {
-                apiInput.value = localStorage.getItem('gemini_api_key') || '';
-            }
-            apiInput.onchange = () => {
-                localStorage.setItem('gemini_api_key', apiInput.value);
-            };
-
-            const chatInput = document.getElementById('chatInput');
-            chatInput.onkeypress = (e) => {
-                if (e.key === 'Enter') sendMessage();
-            };
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const apiKey = document.getElementById('apiKeyInput').value;
-            const message = input.value.trim();
-
-            if (!message) return;
-            if (!apiKey) {
-                alert('Lütfen API key girin');
-                return;
-            }
-
-            const messages = document.getElementById('chatMessages');
-            const userMsg = document.createElement('div');
-            userMsg.className = 'message user';
-            userMsg.textContent = message;
-            messages.appendChild(userMsg);
-            input.value = '';
-            messages.scrollTop = messages.scrollHeight;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        systemInstruction: {
-                            parts: [
-                                {
-                                    text: 'You are a Spanish teacher helping Turkish speakers learn Spanish. Always respond in Spanish and provide Turkish translations when needed. Keep responses concise and educational.'
-                                }
-                            ]
-                        },
-                        contents: [
-                            {
-                                parts: [
-                                    {
-                                        text: message
-                                    }
-                                ]
-                            }
-                        ]
-                    })
-                });
-
-                const data = await response.json();
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'message ai';
-                aiMsg.textContent = data.candidates[0].content.parts[0].text;
-                messages.appendChild(aiMsg);
-                messages.scrollTop = messages.scrollHeight;
-            } catch (error) {
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'message ai';
-                errorMsg.textContent = 'Hata: API bağlantısı başarısız. API key\'inizi kontrol edin.';
-                messages.appendChild(errorMsg);
-            }
         }
 
         // YÜKLEMESİ
