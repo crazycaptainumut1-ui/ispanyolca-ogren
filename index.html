@@ -341,18 +341,15 @@
         <div id="listening" class="page">
             <h2>🎧 Dinleme Egzersizi</h2>
             <p style="color: #666; margin-bottom: 20px;">Kelimeye tıklayarak telaffuzunu dinleyin.</p>
-
             <div id="listeningContainer"></div>
         </div>
 
         <!-- QUIZ -->
         <div id="quiz" class="page">
             <h2>✅ Sınav</h2>
-
             <div class="progress-bar">
                 <div class="progress-fill" id="quizProgress"></div>
             </div>
-
             <div id="quizContainer"></div>
         </div>
 
@@ -406,7 +403,6 @@
     <script>
         // Kelime Veritabanı
         const words = [
-            // Selamlar
             { es: 'Hola', tr: 'Merhaba', category: 'greetings' },
             { es: 'Buenos días', tr: 'Günaydın', category: 'greetings' },
             { es: 'Buenas tardes', tr: 'İyi öğleden sonralar', category: 'greetings' },
@@ -414,8 +410,6 @@
             { es: 'Adiós', tr: 'Hoşça kalın', category: 'greetings' },
             { es: 'Gracias', tr: 'Teşekkür ederim', category: 'greetings' },
             { es: 'De nada', tr: 'Bir şey değil', category: 'greetings' },
-
-            // Sayılar
             { es: 'Uno', tr: '1', category: 'numbers' },
             { es: 'Dos', tr: '2', category: 'numbers' },
             { es: 'Tres', tr: '3', category: 'numbers' },
@@ -426,8 +420,6 @@
             { es: 'Ocho', tr: '8', category: 'numbers' },
             { es: 'Nueve', tr: '9', category: 'numbers' },
             { es: 'Diez', tr: '10', category: 'numbers' },
-
-            // Renkler
             { es: 'Rojo', tr: 'Kırmızı', category: 'colors' },
             { es: 'Azul', tr: 'Mavi', category: 'colors' },
             { es: 'Verde', tr: 'Yeşil', category: 'colors' },
@@ -435,15 +427,13 @@
             { es: 'Negro', tr: 'Siyah', category: 'colors' },
             { es: 'Blanco', tr: 'Beyaz', category: 'colors' },
             { es: 'Rosa', tr: 'Pembe', category: 'colors' },
-
-            // Yemek
             { es: 'Pan', tr: 'Ekmek', category: 'food' },
             { es: 'Agua', tr: 'Su', category: 'food' },
             { es: 'Leche', tr: 'Süt', category: 'food' },
             { es: 'Queso', tr: 'Peynir', category: 'food' },
             { es: 'Manzana', tr: 'Elma', category: 'food' },
             { es: 'Carne', tr: 'Et', category: 'food' },
-            { es: 'Arroz', tr: 'Pirinç', category: 'food' },
+            { es: 'Arroz', tr: 'Pirinç', category: 'food' }
         ];
 
         // Quiz Soruları
@@ -482,37 +472,19 @@
 
         // Sayfa Değiştirme
         function goToPage(pageName) {
-            console.log('goToPage çağrıldı:', pageName);
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-            // Tüm sayfaları gizle
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active');
-            });
-
-            // Tüm butonların active sınıfını kaldır
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-
-            // Seçilen sayfayı göster
             const page = document.getElementById(pageName);
             if (page) {
                 page.classList.add('active');
-                console.log('Sayfa aktif hale getirildi:', pageName);
-            } else {
-                console.error('Sayfa bulunamadı:', pageName);
             }
 
-            // Doğru buton'u aktif yap
-            const activeButton = document.querySelector(`[data-page="${pageName}"]`);
+            const activeButton = document.querySelector('[data-page="' + pageName + '"]');
             if (activeButton) {
                 activeButton.classList.add('active');
-                console.log('Buton aktif hale getirildi:', pageName);
-            } else {
-                console.error('Buton bulunamadı:', pageName);
             }
 
-            // Sayfa içeriğini yükle
             if (pageName === 'vocabulary') {
                 displayWords();
             } else if (pageName === 'listening') {
@@ -526,11 +498,9 @@
 
         // Kelime Filtrele
         function filterWords(category) {
-            console.log('filterWords çağrıldı:', category);
-
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
 
-            const activeBtn = document.querySelector(`[data-category="${category}"]`);
+            const activeBtn = document.querySelector('[data-category="' + category + '"]');
             if (activeBtn) {
                 activeBtn.classList.add('active');
             }
@@ -547,13 +517,11 @@
 
             let html = '';
             filtered.forEach(word => {
-                html += `
-                    <div class="word-item">
-                        <div class="word-es">${word.es}</div>
-                        <div class="word-tr">${word.tr}</div>
-                        <button class="btn btn-small btn-secondary" onclick="speak('${word.es}')">🔊 Dinle</button>
-                    </div>
-                `;
+                html += '<div class="word-item">';
+                html += '<div class="word-es">' + word.es + '</div>';
+                html += '<div class="word-tr">' + word.tr + '</div>';
+                html += '<button class="btn btn-small btn-secondary" onclick="speak(\'' + word.es + '\')">🔊 Dinle</button>';
+                html += '</div>';
             });
 
             document.getElementById('wordsContainer').innerHTML = html;
@@ -562,14 +530,12 @@
         // Dinleme Egzersizi
         function displayListening() {
             let html = '';
-            words.slice(0, 10).forEach((word, index) => {
-                html += `
-                    <div class="word-item" onclick="speak('${word.es}')" style="cursor: pointer;">
-                        <div class="word-es">${word.es} 🔊</div>
-                        <div class="word-tr">${word.tr}</div>
-                        <small style="color: #999;">Tıklayarak dinleyin</small>
-                    </div>
-                `;
+            words.slice(0, 10).forEach(word => {
+                html += '<div class="word-item" onclick="speak(\'' + word.es + '\')" style="cursor: pointer;">';
+                html += '<div class="word-es">' + word.es + ' 🔊</div>';
+                html += '<div class="word-tr">' + word.tr + '</div>';
+                html += '<small style="color: #999;">Tıklayarak dinleyin</small>';
+                html += '</div>';
             });
 
             document.getElementById('listeningContainer').innerHTML = html;
@@ -585,7 +551,7 @@
 
         // Quiz Sorusu Görüntüle
         function showQuizQuestion() {
-            const progress = ((currentQuizIndex) / quizzes.length) * 100;
+            const progress = (currentQuizIndex / quizzes.length) * 100;
             document.getElementById('quizProgress').style.width = progress + '%';
 
             if (currentQuizIndex >= quizzes.length) {
@@ -594,24 +560,17 @@
             }
 
             const q = quizzes[currentQuizIndex];
-            let html = `
-                <div class="quiz-question">
-                    <h3>Soru ${currentQuizIndex + 1}/${quizzes.length}</h3>
-                    <p><strong>${q.question}</strong></p>
-            `;
+            let html = '<div class="quiz-question">';
+            html += '<h3>Soru ' + (currentQuizIndex + 1) + '/' + quizzes.length + '</h3>';
+            html += '<p><strong>' + q.question + '</strong></p>';
 
             q.options.forEach((option, index) => {
-                html += `
-                    <div class="option" onclick="selectOption(${index})">
-                        ${option}
-                    </div>
-                `;
+                html += '<div class="option" onclick="selectOption(' + index + ')">';
+                html += option;
+                html += '</div>';
             });
 
-            html += `
-                <button class="btn" style="margin-top: 20px;" onclick="nextQuestion()">Devam Et</button>
-            `;
-
+            html += '<button class="btn" style="margin-top: 20px;" onclick="nextQuestion()">Devam Et</button>';
             html += '</div>';
 
             document.getElementById('quizContainer').innerHTML = html;
@@ -653,20 +612,18 @@
                 resultText = '💪 Tekrar deneyin, gelişeceksiniz!';
             }
 
-            let html = `
-                <div style="text-align: center;">
-                    <h3 style="font-size: 3em; color: #667eea; margin: 20px 0;">${percentage}%</h3>
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">${quizScore}/${quizzes.length} doğru</p>
-                    <div class="result-msg success">${resultText}</div>
-                    <button class="btn" style="margin-top: 20px;" onclick="startQuiz()">Testi Tekrarla</button>
-                    <button class="btn" style="background: #ff9800;" onclick="goToPage('home')">Ana Sayfaya Dön</button>
-                </div>
-            `;
+            let html = '<div style="text-align: center;">';
+            html += '<h3 style="font-size: 3em; color: #667eea; margin: 20px 0;">' + percentage + '%</h3>';
+            html += '<p style="font-size: 1.2em; margin-bottom: 20px;">' + quizScore + '/' + quizzes.length + ' doğru</p>';
+            html += '<div class="result-msg success">' + resultText + '</div>';
+            html += '<button class="btn" style="margin-top: 20px;" onclick="startQuiz()">Testi Tekrarla</button>';
+            html += '<button class="btn" style="background: #ff9800;" onclick="goToPage(\'home\')">Ana Sayfaya Dön</button>';
+            html += '</div>';
 
             document.getElementById('quizContainer').innerHTML = html;
         }
 
-        // Metin Okut (Text-to-Speech)
+        // Metin Okut
         function speak(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -678,7 +635,7 @@
         }
 
         // Sayfa Yüklendiğinde
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function() {
             displayWords();
             document.getElementById('learnedCount').textContent = words.length;
             document.getElementById('quizAttempts').textContent = Math.floor(Math.random() * 20) + 5;
