@@ -277,6 +277,39 @@
             opacity: 0.85;
         }
 
+        /* LEVEL BUTONLARI */
+        .level-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .level-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .level-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        body.light-mode .level-btn {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        body.light-mode .level-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
         /* DİNLEME */
         .listening-item {
             background: rgba(60, 60, 60, 0.5);
@@ -627,6 +660,12 @@
                 <h2>📚 Kelime Kartları</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Her kelimeye tıklayarak seslendirimini dinle</p>
             </div>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button id="levelA1" class="level-btn active" onclick="setWordLevel('A1')">A1 Başlangıç</button>
+                <button id="levelA2" class="level-btn" onclick="setWordLevel('A2')">A2 Temel</button>
+                <button id="levelB1" class="level-btn" onclick="setWordLevel('B1')">B1 Orta</button>
+                <button id="levelB2" class="level-btn" onclick="setWordLevel('B2')">B2 İleri</button>
+            </div>
             <div class="cards-grid" id="wordsGrid"></div>
         </div>
 
@@ -687,36 +726,37 @@
     <script>
         // VERİ
         const words = [
-            { es: 'Hola', tr: 'Merhaba' },
-            { es: 'Adiós', tr: 'Hoşça kalın' },
-            { es: 'Por favor', tr: 'Lütfen' },
-            { es: 'Gracias', tr: 'Teşekkürler' },
-            { es: 'Sí', tr: 'Evet' },
-            { es: 'No', tr: 'Hayır' },
-            { es: 'Perdón', tr: 'Özür dilerim' },
-            { es: 'De nada', tr: 'Bir şey değil' },
-            { es: 'Buenos días', tr: 'Günaydın' },
-            { es: 'Buenas noches', tr: 'İyi geceler' },
-            { es: 'Amor', tr: 'Sevgi' },
-            { es: 'Gato', tr: 'Kedi' },
-            { es: 'Perro', tr: 'Köpek' },
-            { es: 'Casa', tr: 'Ev' },
-            { es: 'Libro', tr: 'Kitap' },
-            { es: 'Mesa', tr: 'Masa' },
-            { es: 'Silla', tr: 'Sandalye' },
-            { es: 'Agua', tr: 'Su' },
-            { es: 'Pan', tr: 'Ekmek' },
-            { es: 'Leche', tr: 'Süt' },
-            { es: 'Carne', tr: 'Et' },
-            { es: 'Fruta', tr: 'Meyve' },
-            { es: 'Verdura', tr: 'Sebze' },
-            { es: 'Manzana', tr: 'Elma' },
-            { es: 'Naranja', tr: 'Portakal' },
-            { es: 'Pájaro', tr: 'Kuş' },
-            { es: 'Árbol', tr: 'Ağaç' },
-            { es: 'Flor', tr: 'Çiçek' },
-            { es: 'Montaña', tr: 'Dağ' },
-            { es: 'Río', tr: 'Nehir' },
+            // A1 Başlangıç
+            { es: 'Hola', tr: 'Merhaba', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Adiós', tr: 'Hoşça kalın', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Por favor', tr: 'Lütfen', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Gracias', tr: 'Teşekkürler', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Sí', tr: 'Evet', level: 'A1', category: 'Günlük hayat' },
+            { es: 'No', tr: 'Hayır', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Perdón', tr: 'Özür dilerim', level: 'A1', category: 'Günlük hayat' },
+            { es: 'De nada', tr: 'Bir şey değil', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Buenos días', tr: 'Günaydın', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Buenas noches', tr: 'İyi geceler', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Amor', tr: 'Sevgi', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Gato', tr: 'Kedi', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Perro', tr: 'Köpek', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Casa', tr: 'Ev', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Libro', tr: 'Kitap', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Mesa', tr: 'Masa', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Silla', tr: 'Sandalye', level: 'A1', category: 'Günlük hayat' },
+            { es: 'Agua', tr: 'Su', level: 'A1', category: 'Yiyecek' },
+            { es: 'Pan', tr: 'Ekmek', level: 'A1', category: 'Yiyecek' },
+            { es: 'Leche', tr: 'Süt', level: 'A1', category: 'Yiyecek' },
+            { es: 'Carne', tr: 'Et', level: 'A1', category: 'Yiyecek' },
+            { es: 'Fruta', tr: 'Meyve', level: 'A2', category: 'Yiyecek' },
+            { es: 'Verdura', tr: 'Sebze', level: 'A2', category: 'Yiyecek' },
+            { es: 'Manzana', tr: 'Elma', level: 'A2', category: 'Yiyecek' },
+            { es: 'Naranja', tr: 'Portakal', level: 'A2', category: 'Yiyecek' },
+            { es: 'Pájaro', tr: 'Kuş', level: 'A2', category: 'Günlük hayat' },
+            { es: 'Árbol', tr: 'Ağaç', level: 'A2', category: 'Günlük hayat' },
+            { es: 'Flor', tr: 'Çiçek', level: 'A2', category: 'Günlük hayat' },
+            { es: 'Montaña', tr: 'Dağ', level: 'A2', category: 'Seyahat' },
+            { es: 'Río', tr: 'Nehir', level: 'B1', category: 'Seyahat' },
             { es: 'Mar', tr: 'Deniz' },
             { es: 'Arena', tr: 'Kum' },
             { es: 'Piedra', tr: 'Taş' },
@@ -829,6 +869,7 @@
         let currentGame = 0;
         let wordFindScore = 0;
         let wordFindQuestion = 0;
+        let currentWordLevel = 'A1';
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -887,10 +928,18 @@
         }
 
         // KELİMELER
+        function setWordLevel(level) {
+            currentWordLevel = level;
+            document.querySelectorAll('.level-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('level' + level).classList.add('active');
+            initWords();
+        }
+
         function initWords() {
             const grid = document.getElementById('wordsGrid');
             grid.innerHTML = '';
-            words.forEach(word => {
+            const filteredWords = words.filter(w => !w.level || w.level === currentWordLevel);
+            filteredWords.forEach(word => {
                 const card = document.createElement('div');
                 card.className = 'word-card';
                 card.innerHTML = `<div class="word-es">${word.es}</div><div class="word-tr">${word.tr}</div>`;
