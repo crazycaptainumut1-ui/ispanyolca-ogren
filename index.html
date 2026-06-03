@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HablaTurco</title>
+    <title>HablaTurco - İspanyolca Öğrenme</title>
     <style>
         * {
             margin: 0;
@@ -12,40 +12,1009 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
         }
 
+        /* Header */
         header {
-            background: white;
-            padding: 20px;
+            background: rgba(10, 10, 20, 0.95);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 2px solid #667eea;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        header h1 {
-            font-size: 1.5em;
-            color: #333;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
         }
 
-        button {
+        .menu-btn {
             background: none;
             border: none;
-            font-size: 2em;
+            color: #667eea;
+            font-size: 28px;
             cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-btn:hover {
+            color: #a78bfa;
+        }
+
+        /* Hamburger Menü */
+        .hamburger-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(180deg, #16213e 0%, #0f3460 100%);
+            border-left: 2px solid #667eea;
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            padding-top: 60px;
+        }
+
+        .hamburger-menu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .menu-list li {
+            margin: 15px 0;
+        }
+
+        .menu-list a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-list a:hover {
+            background: #667eea;
+            color: white;
+            padding-left: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sayfalar */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ana Sayfa */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Kelime Kartları */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .word-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .word-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .word-card.flipped {
+            background: linear-gradient(135deg, #a78bfa, #667eea);
+        }
+
+        .word-es {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .word-tr {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Dinleme */
+        .listening-card {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .listening-card:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .listening-card p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .listening-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .listening-btn:hover {
+            background: #764ba2;
+        }
+
+        .listening-btn.playing {
+            background: #ff6b6b;
+        }
+
+        /* Oyun Sayfaları */
+        .game-section {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Cümle Sıralama */
+        .drag-item {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: move;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .drag-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .drag-item.dragging {
+            opacity: 0.5;
+        }
+
+        .drop-zone {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 50px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.dragover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: #a78bfa;
+        }
+
+        /* Quiz */
+        .quiz-question {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 15px;
+            color: #a78bfa;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: transparent;
+            border: 2px solid #667eea;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #e0e0e0;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #667eea;
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+        }
+
+        .quiz-option.correct {
+            background: #51cf66;
+            border-color: #51cf66;
+        }
+
+        .quiz-option.incorrect {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
+        .progress-bar {
+            background: rgba(102, 126, 234, 0.1);
+            height: 8px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #a78bfa);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-result {
+            background: linear-gradient(135deg, #51cf66, #40c057);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .quiz-result h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-result p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Chat */
+        .chat-container {
+            background: rgba(10, 10, 20, 0.8);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            padding: 12px 15px;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .chat-message.user {
+            background: #667eea;
+            align-self: flex-end;
+        }
+
+        .chat-message.ai {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid #667eea;
+            align-self: flex-start;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            border-top: 1px solid #667eea;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #a78bfa;
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .chat-send-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send-btn:hover {
+            background: #764ba2;
+        }
+
+        .api-key-input {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+            width: 100%;
+        }
+
+        .api-key-input:focus {
+            border-color: #a78bfa;
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        /* Başlıklar */
+        h2 {
+            color: #a78bfa;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .chat-message {
+                max-width: 95%;
+            }
+
+            .hamburger-menu {
+                width: 250px;
+                right: -250px;
+            }
+
+            .btn-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animasyonlar */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a78bfa;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>HablaTurco</h1>
-        <button onclick="alert('menü açıldı')">☰</button>
+        <a href="#" class="logo" onclick="showPage('home'); return false;">HablaTurco</a>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </header>
 
-    <div style="padding: 20px; text-align: center;">
-        <p>Basit test sayfası</p>
+    <!-- Hamburger Menü -->
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+    <nav class="hamburger-menu" id="hamburgerMenu">
+        <ul class="menu-list">
+            <li><a href="#" onclick="showPage('home'); closeMenu(); return false;">🏠 Ana Sayfa</a></li>
+            <li><a href="#" onclick="showPage('words'); closeMenu(); return false;">📚 Kelime Kartları</a></li>
+            <li><a href="#" onclick="showPage('listening'); closeMenu(); return false;">🎧 Dinleme</a></li>
+            <li><a href="#" onclick="showPage('ordering'); closeMenu(); return false;">🎯 Cümle Sıralama</a></li>
+            <li><a href="#" onclick="showPage('quiz'); closeMenu(); return false;">📝 Quiz</a></li>
+            <li><a href="#" onclick="showPage('chat'); closeMenu(); return false;">💬 AI Chat</a></li>
+        </ul>
+    </nav>
+
+    <!-- İçerik -->
+    <div class="container">
+        <!-- Ana Sayfa -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>🇪🇸 HablaTurco 🇹🇷</h1>
+                <p>İspanyolca öğrenmenin eğlenceli ve etkili yolu</p>
+                <div class="btn-grid">
+                    <button class="btn btn-primary" onclick="showPage('words'); window.scrollTo(0, 0);">📚 Kelimeler</button>
+                    <button class="btn btn-primary" onclick="showPage('listening'); window.scrollTo(0, 0);">🎧 Dinleme</button>
+                    <button class="btn btn-primary" onclick="showPage('ordering'); window.scrollTo(0, 0);">🎯 Oyun</button>
+                    <button class="btn btn-primary" onclick="showPage('quiz'); window.scrollTo(0, 0);">📝 Quiz</button>
+                    <button class="btn btn-secondary" onclick="showPage('chat'); window.scrollTo(0, 0);">💬 AI Koç</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kelime Kartları -->
+        <div id="words" class="page">
+            <h2>📚 Kelime Kartları (65 Kelime)</h2>
+            <div class="cards-grid" id="wordsGrid"></div>
+        </div>
+
+        <!-- Dinleme -->
+        <div id="listening" class="page">
+            <h2>🎧 Dinleme Egzersizi (25 Cümle)</h2>
+            <div id="listeningContainer"></div>
+        </div>
+
+        <!-- Cümle Sıralama -->
+        <div id="ordering" class="page">
+            <h2>🎯 Cümle Sıralama Oyunu</h2>
+            <div class="game-section">
+                <p style="margin-bottom: 15px;">Kelimeyi doğru sıraya sürükleyerek cümle oluştur:</p>
+                <div id="dragItems"></div>
+                <div class="drop-zone" id="dropZone"></div>
+                <button class="btn btn-primary" style="margin-top: 20px;" onclick="checkOrdering()">Kontrol Et</button>
+                <button class="btn btn-secondary" style="margin-top: 10px; margin-left: 10px;" onclick="resetOrdering()">Sıfırla</button>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="quiz" class="page">
+            <h2>📝 Quiz</h2>
+            <div class="game-section">
+                <div id="quizContent"></div>
+            </div>
+        </div>
+
+        <!-- AI Chat -->
+        <div id="chat" class="page">
+            <h2>💬 AI Chat - İspanyolca Koç</h2>
+            <div class="game-section">
+                <label style="display: block; margin-bottom: 15px;">
+                    <strong>Anthropic API Key:</strong>
+                    <input type="password" id="apiKeyInput" class="api-key-input" placeholder="sk-ant-..." value="">
+                    <small style="display: block; margin-top: 5px; color: #b0b0b0;">Anahtarınız sadece tarayıcınızda saklanır ve asla sunucuya gönderilmez.</small>
+                </label>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="İspanyolca bir soru sor...">
+                        <button class="chat-send-btn" onclick="sendChatMessage()">Gönder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Veri
+        const words = [
+            { es: 'Hola', tr: 'Merhaba' },
+            { es: 'Adiós', tr: 'Hoşça kalın' },
+            { es: 'Por favor', tr: 'Lütfen' },
+            { es: 'Gracias', tr: 'Teşekkürler' },
+            { es: 'Sí', tr: 'Evet' },
+            { es: 'No', tr: 'Hayır' },
+            { es: 'Perdón', tr: 'Özür dilerim' },
+            { es: 'De nada', tr: 'Bir şey değil' },
+            { es: 'Buenos días', tr: 'Günaydın' },
+            { es: 'Buenas noches', tr: 'İyi geceler' },
+            { es: 'Amor', tr: 'Sevgi' },
+            { es: 'Gato', tr: 'Kedi' },
+            { es: 'Perro', tr: 'Köpek' },
+            { es: 'Casa', tr: 'Ev' },
+            { es: 'Libro', tr: 'Kitap' },
+            { es: 'Mesa', tr: 'Masa' },
+            { es: 'Silla', tr: 'Sandalye' },
+            { es: 'Agua', tr: 'Su' },
+            { es: 'Pan', tr: 'Ekmek' },
+            { es: 'Leche', tr: 'Süt' },
+            { es: 'Carne', tr: 'Et' },
+            { es: 'Fruta', tr: 'Meyve' },
+            { es: 'Verdura', tr: 'Sebze' },
+            { es: 'Manzana', tr: 'Elma' },
+            { es: 'Naranja', tr: 'Portakal' },
+            { es: 'Pájaro', tr: 'Kuş' },
+            { es: 'Árbol', tr: 'Ağaç' },
+            { es: 'Flor', tr: 'Çiçek' },
+            { es: 'Montaña', tr: 'Dağ' },
+            { es: 'Río', tr: 'Nehir' },
+            { es: 'Mar', tr: 'Deniz' },
+            { es: 'Arena', tr: 'Kum' },
+            { es: 'Piedra', tr: 'Taş' },
+            { es: 'Fuego', tr: 'Ateş' },
+            { es: 'Hielo', tr: 'Buz' },
+            { es: 'Nieve', tr: 'Kar' },
+            { es: 'Lluvia', tr: 'Yağmur' },
+            { es: 'Sol', tr: 'Güneş' },
+            { es: 'Luna', tr: 'Ay' },
+            { es: 'Estrella', tr: 'Yıldız' },
+            { es: 'Cielo', tr: 'Gökyüzü' },
+            { es: 'Nube', tr: 'Bulut' },
+            { es: 'Viento', tr: 'Rüzgar' },
+            { es: 'Rojo', tr: 'Kırmızı' },
+            { es: 'Azul', tr: 'Mavi' },
+            { es: 'Verde', tr: 'Yeşil' },
+            { es: 'Amarillo', tr: 'Sarı' },
+            { es: 'Negro', tr: 'Siyah' },
+            { es: 'Blanco', tr: 'Beyaz' },
+            { es: 'Gris', tr: 'Gri' },
+            { es: 'Rosa', tr: 'Pembe' },
+            { es: 'Morado', tr: 'Mor' },
+            { es: 'Naranja', tr: 'Turuncu' },
+            { es: 'Grande', tr: 'Büyük' },
+            { es: 'Pequeño', tr: 'Küçük' },
+            { es: 'Largo', tr: 'Uzun' },
+            { es: 'Corto', tr: 'Kısa' },
+            { es: 'Caliente', tr: 'Sıcak' },
+            { es: 'Frío', tr: 'Soğuk' },
+            { es: 'Sucio', tr: 'Kirli' },
+            { es: 'Limpio', tr: 'Temiz' },
+            { es: 'Joven', tr: 'Genç' },
+            { es: 'Viejo', tr: 'Yaşlı' },
+            { es: 'Rápido', tr: 'Hızlı' },
+            { es: 'Lento', tr: 'Yavaş' }
+        ];
+
+        const sentences = [
+            { es: 'Buenos días, ¿cómo estás?', tr: 'Günaydın, nasılsın?' },
+            { es: 'Me llamo Juan y tengo 25 años.', tr: 'Adım Juan ve 25 yaşındayım.' },
+            { es: 'Vivo en una casa grande en la ciudad.', tr: 'Şehirde geniş bir evde yaşıyorum.' },
+            { es: 'Me encanta leer libros de ficción.', tr: 'Kurgu kitapları okumayı çok seviyorum.' },
+            { es: 'El gato está durmiendo en la cama.', tr: 'Kedi yatakta uyuyordu.' },
+            { es: '¿Dónde está el baño?', tr: 'Banyo nerede?' },
+            { es: 'Necesito una taza de café caliente.', tr: 'Sıcak bir fincan kahve lazım.' },
+            { es: 'El precio de la casa es muy alto.', tr: 'Evin fiyatı çok yüksek.' },
+            { es: 'Ayer fui al cine con mis amigos.', tr: 'Dün arkadaşlarımla sinemaya gittim.' },
+            { es: 'Me gusta caminar por la playa en la tarde.', tr: 'Öğleden sonra plajda yürümeyi seviyorum.' },
+            { es: 'La comida está deliciosa y caliente.', tr: 'Yemek lezzetli ve sıcak.' },
+            { es: 'Tengo que ir al trabajo ahora.', tr: 'Şimdi işe gitmem gerekiyor.' },
+            { es: '¿Cuál es tu número de teléfono?', tr: 'Telefon numarannız nedir?' },
+            { es: 'Este regalo es para ti, ¡feliz cumpleaños!', tr: 'Bu hediye sana, doğum günün kutlu olsun!' },
+            { es: 'Hace mucho frío hoy, necesito una chaqueta.', tr: 'Bugün çok soğuk, bir ceket lazım.' },
+            { es: 'La música es muy importante para mí.', tr: 'Müzik benim için çok önemli.' },
+            { es: 'Vamos a jugar un juego divertido.', tr: 'Eğlenceli bir oyun oynalyalım.' },
+            { es: 'El niño está jugando con sus juguetes.', tr: 'Çocuk oyuncaklarıyla oynuyor.' },
+            { es: 'Estudio español todos los días.', tr: 'Her gün İspanyolca öğreniyorum.' },
+            { es: 'Me encantaría viajar a España algún día.', tr: 'Bir gün İspanya\'ya seyahat etmek isterdim.' },
+            { es: 'La película fue muy buena y emocionante.', tr: 'Film çok iyi ve heyecanlı idi.' },
+            { es: 'Quiero aprender a cocinar comida española.', tr: 'İspanyol yemeklerini pişirmeyi öğrenmek istiyorum.' },
+            { es: 'El jardín está lleno de flores hermosas.', tr: 'Bahçe güzel çiçeklerle dolu.' },
+            { es: 'Pasamos un fin de semana maravilloso juntos.', tr: 'Birlikte harika bir hafta sonu geçirdik.' },
+            { es: 'Espero que tengas un excelente día hoy.', tr: 'Bugün harika bir gün geçireceğini umuyorum.' }
+        ];
+
+        const quizzes = [
+            { q: 'Hola means:', options: ['Hello', 'Goodbye', 'Please', 'Thank you'], correct: 0 },
+            { q: '¿Cómo estás? means:', options: ['How are you', 'Where are you', 'What is your name', 'How old are you'], correct: 0 },
+            { q: 'Gracias means:', options: ['Please', 'Thank you', 'Sorry', 'Goodbye'], correct: 1 },
+            { q: 'Por favor means:', options: ['Thank you', 'Goodbye', 'Please', 'Hello'], correct: 2 },
+            { q: 'Casa means:', options: ['Car', 'House', 'Book', 'Table'], correct: 1 },
+            { q: 'Gato means:', options: ['Cat', 'Dog', 'Bird', 'Fish'], correct: 0 },
+            { q: 'Agua means:', options: ['Bread', 'Water', 'Milk', 'Coffee'], correct: 1 },
+            { q: 'Libro means:', options: ['Pen', 'Book', 'Paper', 'Chair'], correct: 1 },
+            { q: 'Rojo means:', options: ['Blue', 'Green', 'Red', 'Yellow'], correct: 2 },
+            { q: 'Azul means:', options: ['Red', 'Yellow', 'Blue', 'Green'], correct: 2 }
+        ];
+
+        const orderingExercises = [
+            { words: ['estoy', 'Yo', 'bien'], correct: 'Yo estoy bien' },
+            { words: ['casa', 'vives', 'Dónde', 'en'], correct: 'Dónde vives en casa' },
+            { words: ['gato', 'un', 'Tengo'], correct: 'Tengo un gato' }
+        ];
+
+        let currentOrderingExercise = 0;
+        let quizScore = 0;
+        let currentQuizQuestion = 0;
+
+        // Fonksiyonlar
+        function toggleMenu() {
+            const menu = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            if (pageId === 'words') initWords();
+            if (pageId === 'listening') initListening();
+            if (pageId === 'ordering') initOrdering();
+            if (pageId === 'quiz') initQuiz();
+            if (pageId === 'chat') initChat();
+        }
+
+        function initWords() {
+            const grid = document.getElementById('wordsGrid');
+            grid.innerHTML = '';
+            words.forEach(word => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `<div class="word-es">${word.es}</div><div class="word-tr">${word.tr}</div>`;
+                card.onclick = () => speakWord(word.es);
+                grid.appendChild(card);
+            });
+        }
+
+        function speakWord(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'es-ES';
+            speechSynthesis.speak(utterance);
+        }
+
+        function initListening() {
+            const container = document.getElementById('listeningContainer');
+            container.innerHTML = '';
+            sentences.forEach((sentence, index) => {
+                const card = document.createElement('div');
+                card.className = 'listening-card';
+                card.innerHTML = `
+                    <p><strong>${sentence.es}</strong></p>
+                    <p style="color: #b0b0b0; font-size: 14px;">${sentence.tr}</p>
+                    <button class="listening-btn" onclick="speakSentence('${sentence.es}', this)">🔊 Dinle</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function speakSentence(sentence, btn) {
+            btn.classList.add('playing');
+            const utterance = new SpeechSynthesisUtterance(sentence);
+            utterance.lang = 'es-ES';
+            utterance.onend = () => btn.classList.remove('playing');
+            speechSynthesis.speak(utterance);
+        }
+
+        function initOrdering() {
+            currentOrderingExercise = Math.floor(Math.random() * orderingExercises.length);
+            const exercise = orderingExercises[currentOrderingExercise];
+            const dragContainer = document.getElementById('dragItems');
+            const dropZone = document.getElementById('dropZone');
+
+            dragContainer.innerHTML = '';
+            dropZone.innerHTML = '<p style="color: #b0b0b0;">Kelimeyi buraya sürükle</p>';
+
+            exercise.words.forEach(word => {
+                const item = document.createElement('div');
+                item.className = 'drag-item';
+                item.draggable = true;
+                item.textContent = word;
+                item.dataset.word = word;
+                item.ondragstart = dragStart;
+                dragContainer.appendChild(item);
+            });
+
+            dropZone.ondragover = dragOver;
+            dropZone.ondrop = drop;
+        }
+
+        function dragStart(e) {
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text', e.target.dataset.word);
+            e.target.classList.add('dragging');
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            const word = e.dataTransfer.getData('text');
+            const dropZone = e.currentTarget;
+
+            if (!dropZone.querySelector('.drag-item')) {
+                const item = document.createElement('div');
+                item.className = 'drag-item';
+                item.textContent = word;
+                dropZone.innerHTML = '';
+                dropZone.appendChild(item);
+            }
+        }
+
+        function checkOrdering() {
+            const exercise = orderingExercises[currentOrderingExercise];
+            const dropZone = document.getElementById('dropZone');
+            const word = dropZone.textContent.trim();
+
+            if (word === exercise.correct) {
+                alert('✅ Doğru! ' + exercise.correct);
+                initOrdering();
+            } else {
+                alert('❌ Yanlış. Doğru cevap: ' + exercise.correct);
+            }
+        }
+
+        function resetOrdering() {
+            initOrdering();
+        }
+
+        function initQuiz() {
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const content = document.getElementById('quizContent');
+
+            if (currentQuizQuestion >= quizzes.length) {
+                const percentage = (quizScore / quizzes.length * 100).toFixed(1);
+                content.innerHTML = `
+                    <div class="quiz-result">
+                        <h2>Tamamlandı! 🎉</h2>
+                        <p>Skor: ${quizScore}/${quizzes.length} (${percentage}%)</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="initQuiz()">Tekrar Yap</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const quiz = quizzes[currentQuizQuestion];
+            const progress = ((currentQuizQuestion / quizzes.length) * 100).toFixed(0);
+
+            content.innerHTML = `
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${progress}%"></div>
+                </div>
+                <div class="quiz-question">
+                    <h3>Soru ${currentQuizQuestion + 1}/${quizzes.length}</h3>
+                    <p>${quiz.q}</p>
+                    <div class="quiz-options">
+                        ${quiz.options.map((opt, idx) => `
+                            <button class="quiz-option" onclick="answerQuiz(${idx}, ${quiz.correct})">${opt}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function answerQuiz(selected, correct) {
+            if (selected === correct) {
+                quizScore++;
+            }
+            currentQuizQuestion++;
+            showQuizQuestion();
+        }
+
+        function initChat() {
+            const apiInput = document.getElementById('apiKeyInput');
+            if (!apiInput.value) {
+                apiInput.value = localStorage.getItem('anthropic_api_key') || '';
+            }
+            apiInput.onchange = () => {
+                localStorage.setItem('anthropic_api_key', apiInput.value);
+            };
+
+            const chatInput = document.getElementById('chatInput');
+            chatInput.onkeypress = (e) => {
+                if (e.key === 'Enter') sendChatMessage();
+            };
+        }
+
+        async function sendChatMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const apiKey = document.getElementById('apiKeyInput').value;
+            const message = chatInput.value.trim();
+
+            if (!message) return;
+            if (!apiKey) {
+                alert('Lütfen Anthropic API key girin');
+                return;
+            }
+
+            const messagesDiv = document.getElementById('chatMessages');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user';
+            userMsg.textContent = message;
+            messagesDiv.appendChild(userMsg);
+            chatInput.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            try {
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-3-5-sonnet-20241022',
+                        max_tokens: 1024,
+                        system: 'You are a Spanish teacher helping Turkish speakers learn Spanish. Always respond in Spanish and provide Turkish translations when needed. Keep responses concise and helpful.',
+                        messages: [{ role: 'user', content: message }]
+                    })
+                });
+
+                const data = await response.json();
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-message ai';
+                aiMsg.textContent = data.content[0].text;
+                messagesDiv.appendChild(aiMsg);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            } catch (error) {
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'chat-message ai';
+                errorMsg.textContent = 'Hata: API bağlantısı başarısız. Lütfen API key\'inizi kontrol edin.';
+                messagesDiv.appendChild(errorMsg);
+            }
+        }
+
+        // İlk yükleme
+        window.addEventListener('load', () => {
+            showPage('home');
+        });
+    </script>
 </body>
 </html>
