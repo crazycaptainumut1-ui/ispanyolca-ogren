@@ -789,8 +789,11 @@
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
-            document.querySelector('.back-btn').classList.remove('show');
+            if (screenId === 'introScreen' || screenId === 'menuScreen') {
+                document.querySelector('.back-btn').classList.remove('show');
+            }
             currentScreen = screenId;
+            localStorage.setItem('currentScreen', screenId);
             window.scrollTo(0, 0);
         }
 
@@ -981,6 +984,14 @@
                 document.body.classList.add('light-mode');
             }
             updateThemeButton();
+
+            const savedScreen = localStorage.getItem('currentScreen');
+            if (savedScreen && savedScreen !== 'introScreen') {
+                showScreen(savedScreen);
+                if (savedScreen !== 'menuScreen') {
+                    document.querySelector('.back-btn').classList.add('show');
+                }
+            }
         });
     </script>
 </body>
