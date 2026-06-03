@@ -26,6 +26,8 @@
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1001;
         }
 
         header h1 {
@@ -40,6 +42,9 @@
             font-size: 1.8em;
             cursor: pointer;
             padding: 5px 10px;
+            z-index: 9999;
+            pointer-events: all;
+            position: relative;
         }
 
         .sidebar {
