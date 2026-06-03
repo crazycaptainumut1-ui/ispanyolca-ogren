@@ -30,16 +30,25 @@ let conversationHistory = [];
 
 app.post('/api/chat', async (req, res) => {
     try {
-        const { message, history } = req.body;
-
-        if (!process.env.ANTHROPIC_API_KEY) {
-            return res.status(400).json({
-                error: 'API key ayarlanmamış. .env dosyasına ANTHROPIC_API_KEY ekleyin.'
-            });
-        }
+        const { message, history, apiKey } = req.body;
 
         if (!message) {
             return res.status(400).json({ error: 'Mesaj boş olamaz' });
+        }
+
+        // API key: client'tan ya da env'den
+        const key = apiKey || process.env.ANTHROPIC_API_KEY;
+
+        if (!key) {
+            return res.status(400).json({
+                error: 'API key bulunamadı. Lütfen API key'inizi girin.'
+            });
+        }
+
+        // Client API key varsa, özel client oluştur
+        let chatClient = client;
+        if (apiKey) {
+            chatClient = new Anthropic({ apiKey });
         }
 
         // Konuşma geçmişini güncelle
@@ -49,7 +58,7 @@ app.post('/api/chat', async (req, res) => {
         });
 
         // Claude'a sorguyu gönder
-        const response = await client.messages.create({
+        const response = await chatClient.messages.create({
             model: 'claude-3-5-sonnet-20241022',
             max_tokens: 1024,
             system: SYSTEM_PROMPT,
@@ -79,18 +88,18 @@ app.post('/api/chat', async (req, res) => {
 
         if (error.status === 401) {
             return res.status(401).json({
-                error: 'API key geçersiz. Lütfen .env dosyasını kontrol edin.'
+                error: 'API key geçersiz.'
             });
         }
 
         if (error.status === 429) {
             return res.status(429).json({
-                error: 'Çok fazla istek gönderdiniz. Lütfen bir süre sonra tekrar deneyin.'
+                error: 'Çok fazla istek. Lütfen bekleyin.'
             });
         }
 
         res.status(500).json({
-            error: 'Sunucu hatası: ' + error.message
+            error: error.message || 'Sunucu hatası'
         });
     }
 });

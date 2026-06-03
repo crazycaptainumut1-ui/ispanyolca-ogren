@@ -446,6 +446,21 @@
         <div id="chat" class="page">
             <h2>🤖 AI Chat</h2>
             <p>Claude ile İspanyolca öğrenin. Sorularınızı Türkçe ya da İspanyolca yazabilirsiniz.</p>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">API Key Ayarları</h3>
+                <p style="color: #666; margin-bottom: 15px; font-size: 0.95em;">
+                    <strong>API key nedir?</strong> Claude API'ye erişmek için gerekli olan özel anahtardır.
+                    <a href="https://console.anthropic.com" target="_blank" style="color: #667eea; text-decoration: underline;">console.anthropic.com</a> adresinden alabilirsiniz.
+                </p>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="password" id="apiKeyInput" placeholder="API key'inizi buraya yapıştırın (sk-ant-...)"
+                           style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1em;">
+                    <button class="btn" onclick="saveApiKey()" style="padding: 12px 20px; margin: 0;">Kaydet</button>
+                </div>
+                <div id="keyStatus" style="color: #999; font-size: 0.9em;"></div>
+            </div>
+
             <div class="chat-box" id="chatBox"></div>
             <div class="chat-input-group">
                 <input type="text" id="chatInput" placeholder="Mesajınızı yazın..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -515,6 +530,7 @@
             if (pageId === 'vocabulary') displayWords();
             if (pageId === 'listening') displayListening();
             if (pageId === 'quiz') startQuiz();
+            if (pageId === 'chat') loadApiKey();
         }
 
         // Kelimeler
@@ -613,11 +629,39 @@
             `;
         }
 
+        // API Key Management
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (!key) {
+                alert('Lütfen API key girin');
+                return;
+            }
+
+            localStorage.setItem('anthropic_api_key', key);
+            document.getElementById('keyStatus').textContent = '✓ API key kaydedildi (ilk 20 karakter: ' + key.substring(0, 20) + '...)';
+            document.getElementById('apiKeyInput').value = '';
+        }
+
+        function loadApiKey() {
+            const key = localStorage.getItem('anthropic_api_key');
+            if (key) {
+                document.getElementById('keyStatus').textContent = '✓ API key yüklendi (ilk 20 karakter: ' + key.substring(0, 20) + '...)';
+            } else {
+                document.getElementById('keyStatus').textContent = '⚠ API key kaydedilmemiş';
+            }
+        }
+
         // Chat
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
             if (!text) return;
+
+            const apiKey = localStorage.getItem('anthropic_api_key');
+            if (!apiKey) {
+                addChatMessage('assistant', '⚠ Hata: API key kaydedilmemiş. Lütfen üstte API key'inizi girin ve "Kaydet" butonuna tıklayın.');
+                return;
+            }
 
             addChatMessage('user', text);
             input.value = '';
@@ -625,11 +669,23 @@
             fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text, history: chatMessages })
+                body: JSON.stringify({
+                    message: text,
+                    history: chatMessages,
+                    apiKey: apiKey
+                })
             })
             .then(r => r.json())
-            .then(d => addChatMessage('assistant', d.reply || 'Hata: API yanıt vermedi'))
-            .catch(e => addChatMessage('assistant', 'Hata: API bağlantısı başarısız. Server çalışıyor mu?'));
+            .then(d => {
+                if (d.reply) {
+                    addChatMessage('assistant', d.reply);
+                } else if (d.error) {
+                    addChatMessage('assistant', '❌ Hata: ' + d.error);
+                } else {
+                    addChatMessage('assistant', 'Hata: Beklenmeyen yanıt');
+                }
+            })
+            .catch(e => addChatMessage('assistant', '❌ Bağlantı hatası: ' + e.message));
         }
 
         function addChatMessage(role, text) {
