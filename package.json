@@ -1,0 +1,24 @@
+{
+  "name": "ispanyolca-ogren",
+  "version": "1.0.0",
+  "description": "İspanyolca öğrenme uygulaması - AI öğretmen ile etkileşimli",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ispanyolca",
+    "ogrenme",
+    "ai",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "@anthropic-ai/sdk": "^0.20.1"
+  }
+}

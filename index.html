@@ -395,12 +395,33 @@
         </div>
     </div>
 
+        <!-- AI SOHBET -->
+        <div id="chat" class="page">
+            <button class="btn" style="background: #999; margin-bottom: 20px; width: 100%; padding: 8px;" onclick="goToPage('home')">← Geri</button>
+            <h2>🤖 AI Öğretmen</h2>
+            <p style="color: #666; margin-bottom: 15px;">İspanyolca öğretmeni Claude ile konuşun</p>
+
+            <div id="chatBox" style="background: #f8f9fa; padding: 15px; border-radius: 8px; height: 350px; overflow-y: auto; margin-bottom: 15px; border: 1px solid #ddd;">
+                <div style="text-align: center; color: #999; padding: 20px;">
+                    Soru sorun ve İspanyolca hakkında öğrenin!
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="chatInput" placeholder="Türkçe veya İspanyolca yazın..." style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1em;">
+                <button class="btn" style="width: auto; padding: 12px 20px; margin: 0;" onclick="sendMessage()">Gönder</button>
+            </div>
+            <small style="color: #999; margin-top: 10px; display: block;">Not: Bu özellik için API key gereklidir</small>
+        </div>
+    </div>
+
     <!-- NAVBAR -->
     <div class="navbar">
         <button class="nav-btn active" data-page="home" onclick="goToPage('home')">🏠 Ana Sayfa</button>
         <button class="nav-btn" data-page="vocabulary" onclick="goToPage('vocabulary')">📚 Kelimeler</button>
         <button class="nav-btn" data-page="listening" onclick="goToPage('listening')">🎧 Dinleme</button>
         <button class="nav-btn" data-page="quiz" onclick="goToPage('quiz')">✅ Quiz</button>
+        <button class="nav-btn" data-page="chat" onclick="goToPage('chat')">🤖 AI</button>
         <button class="nav-btn" data-page="profile" onclick="goToPage('profile')">👤 Profil</button>
     </div>
 
@@ -637,6 +658,90 @@
                 window.speechSynthesis.speak(utterance);
             }
         }
+
+        // Chat Fonksiyonları
+        let chatMessages = [];
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) {
+                alert('Lütfen bir mesaj yazın');
+                return;
+            }
+
+            // Kullanıcı mesajını ekle
+            addMessageToChat('Siz', message, 'user');
+            input.value = '';
+
+            // API'ye gönder
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: message,
+                    history: chatMessages
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('API hatası: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                addMessageToChat('Claude', data.reply, 'assistant');
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+                addMessageToChat('Sistem', 'Bağlantı hatası. Lütfen API key'in ayarlı olduğundan emin olun.', 'error');
+            });
+        }
+
+        function addMessageToChat(sender, message, type) {
+            chatMessages.push({
+                sender: sender,
+                message: message,
+                type: type
+            });
+
+            const chatBox = document.getElementById('chatBox');
+            const messageDiv = document.createElement('div');
+            messageDiv.style.marginBottom = '12px';
+            messageDiv.style.padding = '10px';
+            messageDiv.style.borderRadius = '6px';
+
+            if (type === 'user') {
+                messageDiv.style.background = '#e8eaf6';
+                messageDiv.style.textAlign = 'right';
+                messageDiv.style.color = '#667eea';
+            } else if (type === 'assistant') {
+                messageDiv.style.background = '#f0f0f0';
+                messageDiv.style.color = '#333';
+            } else {
+                messageDiv.style.background = '#ffebee';
+                messageDiv.style.color = '#f44336';
+            }
+
+            messageDiv.innerHTML = '<strong>' + sender + ':</strong><br>' + message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Enter tuşu ile gönder
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+        });
 
         // Sayfa Yüklendiğinde
         window.addEventListener('load', function() {
