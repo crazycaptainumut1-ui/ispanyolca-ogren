@@ -613,6 +613,11 @@
                     <h3>Quiz</h3>
                     <p>Bilgini test et</p>
                 </div>
+                <div class="menu-card" onclick="goToModule('wordFind')">
+                    <div class="menu-card-icon">🔍</div>
+                    <h3>Kelime Bul</h3>
+                    <p>Gizli kelimeyi bul</p>
+                </div>
             </div>
         </div>
 
@@ -659,6 +664,21 @@
             </div>
             <div class="quiz-card">
                 <div id="quizContent"></div>
+            </div>
+        </div>
+
+        <!-- KELIME BUL MODÜLÜ -->
+        <div id="wordFindScreen" class="screen">
+            <div class="module-header">
+                <h2>🔍 Kelime Bul</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Gizli kelimeyi doğru seçerek bulunuz</p>
+            </div>
+            <div class="game-container">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div id="wordFindScore" style="font-size: 18px; color: #a78bfa; font-weight: bold;">Puan: 0</div>
+                    <div id="wordFindProgress" style="font-size: 14px; color: #a0a0a0; margin-top: 5px;">Soru 1/20</div>
+                </div>
+                <div id="wordFindContent"></div>
             </div>
         </div>
 
@@ -779,11 +799,36 @@
             { words: ['gato', 'un', 'Tengo'], correct: 'Tengo un gato' }
         ];
 
+        const wordFindData = [
+            { sentence: 'Me encanta leer un ___', hidden: 'libro', options: ['libro', 'mesa', 'gato', 'casa'] },
+            { sentence: 'El gato está en la ___', hidden: 'cama', options: ['cama', 'mesa', 'puerta', 'ventana'] },
+            { sentence: 'Necesito una taza de ___', hidden: 'café', options: ['café', 'agua', 'leche', 'jugo'] },
+            { sentence: 'Vivo en una ___ grande', hidden: 'casa', options: ['casa', 'puerta', 'ventana', 'mesa'] },
+            { sentence: 'El ___ es rojo', hidden: 'libro', options: ['libro', 'cielo', 'gato', 'agua'] },
+            { sentence: 'Me gusta caminar en el ___', hidden: 'parque', options: ['parque', 'casa', 'calle', 'río'] },
+            { sentence: 'Tengo un ___ negro', hidden: 'gato', options: ['gato', 'perro', 'libro', 'coche'] },
+            { sentence: 'El ___ está en el cielo', hidden: 'sol', options: ['sol', 'luna', 'nube', 'viento'] },
+            { sentence: 'Necesito ___ para escribir', hidden: 'papel', options: ['papel', 'lápiz', 'libro', 'tinta'] },
+            { sentence: 'Mi amiga tiene una ___ bonita', hidden: 'casa', options: ['casa', 'puerta', 'ventana', 'mesa'] },
+            { sentence: 'En el ___ hay muchos árboles', hidden: 'bosque', options: ['bosque', 'río', 'montaña', 'playa'] },
+            { sentence: 'El ___ es muy importante', hidden: 'agua', options: ['agua', 'aire', 'fuego', 'tierra'] },
+            { sentence: 'Quiero comer una ___ sabrosa', hidden: 'manzana', options: ['manzana', 'naranja', 'plátano', 'pera'] },
+            { sentence: 'Mi ___ es muy amable', hidden: 'padre', options: ['padre', 'madre', 'hermano', 'profesor'] },
+            { sentence: 'El ___ es azul y grande', hidden: 'mar', options: ['mar', 'cielo', 'lago', 'río'] },
+            { sentence: 'Tengo ___ años', hidden: 'veinticinco', options: ['veinticinco', 'treinta', 'veinte', 'dieciocho'] },
+            { sentence: 'La ___ es blanca y esponjosa', hidden: 'nube', options: ['nube', 'nieve', 'espuma', 'algodón'] },
+            { sentence: 'Quiero estudiar en la ___', hidden: 'biblioteca', options: ['biblioteca', 'escuela', 'universidad', 'clase'] },
+            { sentence: 'El ___ canta muy bonito', hidden: 'pájaro', options: ['pájaro', 'perro', 'gato', 'pez'] },
+            { sentence: 'Mi comida favorita es la ___', hidden: 'pizza', options: ['pizza', 'paella', 'pasta', 'ensalada'] }
+        ];
+
         let currentScreen = 'intro';
         let currentModule = null;
         let quizScore = 0;
         let currentQuestion = 0;
         let currentGame = 0;
+        let wordFindScore = 0;
+        let wordFindQuestion = 0;
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -817,6 +862,9 @@
             } else if (module === 'quiz') {
                 showScreen('quizScreen');
                 initQuiz();
+            } else if (module === 'wordFind') {
+                showScreen('wordFindScreen');
+                initWordFind();
             }
         }
 
@@ -1005,6 +1053,53 @@
             if (selected === correct) quizScore++;
             currentQuestion++;
             showQuizQuestion();
+        }
+
+        // KELIME BUL
+        function initWordFind() {
+            wordFindScore = 0;
+            wordFindQuestion = 0;
+            showWordFindQuestion();
+        }
+
+        function showWordFindQuestion() {
+            if (wordFindQuestion >= wordFindData.length) {
+                document.getElementById('wordFindContent').innerHTML = `
+                    <div class="quiz-result">
+                        <h3>Oyun Bitti! 🎉</h3>
+                        <p>Toplam Puan: ${wordFindScore}/${wordFindData.length}</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="initWordFind()">Tekrar Oyna</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const game = wordFindData[wordFindQuestion];
+            const shuffledOptions = [...game.options].sort(() => Math.random() - 0.5);
+
+            document.getElementById('wordFindScore').textContent = `Puan: ${wordFindScore}`;
+            document.getElementById('wordFindProgress').textContent = `Soru ${wordFindQuestion + 1}/${wordFindData.length}`;
+
+            document.getElementById('wordFindContent').innerHTML = `
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 25px; border-radius: 10px; margin-bottom: 25px; text-align: center;">
+                    <p style="font-size: 18px; color: #e0e0e0; margin-bottom: 15px;">${game.sentence}</p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                        ${shuffledOptions.map((option, idx) => `
+                            <button class="option-btn" onclick="answerWordFind('${option}', '${game.hidden}')">
+                                ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function answerWordFind(selected, correct) {
+            if (selected === correct) {
+                wordFindScore++;
+            }
+            wordFindQuestion++;
+            showWordFindQuestion();
         }
 
         // YÜKLEMESİ
