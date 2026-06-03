@@ -240,43 +240,6 @@
         }
 
         /* KELİME KARTLARI */
-        /* VOICE TOGGLE */
-        .voice-toggle {
-            display: flex;
-            gap: 10px;
-            background: rgba(60, 60, 60, 0.5);
-            padding: 10px;
-            border-radius: 8px;
-            border: 2px solid #667eea;
-        }
-
-        body.light-mode .voice-toggle {
-            background: rgba(200, 200, 200, 0.3);
-        }
-
-        .voice-btn {
-            padding: 10px 20px;
-            border: 2px solid #667eea;
-            background: transparent;
-            color: #667eea;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .voice-btn:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .voice-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        /* KELIME KARTLARI */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -659,12 +622,6 @@
                 <h2>📚 Kelime Kartları</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Her kelimeye tıklayarak seslendirimini dinle</p>
             </div>
-            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-                <div class="voice-toggle">
-                    <button id="voiceMale" class="voice-btn active" onclick="setVoiceGender('male')">👨 Erkek</button>
-                    <button id="voiceFemale" class="voice-btn" onclick="setVoiceGender('female')">👩 Kadın</button>
-                </div>
-            </div>
             <div class="cards-grid" id="wordsGrid"></div>
         </div>
 
@@ -827,7 +784,6 @@
         let quizScore = 0;
         let currentQuestion = 0;
         let currentGame = 0;
-        let voiceGender = 'female';
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -882,20 +838,8 @@
             btn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
         }
 
-        function setVoiceGender(gender) {
-            voiceGender = gender;
-            localStorage.setItem('voiceGender', gender);
-            document.querySelectorAll('.voice-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('voice' + gender.charAt(0).toUpperCase() + gender.slice(1)).classList.add('active');
-        }
-
         // KELİMELER
         function initWords() {
-            const savedGender = localStorage.getItem('voiceGender') || 'female';
-            if (savedGender !== voiceGender) {
-                setVoiceGender(savedGender);
-            }
-
             const grid = document.getElementById('wordsGrid');
             grid.innerHTML = '';
             words.forEach(word => {
@@ -910,40 +854,18 @@
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
-
-            if (voiceGender === 'male') {
-                utterance.pitch = 0.8;
-                utterance.rate = 0.9;
-            } else {
-                utterance.pitch = 1.5;
-                utterance.rate = 0.8;
-            }
+            utterance.pitch = 1.4;
+            utterance.rate = 0.85;
 
             const voices = speechSynthesis.getVoices();
-            console.log('Mevcut tüm sesler:', voices.map(v => ({ name: v.name, lang: v.lang })));
+            const googleEspanol = voices.find(v => v.name.includes('Google español de Estados Unidos'));
 
-            if (voiceGender === 'female') {
-                const preferredVoices = ['Google español', 'Microsoft Sabina', 'Paulina', 'Monica'];
-                let selectedVoice = null;
-
-                for (const voiceName of preferredVoices) {
-                    selectedVoice = voices.find(v => v.name.includes(voiceName));
-                    if (selectedVoice) break;
-                }
-
-                if (selectedVoice) {
-                    utterance.voice = selectedVoice;
-                } else {
-                    utterance.pitch = 1.8;
-                    const femaleSpanish = voices.find(v =>
-                        v.lang.startsWith('es') &&
-                        (v.name.toLowerCase().includes('female') ||
-                         v.name.toLowerCase().includes('woman') ||
-                         v.name.toLowerCase().includes('mujer'))
-                    );
-                    if (femaleSpanish) {
-                        utterance.voice = femaleSpanish;
-                    }
+            if (googleEspanol) {
+                utterance.voice = googleEspanol;
+            } else {
+                const fallback = voices.find(v => v.name.includes('Google español'));
+                if (fallback) {
+                    utterance.voice = fallback;
                 }
             }
 
@@ -970,41 +892,19 @@
             btn.classList.add('playing');
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
-
-            if (voiceGender === 'male') {
-                utterance.pitch = 0.8;
-                utterance.rate = 0.9;
-            } else {
-                utterance.pitch = 1.5;
-                utterance.rate = 0.8;
-            }
-
+            utterance.pitch = 1.4;
+            utterance.rate = 0.85;
             utterance.onend = () => btn.classList.remove('playing');
 
             const voices = speechSynthesis.getVoices();
+            const googleEspanol = voices.find(v => v.name.includes('Google español de Estados Unidos'));
 
-            if (voiceGender === 'female') {
-                const preferredVoices = ['Google español', 'Microsoft Sabina', 'Paulina', 'Monica'];
-                let selectedVoice = null;
-
-                for (const voiceName of preferredVoices) {
-                    selectedVoice = voices.find(v => v.name.includes(voiceName));
-                    if (selectedVoice) break;
-                }
-
-                if (selectedVoice) {
-                    utterance.voice = selectedVoice;
-                } else {
-                    utterance.pitch = 1.8;
-                    const femaleSpanish = voices.find(v =>
-                        v.lang.startsWith('es') &&
-                        (v.name.toLowerCase().includes('female') ||
-                         v.name.toLowerCase().includes('woman') ||
-                         v.name.toLowerCase().includes('mujer'))
-                    );
-                    if (femaleSpanish) {
-                        utterance.voice = femaleSpanish;
-                    }
+            if (googleEspanol) {
+                utterance.voice = googleEspanol;
+            } else {
+                const fallback = voices.find(v => v.name.includes('Google español'));
+                if (fallback) {
+                    utterance.voice = fallback;
                 }
             }
 
