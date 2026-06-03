@@ -332,11 +332,11 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('vocabulary')">📚 Kelimeler</button>
-            <button class="tab-btn" onclick="showTab('verbs')">🔄 Fiiller</button>
-            <button class="tab-btn" onclick="showTab('phrases')">💬 Sık Kullanılan İfadeler</button>
-            <button class="tab-btn" onclick="showTab('quiz')">✅ Test</button>
-            <button class="tab-btn" onclick="showTab('progress')">📊 İlerleme</button>
+            <button class="tab-btn active" onclick="showTab('vocabulary', this)">📚 Kelimeler</button>
+            <button class="tab-btn" onclick="showTab('verbs', this)">🔄 Fiiller</button>
+            <button class="tab-btn" onclick="showTab('phrases', this)">💬 Sık Kullanılan İfadeler</button>
+            <button class="tab-btn" onclick="showTab('quiz', this)">✅ Test</button>
+            <button class="tab-btn" onclick="showTab('progress', this)">📊 İlerleme</button>
         </div>
 
         <!-- VOCABULARY TAB -->
@@ -647,12 +647,12 @@
         let quizScore = 0;
 
         // Tab Management
-        function showTab(tabName) {
+        function showTab(tabName, btn) {
             document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
             document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+            btn.classList.add('active');
 
             if (tabName === 'quiz') {
                 initializeQuiz();
