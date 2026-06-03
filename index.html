@@ -566,30 +566,44 @@
 
         // Sidebar Menü Fonksiyonları
         function toggleSidebar() {
-            console.log('toggleSidebar çağrıldı');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
+            try {
+                console.log('toggleSidebar çağrıldı');
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebarOverlay');
 
-            if (!sidebar || !overlay) {
-                console.error('Sidebar veya overlay bulunamadı!');
-                console.log('Sidebar:', sidebar);
-                console.log('Overlay:', overlay);
-                return;
+                console.log('Sidebar element:', sidebar);
+                console.log('Overlay element:', overlay);
+
+                if (!sidebar) {
+                    console.error('HATA: Sidebar element bulunamadı!');
+                    return;
+                }
+                if (!overlay) {
+                    console.error('HATA: Overlay element bulunamadı!');
+                    return;
+                }
+
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                console.log('Sidebar aktif:', sidebar.classList.contains('active'));
+            } catch (error) {
+                console.error('toggleSidebar() error:', error);
             }
-
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-            console.log('Sidebar aktif:', sidebar.classList.contains('active'));
         }
 
         function closeSidebar() {
-            console.log('closeSidebar çağrıldı');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
+            try {
+                console.log('closeSidebar çağrıldı');
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebarOverlay');
 
-            if (sidebar && overlay) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
+                if (sidebar && overlay) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    console.log('Menu kapatıldı');
+                }
+            } catch (error) {
+                console.error('closeSidebar() error:', error);
             }
         }
 
