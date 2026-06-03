@@ -920,14 +920,30 @@
             }
 
             const voices = speechSynthesis.getVoices();
-            const femaleSpanish = voices.find(v =>
-                v.lang.startsWith('es') &&
-                (v.name.toLowerCase().includes('female') ||
-                 v.name.toLowerCase().includes('woman') ||
-                 v.name.toLowerCase().includes('mujer'))
-            );
-            if (femaleSpanish) {
-                utterance.voice = femaleSpanish;
+
+            if (voiceGender === 'female') {
+                const preferredVoices = ['Google español', 'Microsoft Sabina', 'Paulina', 'Monica'];
+                let selectedVoice = null;
+
+                for (const voiceName of preferredVoices) {
+                    selectedVoice = voices.find(v => v.name.includes(voiceName));
+                    if (selectedVoice) break;
+                }
+
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                } else {
+                    utterance.pitch = 1.8;
+                    const femaleSpanish = voices.find(v =>
+                        v.lang.startsWith('es') &&
+                        (v.name.toLowerCase().includes('female') ||
+                         v.name.toLowerCase().includes('woman') ||
+                         v.name.toLowerCase().includes('mujer'))
+                    );
+                    if (femaleSpanish) {
+                        utterance.voice = femaleSpanish;
+                    }
+                }
             }
 
             speechSynthesis.speak(utterance);
@@ -965,14 +981,30 @@
             utterance.onend = () => btn.classList.remove('playing');
 
             const voices = speechSynthesis.getVoices();
-            const femaleSpanish = voices.find(v =>
-                v.lang.startsWith('es') &&
-                (v.name.toLowerCase().includes('female') ||
-                 v.name.toLowerCase().includes('woman') ||
-                 v.name.toLowerCase().includes('mujer'))
-            );
-            if (femaleSpanish) {
-                utterance.voice = femaleSpanish;
+
+            if (voiceGender === 'female') {
+                const preferredVoices = ['Google español', 'Microsoft Sabina', 'Paulina', 'Monica'];
+                let selectedVoice = null;
+
+                for (const voiceName of preferredVoices) {
+                    selectedVoice = voices.find(v => v.name.includes(voiceName));
+                    if (selectedVoice) break;
+                }
+
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                } else {
+                    utterance.pitch = 1.8;
+                    const femaleSpanish = voices.find(v =>
+                        v.lang.startsWith('es') &&
+                        (v.name.toLowerCase().includes('female') ||
+                         v.name.toLowerCase().includes('woman') ||
+                         v.name.toLowerCase().includes('mujer'))
+                    );
+                    if (femaleSpanish) {
+                        utterance.voice = femaleSpanish;
+                    }
+                }
             }
 
             speechSynthesis.speak(utterance);
