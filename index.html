@@ -651,7 +651,7 @@
             }
         }
 
-        // Chat
+        // Chat - Direkt Anthropic API
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
@@ -666,26 +666,41 @@
             addChatMessage('user', text);
             input.value = '';
 
-            fetch('/api/chat', {
+            // Konuşma geçmişini hazırla
+            const messages = chatMessages.map(m => ({
+                role: m.role === 'user' ? 'user' : 'assistant',
+                content: m.text
+            }));
+            messages.push({ role: 'user', content: text });
+
+            // Direkt Anthropic API'ye POST isteği
+            fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'x-api-key': apiKey,
+                    'content-type': 'application/json',
+                    'anthropic-version': '2023-06-01'
+                },
                 body: JSON.stringify({
-                    message: text,
-                    history: chatMessages,
-                    apiKey: apiKey
+                    model: 'claude-3-5-sonnet-20241022',
+                    max_tokens: 1024,
+                    system: 'Sen bir İspanyolca öğretmenisin. Kullanıcının Türkçe veya İspanyolca sorularına cevap ver. Gramer, kelime ve kültür hakkında öğretici bilgiler ver.',
+                    messages: messages
                 })
             })
             .then(r => r.json())
             .then(d => {
-                if (d.reply) {
-                    addChatMessage('assistant', d.reply);
+                if (d.content && d.content[0]) {
+                    addChatMessage('assistant', d.content[0].text);
                 } else if (d.error) {
-                    addChatMessage('assistant', '❌ Hata: ' + d.error);
+                    addChatMessage('assistant', '❌ API Hatası: ' + (d.error.message || JSON.stringify(d.error)));
                 } else {
-                    addChatMessage('assistant', 'Hata: Beklenmeyen yanıt');
+                    addChatMessage('assistant', '❌ Beklenmeyen yanıt: ' + JSON.stringify(d));
                 }
             })
-            .catch(e => addChatMessage('assistant', '❌ Bağlantı hatası: ' + e.message));
+            .catch(e => {
+                addChatMessage('assistant', '❌ Bağlantı hatası: ' + e.message + '. CORS sorunu olabilir. Lütfen API key'inizi kontrol edin ve tarayıcı konsolunu açın (F12).');
+            });
         }
 
         function addChatMessage(role, text) {
