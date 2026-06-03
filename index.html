@@ -854,7 +854,8 @@
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
-            utterance.pitch = 1.2;
+            utterance.pitch = 1.5;
+            utterance.rate = 0.8;
 
             const voices = speechSynthesis.getVoices();
             const femaleSpanish = voices.find(v =>
@@ -890,7 +891,8 @@
             btn.classList.add('playing');
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
-            utterance.pitch = 1.2;
+            utterance.pitch = 1.5;
+            utterance.rate = 0.8;
             utterance.onend = () => btn.classList.remove('playing');
 
             const voices = speechSynthesis.getVoices();
