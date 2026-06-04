@@ -1952,6 +1952,7 @@
         let wordFindScore = 0;
         let wordFindQuestion = 0;
         let currentWordLevel = 'A1';
+        let currentAudio = null;
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -2074,8 +2075,16 @@
         }
 
         function speak(text) {
+            speechSynthesis.cancel();
+
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
             const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=es&client=tw-ob`;
             const audio = new Audio(url);
+            currentAudio = audio;
 
             audio.onerror = () => speakWithWebSpeechAPI(text);
             audio.onabort = () => speakWithWebSpeechAPI(text);
@@ -2100,6 +2109,8 @@
         }
 
         function speakWithWebSpeechAPI(text) {
+            speechSynthesis.cancel();
+
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
             utterance.pitch = 1.4;
