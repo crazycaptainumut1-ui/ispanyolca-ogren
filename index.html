@@ -2016,13 +2016,9 @@
             }
             updateThemeButton();
 
-            const savedScreen = localStorage.getItem('currentScreen');
-            if (savedScreen && savedScreen !== 'introScreen') {
-                showScreen(savedScreen);
-                if (savedScreen !== 'menuScreen') {
-                    document.querySelector('.back-btn').classList.add('show');
-                }
-            }
+            // Her açılışta introScreen'i göster, localStorage'daki ekranı yoksay
+            showScreen('introScreen');
+            document.querySelector('.back-btn').classList.remove('show');
 
             // Menüdeki dinamik sayıları güncelle
             const wordCountEl = document.getElementById('wordCount');
