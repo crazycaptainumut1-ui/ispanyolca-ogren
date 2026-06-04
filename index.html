@@ -1692,7 +1692,7 @@
             {es: 'Las manzanas están dulces.', tr: 'Elmalar tatlı.', level: 'A1', category: 'Doğa'},
             {es: 'No me gusta la pimienta.', tr: 'Biber sevmiyorum.', level: 'A1', category: 'Doğa'},
             {es: 'Vamos a cocinar juntos.', tr: 'Birlikte yemek yapmak istiyorum.', level: 'A1', category: 'Doğa'},
-            { es: 'Tengo hambre.', tr: 'Açık\'um.' },
+            { es: 'Tengo hambre.', tr: 'Aç\'ım.', level: 'A1', category: 'Doğa' },
             {es: '¿Qué hay para cenar?', tr: 'Akşam yemeğinde ne var?', level: 'A1', category: 'Doğa'},
             {es: 'Comí demasiado.', tr: 'Çok yedim.', level: 'A1', category: 'Doğa'},
             {es: 'El restaurante está cerrado.', tr: 'Restoran kapalı.', level: 'A1', category: 'Doğa'},
@@ -1815,7 +1815,7 @@
             {es: 'Estoy en forma.', tr: 'İyi durumdayım.', level: 'A1', category: 'Doğa'},
             {es: 'Hago yoga.', tr: 'Yoga yapıyorum.', level: 'A1', category: 'Doğa'},
             {es: 'Como alimentos saludables.', tr: 'Sağlıklı gıdalar yiyorum.', level: 'A1', category: 'Doğa'},
-            { es: 'Evito la comida chatarra.', tr: 'Junk food\'dan kaçınıyorum.' },
+            { es: 'Evito la comida chatarra.', tr: 'Junk food\'dan kaçınıyorum.', level: 'A1', category: 'Doğa' },
             {es: 'Tengo cuidado con mi salud.', tr: 'Sağlığımla ilgileniyorum.', level: 'A1', category: 'Doğa'},
             {es: 'Me siento cansado.', tr: 'Yorgun hissediyorum.', level: 'A1', category: 'Doğa'},
 
@@ -3240,8 +3240,9 @@
             filteredWords.forEach(word => {
                 const card = document.createElement('div');
                 card.className = 'word-card';
-                card.innerHTML = `<div class="word-es">${word.it}</div><div class="word-tr">${word.tr}</div>`;
-                card.onclick = () => speakItalian(word.it);
+                const displayText = word.itGender ? `${word.it} (${word.itGender})` : word.it;
+                card.innerHTML = `<div class="word-es">${displayText}</div><div class="word-tr">${word.tr}</div>`;
+                card.onclick = () => speakItalian(word.it.split(' (')[0]);
                 grid.appendChild(card);
             });
         }
