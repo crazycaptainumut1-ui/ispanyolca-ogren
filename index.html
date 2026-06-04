@@ -428,6 +428,29 @@
             font-weight: bold;
         }
 
+        .drop-zone.success {
+            background: rgba(81, 207, 102, 0.2);
+            border-color: #51cf66;
+            color: #51cf66;
+        }
+
+        .drop-zone.error {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* QUIZ */
         .quiz-card {
             background: rgba(60, 60, 60, 0.5);
@@ -688,6 +711,7 @@
                 <div class="game-instruction">Kelimeyi aşağıya sürükleyerek cümle oluştur:</div>
                 <div class="drag-items" id="dragItems"></div>
                 <div class="drop-zone" id="dropZone">Kelimeyi buraya sürükle</div>
+                <div class="error-message" id="gameMessage"></div>
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="checkGame()">Kontrol Et ✓</button>
                     <button class="btn btn-secondary" onclick="resetGame()">Sıfırla</button>
@@ -1066,17 +1090,32 @@
         function checkGame() {
             const game = gameData[currentGame];
             const answer = droppedWords.join(' ');
+            const dropZone = document.getElementById('dropZone');
+            const gameMessage = document.getElementById('gameMessage');
 
             if (answer === game.correct) {
-                alert('✅ Doğru!');
-                initGame();
+                dropZone.classList.remove('error');
+                dropZone.classList.add('success');
+                gameMessage.textContent = '✅ Doğru! Bravo!';
+                gameMessage.style.color = '#51cf66';
+                setTimeout(() => {
+                    dropZone.classList.remove('success');
+                    gameMessage.textContent = '';
+                    initGame();
+                }, 1500);
             } else {
-                alert('❌ Yanlış. Doğru cevap: ' + game.correct);
+                dropZone.classList.add('error');
+                gameMessage.textContent = '❌ Yanlış. Doğru cevap: ' + game.correct;
+                gameMessage.style.color = '#ff6b6b';
             }
         }
 
         function resetGame() {
+            const dropZone = document.getElementById('dropZone');
+            const gameMessage = document.getElementById('gameMessage');
             droppedWords = [];
+            dropZone.classList.remove('error', 'success');
+            gameMessage.textContent = '';
             renderDropZone();
         }
 
