@@ -1093,7 +1093,11 @@
         function speak(text) {
             const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=es&client=tw-ob`;
             const audio = new Audio(url);
-            audio.play();
+
+            audio.onerror = () => speakWithWebSpeechAPI(text);
+            audio.onabort = () => speakWithWebSpeechAPI(text);
+
+            audio.play().catch(() => speakWithWebSpeechAPI(text));
         }
 
         // DİNLEME
@@ -1106,20 +1110,10 @@
                 item.innerHTML = `
                     <div class="listening-text">${s.es}</div>
                     <div class="listening-translation">${s.tr}</div>
-                    <button class="listen-btn" onclick="speakSentence('${s.es}', this)">🔊 Dinle</button>
+                    <button class="listen-btn" onclick="speak('${s.es}')">🔊 Dinle</button>
                 `;
                 container.appendChild(item);
             });
-        }
-
-        function speakSentence(text, btn) {
-            const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=es&client=tw-ob`;
-            const audio = new Audio(url);
-
-            audio.onerror = () => speakWithWebSpeechAPI(text);
-            audio.onabort = () => speakWithWebSpeechAPI(text);
-
-            audio.play().catch(() => speakWithWebSpeechAPI(text));
         }
 
         function speakWithWebSpeechAPI(text) {
