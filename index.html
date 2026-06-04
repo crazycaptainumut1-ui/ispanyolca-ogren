@@ -973,24 +973,9 @@
         }
 
         function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.pitch = 1.4;
-            utterance.rate = 0.85;
-
-            const voices = speechSynthesis.getVoices();
-            const googleEspanol = voices.find(v => v.name.includes('Google español de Estados Unidos'));
-
-            if (googleEspanol) {
-                utterance.voice = googleEspanol;
-            } else {
-                const fallback = voices.find(v => v.name.includes('Google español'));
-                if (fallback) {
-                    utterance.voice = fallback;
-                }
-            }
-
-            speechSynthesis.speak(utterance);
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=es&client=tw-ob`;
+            const audio = new Audio(url);
+            audio.play();
         }
 
         // DİNLEME
@@ -1011,25 +996,10 @@
 
         function speakSentence(text, btn) {
             btn.classList.add('playing');
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.pitch = 1.4;
-            utterance.rate = 0.85;
-            utterance.onend = () => btn.classList.remove('playing');
-
-            const voices = speechSynthesis.getVoices();
-            const googleEspanol = voices.find(v => v.name.includes('Google español de Estados Unidos'));
-
-            if (googleEspanol) {
-                utterance.voice = googleEspanol;
-            } else {
-                const fallback = voices.find(v => v.name.includes('Google español'));
-                if (fallback) {
-                    utterance.voice = fallback;
-                }
-            }
-
-            speechSynthesis.speak(utterance);
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=es&client=tw-ob`;
+            const audio = new Audio(url);
+            audio.onended = () => btn.classList.remove('playing');
+            audio.play();
         }
 
         // OYUN
