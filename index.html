@@ -608,6 +608,11 @@
             color: #2C3E50;
         }
 
+        body.dark-mode .option-btn {
+            background: rgba(76, 144, 217, 0.1);
+            color: #ffffff;
+        }
+
         .option-btn:hover {
             background: #2C7BE5;
             color: white;
@@ -2236,9 +2241,10 @@
                 </button>
             `).join('');
 
+            const textColor = document.body.classList.contains('dark-mode') ? '#ffffff' : '#2C3E50';
             document.getElementById('wordFindContent').innerHTML = `
                 <div style="background: rgba(102, 126, 234, 0.1); padding: 25px; border-radius: 10px; margin-bottom: 25px; text-align: center;">
-                    <p style="font-size: 18px; color: #e0e0e0; margin-bottom: 15px;">${game.sentence}</p>
+                    <p style="font-size: 18px; color: ${textColor}; margin-bottom: 15px;">${game.sentence}</p>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
                         ${optionsHtml}
                     </div>
