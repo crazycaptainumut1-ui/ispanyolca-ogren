@@ -1822,6 +1822,25 @@
             currentScreen = screenId;
             localStorage.setItem('currentScreen', screenId);
             window.scrollTo(0, 0);
+
+            // Llamar a funciones de inicialización según la pantalla
+            switch(screenId) {
+                case 'wordsScreen':
+                    initWords();
+                    break;
+                case 'listeningScreen':
+                    initListening();
+                    break;
+                case 'quizScreen':
+                    initQuiz();
+                    break;
+                case 'wordFindScreen':
+                    initWordFind();
+                    break;
+                case 'gameScreen':
+                    initGame();
+                    break;
+            }
         }
 
         function goToMenu() {
