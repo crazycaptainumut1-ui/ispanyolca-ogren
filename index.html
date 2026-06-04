@@ -625,7 +625,7 @@
             <button class="back-btn" onclick="goBack()">← Geri</button>
             <div class="logo">HablaTurco</div>
         </div>
-        <button id="themeBtn" class="theme-btn" title="Tema değiştir">🌙</button>
+        <button id="themeBtn" class="theme-btn" title="Tema değiştir" onclick="toggleTheme()">🌙</button>
     </header>
 
     <!-- CONTAINER -->
@@ -637,7 +637,7 @@
                     <h1>HablaTurco</h1>
                     <p>İspanyolcaya hazır mısın?</p>
                 </div>
-                <button id="startBtn" class="start-btn">Başla 🚀</button>
+                <button id="startBtn" class="start-btn" onclick="goToMenu()">Başla 🚀</button>
             </div>
         </div>
 
@@ -2031,14 +2031,6 @@
                 sentenceCountEl.textContent = `${sentences.length} cümle dinle ve tekrarla`;
             }
 
-            // Buton onclick handler'ları
-            document.getElementById('startBtn').onclick = function() {
-                goToMenu();
-            };
-
-            document.getElementById('themeBtn').onclick = function() {
-                toggleTheme();
-            };
         });
     </script>
 </body>
