@@ -2020,6 +2020,12 @@
                 localStorage.setItem('theme', 'light');
             }
             updateThemeButton();
+
+            // Regenerar contenido de Kelime Bul si estamos en esa página
+            const activeScreen = Array.from(document.querySelectorAll('.screen')).find(s => s.classList.contains('active'));
+            if (activeScreen && activeScreen.id === 'wordFindScreen') {
+                showWordFindQuestion();
+            }
         }
 
         function updateThemeButton() {
