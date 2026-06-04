@@ -364,10 +364,6 @@
             background: #764ba2;
         }
 
-        .listen-btn.playing {
-            background: #ff6b6b;
-        }
-
         /* OYUN BÖLÜMÜ */
         .game-container {
             background: rgba(60, 60, 60, 0.5);
@@ -995,11 +991,34 @@
         }
 
         function speakSentence(text, btn) {
-            btn.classList.add('playing');
             const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=es&client=tw-ob`;
             const audio = new Audio(url);
-            audio.onended = () => btn.classList.remove('playing');
-            audio.play();
+
+            audio.onerror = () => speakWithWebSpeechAPI(text);
+            audio.onabort = () => speakWithWebSpeechAPI(text);
+
+            audio.play().catch(() => speakWithWebSpeechAPI(text));
+        }
+
+        function speakWithWebSpeechAPI(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.pitch = 1.4;
+            utterance.rate = 0.85;
+
+            const voices = speechSynthesis.getVoices();
+            const googleEspanol = voices.find(v => v.name.includes('Google español de Estados Unidos'));
+
+            if (googleEspanol) {
+                utterance.voice = googleEspanol;
+            } else {
+                const fallback = voices.find(v => v.name.includes('Google español'));
+                if (fallback) {
+                    utterance.voice = fallback;
+                }
+            }
+
+            speechSynthesis.speak(utterance);
         }
 
         // OYUN
