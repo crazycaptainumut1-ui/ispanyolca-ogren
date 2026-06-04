@@ -218,21 +218,22 @@
             z-index: 1;
         }
 
-        .intro-screen > div:not(.intro-screen-left):not(.intro-screen-right),
+        .intro-screen > div:not(.intro-screen-left):not(.intro-screen-right) {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
         .intro-screen > button {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
-        }
-
-        .intro-screen > div:not(.intro-screen-left):not(.intro-screen-right) {
-            top: 40%;
-        }
-
-        .intro-screen > button {
-            top: 60%;
+            margin-top: 120px;
         }
 
         .logo-big {
