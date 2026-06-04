@@ -1040,10 +1040,12 @@
             const game = gameData[currentGame];
             const dragContainer = document.getElementById('dragItems');
             const dropZone = document.getElementById('dropZone');
+            const gameMessage = document.getElementById('gameMessage');
 
             dragContainer.innerHTML = '';
             dropZone.innerHTML = 'Kelimeyi buraya sürükle';
-            dropZone.classList.remove('filled');
+            dropZone.classList.remove('filled', 'success', 'error');
+            gameMessage.textContent = '';
             droppedWords = [];
 
             game.words.forEach(word => {
@@ -1051,21 +1053,33 @@
                 item.className = 'drag-item';
                 item.draggable = true;
                 item.textContent = word;
-                item.ondragstart = (e) => e.dataTransfer.setData('word', word);
+                item.ondragstart = (e) => {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('text/plain', word);
+                };
                 dragContainer.appendChild(item);
             });
 
             dropZone.ondragover = (e) => {
                 e.preventDefault();
+                e.stopPropagation();
+                e.dataTransfer.dropEffect = 'copy';
                 dropZone.classList.add('dragover');
             };
-            dropZone.ondragleave = () => dropZone.classList.remove('dragover');
+            dropZone.ondragleave = (e) => {
+                if (e.target === dropZone) {
+                    dropZone.classList.remove('dragover');
+                }
+            };
             dropZone.ondrop = (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 dropZone.classList.remove('dragover');
-                const word = e.dataTransfer.getData('word');
-                droppedWords.push(word);
-                renderDropZone();
+                const word = e.dataTransfer.getData('text/plain');
+                if (word) {
+                    droppedWords.push(word);
+                    renderDropZone();
+                }
             };
         }
 
