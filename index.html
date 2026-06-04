@@ -229,6 +229,21 @@
             color: #2C7BE5;
         }
 
+        .intro-ahu {
+            color: #e74c3c !important;
+            -webkit-text-fill-color: #e74c3c !important;
+        }
+
+        body.dark-mode .intro-nihan {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+
+        body:not(.dark-mode) .intro-nihan {
+            color: #2C7BE5 !important;
+            -webkit-text-fill-color: #2C7BE5 !important;
+        }
+
         /* DİL SEÇİM SAYFASI */
         .language-screen {
             display: flex;
@@ -796,7 +811,7 @@
         <div id="introScreen" class="screen active">
             <div class="intro-screen">
                 <div>
-                    <h1 style="font-size:48px;font-weight:800;"><span style="color:#e74c3c !important">Ahu</span> <span style="color:#ffffff !important">&amp;</span> <span style="color:#4A90D9 !important">Nihan</span></h1>
+                    <h1 style="font-size:48px;font-weight:800;"><span class="intro-ahu">Ahu</span> <span class="intro-nihan">&amp;</span> <span class="intro-nihan">Nihan</span></h1>
                     <p>Hoşgeldinizzz 🎉</p>
                 </div>
                 <button id="startBtn" class="start-btn" onclick="goToMenu()">Başla ✨</button>
