@@ -17,15 +17,15 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #2a2a2a;
-            color: #e0e0e0;
+            background: #EEF2FF;
+            color: #2C3E50;
             min-height: 100vh;
             transition: background 0.3s ease;
         }
 
         body.light-mode {
-            background: #f0f0f0;
-            color: #333;
+            background: #EEF2FF;
+            color: #2C3E50;
         }
 
         /* Header */
@@ -37,11 +37,13 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(30, 30, 30, 0.95);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 8px rgba(76, 144, 217, 0.1);
         }
 
         body.light-mode header {
-            background: rgba(245, 245, 245, 0.95);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 8px rgba(76, 144, 217, 0.1);
         }
 
         .header-left {
@@ -53,7 +55,7 @@
         .back-btn {
             background: none;
             border: none;
-            color: #667eea;
+            color: #2C7BE5;
             font-size: 28px;
             cursor: pointer;
             padding: 8px;
@@ -65,26 +67,26 @@
         }
 
         .back-btn:hover {
-            color: #a78bfa;
+            color: #4A90D9;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #667eea;
+            color: #2C7BE5;
         }
 
         .theme-btn {
             background: none;
             border: none;
-            color: #667eea;
+            color: #2C7BE5;
             font-size: 24px;
             cursor: pointer;
             padding: 8px;
         }
 
         .theme-btn:hover {
-            color: #a78bfa;
+            color: #4A90D9;
         }
 
         /* Container */
@@ -135,7 +137,7 @@
         .intro-screen h1 {
             font-size: 42px;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #a78bfa);
+            background: linear-gradient(135deg, #4A90D9, #2C7BE5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -152,13 +154,14 @@
             font-size: 22px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #4A90D9, #2C7BE5);
             color: white;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
             position: relative;
             z-index: 9999;
+            box-shadow: 0 4px 15px rgba(76, 144, 217, 0.3);
         }
 
         .start-btn:hover {
@@ -167,7 +170,7 @@
         }
 
         body.light-mode .intro-screen h1 {
-            color: #667eea;
+            color: #2C7BE5;
         }
 
         /* DİL SEÇİM SAYFASI */
@@ -186,13 +189,14 @@
             font-size: 18px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #4A90D9, #2C7BE5);
             color: white;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
             width: 100%;
             max-width: 350px;
+            box-shadow: 0 4px 15px rgba(76, 144, 217, 0.3);
         }
 
         .language-btn:hover {
@@ -201,7 +205,7 @@
         }
 
         body.light-mode .language-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #2C7BE5, #2C7BE5);
         }
 
         /* ANA MENÜ */
@@ -213,8 +217,8 @@
         }
 
         .menu-card {
-            background: rgba(60, 60, 60, 0.6);
-            border: 2px solid #444;
+            background: white;
+            border: none;
             padding: 30px;
             border-radius: 15px;
             cursor: pointer;
@@ -226,15 +230,17 @@
             align-items: center;
             gap: 15px;
             min-height: 200px;
+            box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
         }
 
         body.light-mode .menu-card {
-            background: rgba(200, 200, 200, 0.3);
-            border-color: #ccc;
+            background: white;
+            border-color: transparent;
+            box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
         }
 
         .menu-card:hover {
-            border-color: #667eea;
+            border-color: #2C7BE5;
             background: rgba(102, 126, 234, 0.15);
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
@@ -246,7 +252,7 @@
 
         .menu-card h3 {
             font-size: 24px;
-            color: #667eea;
+            color: #2C7BE5;
         }
 
         .menu-card p {
@@ -262,16 +268,16 @@
         .module-header {
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 2px solid #444;
+            border-bottom: 2px solid rgba(76, 144, 217, 0.15);
         }
 
         body.light-mode .module-header {
-            border-bottom-color: #ccc;
+            border-bottom-color: rgba(76, 144, 217, 0.15);
         }
 
         .module-header h2 {
             font-size: 32px;
-            color: #a78bfa;
+            color: #2C7BE5;
             margin: 0;
         }
 
@@ -284,7 +290,7 @@
         }
 
         .word-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #2C7BE5, #2C7BE5);
             padding: 25px;
             border-radius: 12px;
             cursor: pointer;
@@ -316,9 +322,9 @@
         /* LEVEL BUTONLARI */
         .level-btn {
             padding: 10px 20px;
-            border: 2px solid #667eea;
+            border: 2px solid #2C7BE5;
             background: transparent;
-            color: #667eea;
+            color: #2C7BE5;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
@@ -327,41 +333,45 @@
         }
 
         .level-btn:hover {
-            background: #667eea;
+            background: #2C7BE5;
             color: white;
         }
 
         .level-btn.active {
-            background: #667eea;
+            background: linear-gradient(135deg, #4A90D9, #2C7BE5);
             color: white;
+            border-color: #2C7BE5;
         }
 
         body.light-mode .level-btn {
-            border-color: #667eea;
-            color: #667eea;
+            border-color: #2C7BE5;
+            color: #2C7BE5;
         }
 
         body.light-mode .level-btn.active {
-            background: #667eea;
+            background: #2C7BE5;
             color: white;
         }
 
         /* DİNLEME */
         .listening-item {
-            background: rgba(60, 60, 60, 0.5);
-            border: 2px solid #667eea;
+            background: white;
+            border: 2px solid rgba(76, 144, 217, 0.2);
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 15px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(76, 144, 217, 0.08);
         }
 
         body.light-mode .listening-item {
-            background: rgba(200, 200, 200, 0.3);
+            background: white;
+            border-color: rgba(76, 144, 217, 0.2);
         }
 
         .listening-item:hover {
-            background: rgba(102, 126, 234, 0.15);
+            background: #F5F8FF;
+            border-color: #2C7BE5;
         }
 
         .listening-item p {
@@ -371,7 +381,7 @@
 
         .listening-text {
             font-weight: bold;
-            color: #a78bfa;
+            color: #4A90D9;
             margin-bottom: 8px;
         }
 
@@ -386,7 +396,7 @@
         }
 
         .listen-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #4A90D9, #2C7BE5);
             color: white;
             border: none;
             padding: 8px 16px;
@@ -394,28 +404,31 @@
             cursor: pointer;
             font-size: 13px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(76, 144, 217, 0.2);
         }
 
         .listen-btn:hover {
-            background: #764ba2;
+            box-shadow: 0 4px 12px rgba(76, 144, 217, 0.3);
         }
 
         /* OYUN BÖLÜMÜ */
         .game-container {
-            background: rgba(60, 60, 60, 0.5);
+            background: white;
             padding: 30px;
             border-radius: 12px;
             margin-top: 20px;
+            box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
         }
 
         body.light-mode .game-container {
-            background: rgba(200, 200, 200, 0.3);
+            background: white;
+            box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
         }
 
         .game-instruction {
             font-size: 16px;
             margin-bottom: 20px;
-            color: #a78bfa;
+            color: #4A90D9;
         }
 
         .drag-items {
@@ -426,7 +439,7 @@
         }
 
         .drag-item {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #2C7BE5, #2C7BE5);
             padding: 12px 20px;
             border-radius: 8px;
             cursor: move;
@@ -440,7 +453,7 @@
 
         .drop-zone {
             background: rgba(102, 126, 234, 0.1);
-            border: 3px dashed #667eea;
+            border: 3px dashed #2C7BE5;
             border-radius: 10px;
             padding: 25px;
             min-height: 60px;
@@ -452,11 +465,11 @@
 
         .drop-zone.dragover {
             background: rgba(102, 126, 234, 0.2);
-            border-color: #a78bfa;
+            border-color: #4A90D9;
         }
 
         .drop-zone.filled {
-            color: #667eea;
+            color: #2C7BE5;
             font-weight: bold;
         }
 
@@ -485,14 +498,16 @@
 
         /* QUIZ */
         .quiz-card {
-            background: rgba(60, 60, 60, 0.5);
+            background: white;
             padding: 30px;
             border-radius: 12px;
             margin-top: 20px;
+            box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
         }
 
         body.light-mode .quiz-card {
-            background: rgba(200, 200, 200, 0.3);
+            background: white;
+            box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
         }
 
         .progress {
@@ -504,7 +519,7 @@
         }
 
         .progress-bar {
-            background: linear-gradient(90deg, #667eea, #a78bfa);
+            background: linear-gradient(90deg, #2C7BE5, #4A90D9);
             height: 100%;
             transition: width 0.3s ease;
         }
@@ -512,7 +527,7 @@
         .question-title {
             font-size: 18px;
             margin-bottom: 20px;
-            color: #a78bfa;
+            color: #4A90D9;
         }
 
         .options {
@@ -522,11 +537,11 @@
         }
 
         .option-btn {
-            background: rgba(102, 126, 234, 0.15);
-            border: 2px solid #667eea;
+            background: rgba(76, 144, 217, 0.1);
+            border: 2px solid rgba(76, 144, 217, 0.3);
             padding: 15px;
             border-radius: 8px;
-            color: #e0e0e0;
+            color: #2C3E50;
             cursor: pointer;
             text-align: left;
             transition: all 0.3s ease;
@@ -534,13 +549,14 @@
         }
 
         body.light-mode .option-btn {
-            background: rgba(102, 126, 234, 0.1);
-            color: #333;
+            background: rgba(76, 144, 217, 0.1);
+            color: #2C3E50;
         }
 
         .option-btn:hover {
-            background: #667eea;
+            background: #2C7BE5;
             color: white;
+            border-color: #2C7BE5;
         }
 
         .option-btn.correct {
@@ -592,23 +608,24 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #4A90D9, #2C7BE5);
             color: white;
+            box-shadow: 0 4px 15px rgba(76, 144, 217, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 20px rgba(76, 144, 217, 0.4);
         }
 
         .btn-secondary {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            border: 2px solid #667eea;
+            background: rgba(76, 144, 217, 0.15);
+            color: #2C7BE5;
+            border: 2px solid #2C7BE5;
         }
 
         .btn-secondary:hover {
-            background: #667eea;
+            background: #2C7BE5;
             color: white;
         }
 
@@ -641,16 +658,16 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(76, 144, 217, 0.1);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #667eea;
+            background: #4A90D9;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #a78bfa;
+            background: #2C7BE5;
         }
     </style>
 </head>
@@ -680,9 +697,9 @@
         <!-- DİL SEÇİM SAYFASI -->
         <div id="languageScreen" class="screen">
             <div class="language-screen">
-                <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 20px; font-weight: 600; position: absolute; top: 90px; left: 20px;" onclick="showScreen('introScreen')">← Geri</button>
+                <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 20px; font-weight: 600; position: absolute; top: 90px; left: 20px;" onclick="showScreen('introScreen')">← Geri</button>
                 <div style="text-align: center; margin-top: 40px;">
-                    <h2 style="font-size: 32px; margin-bottom: 40px; background: linear-gradient(135deg, #667eea, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Dil Seç</h2>
+                    <h2 style="font-size: 32px; margin-bottom: 40px; background: linear-gradient(135deg, #2C7BE5, #4A90D9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Dil Seç</h2>
                     <div style="display: flex; flex-direction: column; gap: 20px; max-width: 400px; margin: 0 auto;">
                         <button class="language-btn" onclick="selectLanguage('es')"><img src="https://flagcdn.com/w80/es.png" alt="İspanyolca" style="width: 50px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> İspanyolca</button>
                         <button class="language-btn" onclick="showAlert('Yunanca yakında eklenecek!')"><img src="https://flagcdn.com/w80/gr.png" alt="Yunanca" style="width: 50px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> Yunanca</button>
@@ -694,7 +711,7 @@
 
         <!-- ANA MENÜ -->
         <div id="menuScreen" class="screen">
-            <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 20px; font-weight: 600;" onclick="showScreen('languageScreen')">← Geri</button>
+            <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 20px; font-weight: 600;" onclick="showScreen('languageScreen')">← Geri</button>
             <div class="menu-screen">
                 <div class="menu-card" onclick="goToModule('words')">
                     <div class="menu-card-icon">📚</div>
@@ -726,7 +743,7 @@
 
         <!-- KELİMELER MODÜLÜ -->
         <div id="wordsScreen" class="screen">
-            <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
+            <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
             <div class="module-header">
                 <h2>📚 Kelime Kartları</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Her kelimeye tıklayarak seslendirimini dinle</p>
@@ -742,7 +759,7 @@
 
         <!-- DİNLEME MODÜLÜ -->
         <div id="listeningScreen" class="screen">
-            <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
+            <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
             <div class="module-header">
                 <h2>🎧 Dinleme Egzersizi</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Cümleleri dinle ve tekrarlamayı dene</p>
@@ -752,7 +769,7 @@
 
         <!-- OYUN MODÜLÜ -->
         <div id="gameScreen" class="screen">
-            <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
+            <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
             <div class="module-header">
                 <h2>🎯 Cümle Sıralama Oyunu</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Kelimeyi doğru sıraya sürükle</p>
@@ -771,7 +788,7 @@
 
         <!-- QUIZ MODÜLÜ -->
         <div id="quizScreen" class="screen">
-            <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
+            <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
             <div class="module-header">
                 <h2>📝 Quiz</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Sorulara cevap ver</p>
@@ -783,14 +800,14 @@
 
         <!-- KELIME BUL MODÜLÜ -->
         <div id="wordFindScreen" class="screen">
-            <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
+            <button style="background: none; border: none; color: #2C7BE5; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 15px; font-weight: 600;" onclick="showScreen('menuScreen')">← Geri</button>
             <div class="module-header">
                 <h2>🔍 Kelime Bul</h2>
                 <p style="margin-top: 8px; color: #a0a0a0;">Gizli kelimeyi doğru seçerek bulunuz</p>
             </div>
             <div class="game-container">
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <div id="wordFindScore" style="font-size: 18px; color: #a78bfa; font-weight: bold;">Puan: 0</div>
+                    <div id="wordFindScore" style="font-size: 18px; color: #4A90D9; font-weight: bold;">Puan: 0</div>
                     <div id="wordFindProgress" style="font-size: 14px; color: #a0a0a0; margin-top: 5px;">Soru 1/20</div>
                 </div>
                 <div id="wordFindContent"></div>
