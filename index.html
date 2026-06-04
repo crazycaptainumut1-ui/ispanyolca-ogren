@@ -170,6 +170,40 @@
             color: #667eea;
         }
 
+        /* DİL SEÇİM SAYFASI */
+        .language-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 70px);
+            text-align: center;
+            position: relative;
+        }
+
+        .language-btn {
+            padding: 20px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .language-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        body.light-mode .language-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
         /* ANA MENÜ */
         .menu-screen {
             display: grid;
@@ -640,6 +674,21 @@
                     <p>İspanyolcaya hazır mısın?</p>
                 </div>
                 <button id="startBtn" class="start-btn" onclick="goToMenu()">Başla 🚀</button>
+            </div>
+        </div>
+
+        <!-- DİL SEÇİM SAYFASI -->
+        <div id="languageScreen" class="screen">
+            <div class="language-screen">
+                <button style="background: none; border: none; color: #667eea; font-size: 18px; cursor: pointer; padding: 8px; margin-bottom: 20px; font-weight: 600; position: absolute; top: 90px; left: 20px;" onclick="showScreen('introScreen')">← Geri</button>
+                <div style="text-align: center; margin-top: 40px;">
+                    <h2 style="font-size: 32px; margin-bottom: 40px; background: linear-gradient(135deg, #667eea, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Dil Seç</h2>
+                    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 400px; margin: 0 auto;">
+                        <button class="language-btn" onclick="selectLanguage('es')">🇪🇸 İspanyolca</button>
+                        <button class="language-btn" onclick="showAlert('Yunanca yakında eklenecek!')">🇬🇷 Yunanca</button>
+                        <button class="language-btn" onclick="showAlert('İtalyanca yakında eklenecek!')">🇮🇹 İtalyanca</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1703,7 +1752,17 @@
         }
 
         function goToMenu() {
-            showScreen('menuScreen');
+            showScreen('languageScreen');
+        }
+
+        function selectLanguage(lang) {
+            if (lang === 'es') {
+                showScreen('menuScreen');
+            }
+        }
+
+        function showAlert(message) {
+            alert(message);
         }
 
         function goToModule(module) {
