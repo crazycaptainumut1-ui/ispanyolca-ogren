@@ -648,12 +648,12 @@
                 <div class="menu-card" onclick="goToModule('words')">
                     <div class="menu-card-icon">📚</div>
                     <h3>Kelimeler</h3>
-                    <p>65 İspanyolca kelime öğren</p>
+                    <p id="wordCount">... İspanyolca kelime öğren</p>
                 </div>
                 <div class="menu-card" onclick="goToModule('listening')">
                     <div class="menu-card-icon">🎧</div>
                     <h3>Dinleme</h3>
-                    <p>25 cümle dinle ve tekrarla</p>
+                    <p id="sentenceCount">... cümle dinle ve tekrarla</p>
                 </div>
                 <div class="menu-card" onclick="goToModule('game')">
                     <div class="menu-card-icon">🎯</div>
@@ -2021,6 +2021,10 @@
                     document.querySelector('.back-btn').classList.add('show');
                 }
             }
+
+            // Menüdeki dinamik sayıları güncelle
+            document.getElementById('wordCount').textContent = `${words.length} İspanyolca kelime öğren`;
+            document.getElementById('sentenceCount').textContent = `${sentences.length} cümle dinle ve tekrarla`;
         });
     </script>
 </body>
