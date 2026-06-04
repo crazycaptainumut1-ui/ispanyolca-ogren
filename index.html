@@ -28,6 +28,11 @@
             color: #2C3E50;
         }
 
+        body.dark-mode {
+            background: #2d2d2d;
+            color: #ffffff;
+        }
+
         /* Header */
         header {
             padding: 15px 20px;
@@ -44,6 +49,11 @@
         body.light-mode header {
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 8px rgba(76, 144, 217, 0.1);
+        }
+
+        body.dark-mode header {
+            background: rgba(45, 45, 45, 0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .header-left {
@@ -264,6 +274,26 @@
             color: #666;
         }
 
+        body.dark-mode .menu-card {
+            background: #3d3d3d;
+            border-color: transparent;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .menu-card:hover {
+            background: #4d4d4d;
+            border-color: #2C7BE5;
+            box-shadow: 0 10px 25px rgba(44, 123, 229, 0.2);
+        }
+
+        body.dark-mode .menu-card h3 {
+            color: #4A90D9;
+        }
+
+        body.dark-mode .menu-card p {
+            color: #a0a0a0;
+        }
+
         /* MODÜL SAYFASI */
         .module-header {
             margin-bottom: 30px;
@@ -369,6 +399,16 @@
             border-color: rgba(76, 144, 217, 0.2);
         }
 
+        body.dark-mode .listening-item {
+            background: #3d3d3d;
+            border-color: rgba(76, 144, 217, 0.3);
+        }
+
+        body.dark-mode .listening-item:hover {
+            background: #4d4d4d;
+            border-color: #2C7BE5;
+        }
+
         .listening-item:hover {
             background: #F5F8FF;
             border-color: #2C7BE5;
@@ -423,6 +463,11 @@
         body.light-mode .game-container {
             background: white;
             box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
+        }
+
+        body.dark-mode .game-container {
+            background: #3d3d3d;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
 
         .game-instruction {
@@ -510,6 +555,11 @@
         body.light-mode .quiz-card {
             background: white;
             box-shadow: 0 2px 12px rgba(76, 144, 217, 0.12);
+        }
+
+        body.dark-mode .quiz-card {
+            background: #3d3d3d;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
 
         .progress {
@@ -1815,14 +1865,22 @@
 
         // TEMA
         function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            const body = document.body;
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
             updateThemeButton();
         }
 
         function updateThemeButton() {
             const btn = document.querySelector('.theme-btn');
-            btn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+            btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
         }
 
         // KELİMELER
@@ -2095,7 +2153,10 @@
         // YÜKLEMESİ
         window.addEventListener('load', () => {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                // Por defecto es modo luz (light-mode)
                 document.body.classList.add('light-mode');
             }
             updateThemeButton();
