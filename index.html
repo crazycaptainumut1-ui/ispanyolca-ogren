@@ -883,8 +883,8 @@
                     <h2 style="font-size: 32px; margin-bottom: 40px; background: linear-gradient(135deg, #2C7BE5, #4A90D9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Dil Seç</h2>
                     <div style="display: flex; flex-direction: column; gap: 20px; max-width: 400px; margin: 0 auto;">
                         <button class="language-btn" onclick="selectLanguage('es')"><img src="https://flagcdn.com/w80/es.png" alt="İspanyolca" style="width: 50px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> İspanyolca</button>
+                        <button class="language-btn" onclick="selectLanguage('it')"><img src="https://flagcdn.com/w80/it.png" alt="İtalyanca" style="width: 50px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> İtalyanca</button>
                         <button class="language-btn" onclick="showAlert('Yunanca yakında eklenecek!')"><img src="https://flagcdn.com/w80/gr.png" alt="Yunanca" style="width: 50px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> Yunanca</button>
-                        <button class="language-btn" onclick="showAlert('İtalyanca yakında eklenecek!')"><img src="https://flagcdn.com/w80/it.png" alt="İtalyanca" style="width: 50px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> İtalyanca</button>
                     </div>
                 </div>
             </div>
@@ -903,6 +903,38 @@
                     <div class="menu-card-icon">🎧</div>
                     <h3>Dinleme</h3>
                     <p id="sentenceCount">... cümle dinle ve tekrarla</p>
+                </div>
+                <div class="menu-card" onclick="goToModule('game')">
+                    <div class="menu-card-icon">🎯</div>
+                    <h3>Oyun</h3>
+                    <p>Cümleleri sıraya koy</p>
+                </div>
+                <div class="menu-card" onclick="goToModule('quiz')">
+                    <div class="menu-card-icon">📝</div>
+                    <h3>Quiz</h3>
+                    <p>Bilgini test et</p>
+                </div>
+                <div class="menu-card" onclick="goToModule('wordFind')">
+                    <div class="menu-card-icon">🔍</div>
+                    <h3>Kelime Bul</h3>
+                    <p>Gizli kelimeyi bul</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- İTALYAN ANA MENÜ -->
+        <div id="italianMenuScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 20px;" onclick="showScreen('languageScreen')">← Geri</button>
+            <div class="menu-screen">
+                <div class="menu-card" onclick="goToModule('words')">
+                    <div class="menu-card-icon">📚</div>
+                    <h3>Kelimeler</h3>
+                    <p id="italianWordCount">... İtalyanca kelime öğren</p>
+                </div>
+                <div class="menu-card" onclick="goToModule('listening')">
+                    <div class="menu-card-icon">🎧</div>
+                    <h3>Dinleme</h3>
+                    <p id="italianSentenceCount">... cümle dinle ve tekrarla</p>
                 </div>
                 <div class="menu-card" onclick="goToModule('game')">
                     <div class="menu-card-icon">🎯</div>
@@ -993,6 +1025,79 @@
                     <div id="wordFindProgress" style="font-size: 14px; color: #a0a0a0; margin-top: 5px;">Soru 1/20</div>
                 </div>
                 <div id="wordFindContent"></div>
+            </div>
+        </div>
+
+        <!-- İTALYAN KELİMELER MODÜLÜ -->
+        <div id="italianWordsScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>📚 Kelime Kartları</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Her kelimeye tıklayarak seslendirimini dinle</p>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button id="levelA1It" class="level-btn active" onclick="setWordLevelItalian('A1')">A1 Başlangıç</button>
+                <button id="levelA2It" class="level-btn" onclick="setWordLevelItalian('A2')">A2 Temel</button>
+                <button id="levelB1It" class="level-btn" onclick="setWordLevelItalian('B1')">B1 Orta</button>
+                <button id="levelB2It" class="level-btn" onclick="setWordLevelItalian('B2')">B2 İleri</button>
+            </div>
+            <div class="cards-grid" id="italianWordsGrid"></div>
+        </div>
+
+        <!-- İTALYAN DİNLEME MODÜLÜ -->
+        <div id="italianListeningScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>🎧 Dinleme Egzersizi</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Cümleleri dinle ve tekrarlamayı dene</p>
+            </div>
+            <div id="italianListeningContainer"></div>
+        </div>
+
+        <!-- İTALYAN OYUN MODÜLÜ -->
+        <div id="italianGameScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>🎯 Cümle Sıralama Oyunu</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Kelimeyi doğru sıraya sürükle</p>
+            </div>
+            <div class="game-container">
+                <div class="game-instruction">Kelimeyi aşağıya sürükleyerek cümle oluştur:</div>
+                <div class="drag-items" id="italianDragItems"></div>
+                <div class="drop-zone" id="italianDropZone">Kelimeyi buraya sürükle</div>
+                <div class="error-message" id="italianGameMessage"></div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="checkGameItalian()">Kontrol Et ✓</button>
+                    <button class="btn btn-secondary" onclick="resetGameItalian()">Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- İTALYAN QUIZ MODÜLÜ -->
+        <div id="italianQuizScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>📝 Quiz</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Sorulara cevap ver</p>
+            </div>
+            <div class="quiz-card">
+                <div id="italianQuizContent"></div>
+            </div>
+        </div>
+
+        <!-- İTALYAN KELIME BUL MODÜLÜ -->
+        <div id="italianWordFindScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>🔍 Kelime Bul</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Gizli kelimeyi doğru seçerek bulunuz</p>
+            </div>
+            <div class="game-container">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div id="italianWordFindScore" style="font-size: 18px; color: #4A90D9; font-weight: bold;">Puan: 0</div>
+                    <div id="italianWordFindProgress" style="font-size: 14px; color: #a0a0a0; margin-top: 5px;">Soru 1/20</div>
+                </div>
+                <div id="italianWordFindContent"></div>
             </div>
         </div>
 
@@ -1852,6 +1957,281 @@
             {es: '¿Tienes cambio?', tr: 'Bozukluk var mı?', level: 'A1', category: 'Doğa'}
         ];
 
+        // ITALIAN WORDS
+        const italianWords = [
+            // A1 Başlangıç
+            { it: 'Ciao', tr: 'Merhaba', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Arrivederci', tr: 'Hoşça kalın', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Per favore', tr: 'Lütfen', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Grazie', tr: 'Teşekkürler', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Sì', tr: 'Evet', level: 'A1', category: 'Günlük hayat' },
+            { it: 'No', tr: 'Hayır', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Scusa', tr: 'Özür dilerim', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Prego', tr: 'Bir şey değil', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Buongiorno', tr: 'Günaydın', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Buonasera', tr: 'İyi akşamlar', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Amore', tr: 'Sevgi', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Gatto', tr: 'Kedi', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Cane', tr: 'Köpek', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Casa', tr: 'Ev', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Libro', tr: 'Kitap', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Tavolo', tr: 'Masa', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Sedia', tr: 'Sandalye', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Acqua', tr: 'Su', level: 'A1', category: 'Yiyecek' },
+            { it: 'Pane', tr: 'Ekmek', level: 'A1', category: 'Yiyecek' },
+            { it: 'Latte', tr: 'Süt', level: 'A1', category: 'Yiyecek' },
+            { it: 'Carne', tr: 'Et', level: 'A1', category: 'Yiyecek' },
+            { it: 'Frutta', tr: 'Meyve', level: 'A2', category: 'Yiyecek' },
+            { it: 'Verdura', tr: 'Sebze', level: 'A2', category: 'Yiyecek' },
+            { it: 'Mela', tr: 'Elma', level: 'A2', category: 'Yiyecek' },
+            { it: 'Arancia', tr: 'Portakal', level: 'A2', category: 'Yiyecek' },
+            { it: 'Uccello', tr: 'Kuş', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Albero', tr: 'Ağaç', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Fiore', tr: 'Çiçek', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Montagna', tr: 'Dağ', level: 'A2', category: 'Seyahat' },
+            { it: 'Fiume', tr: 'Nehir', level: 'B1', category: 'Seyahat' },
+            { it: 'Mare', tr: 'Deniz', level: 'A1', category: 'Doğa' },
+            { it: 'Sabbia', tr: 'Kum', level: 'A1', category: 'Doğa' },
+            { it: 'Pietra', tr: 'Taş', level: 'A1', category: 'Doğa' },
+            { it: 'Fuoco', tr: 'Ateş', level: 'A1', category: 'Doğa' },
+            { it: 'Ghiaccio', tr: 'Buz', level: 'A1', category: 'Doğa' },
+            { it: 'Neve', tr: 'Kar', level: 'A1', category: 'Doğa' },
+            { it: 'Pioggia', tr: 'Yağmur', level: 'A1', category: 'Doğa' },
+            { it: 'Sole', tr: 'Güneş', level: 'A1', category: 'Doğa' },
+            { it: 'Luna', tr: 'Ay', level: 'A1', category: 'Doğa' },
+            { it: 'Stella', tr: 'Yıldız', level: 'A1', category: 'Doğa' },
+            { it: 'Cielo', tr: 'Gökyüzü', level: 'A1', category: 'Doğa' },
+            { it: 'Nuvola', tr: 'Bulut', level: 'A1', category: 'Doğa' },
+            { it: 'Vento', tr: 'Rüzgar', level: 'A1', category: 'Doğa' },
+            { it: 'Rosso', tr: 'Kırmızı', level: 'A1', category: 'Doğa' },
+            { it: 'Blu', tr: 'Mavi', level: 'A1', category: 'Doğa' },
+            { it: 'Verde', tr: 'Yeşil', level: 'A1', category: 'Doğa' },
+            { it: 'Giallo', tr: 'Sarı', level: 'A1', category: 'Doğa' },
+            { it: 'Nero', tr: 'Siyah', level: 'A1', category: 'Doğa' },
+            { it: 'Bianco', tr: 'Beyaz', level: 'A1', category: 'Doğa' },
+            { it: 'Grigio', tr: 'Gri', level: 'A1', category: 'Doğa' },
+            { it: 'Rosa', tr: 'Pembe', level: 'A1', category: 'Doğa' },
+            { it: 'Viola', tr: 'Mor', level: 'A1', category: 'Doğa' },
+            { it: 'Arancione', tr: 'Turuncu', level: 'A1', category: 'Doğa' },
+            { it: 'Grande', tr: 'Büyük', level: 'A1', category: 'Doğa' },
+            { it: 'Piccolo', tr: 'Küçük', level: 'A1', category: 'Doğa' },
+            { it: 'Lungo', tr: 'Uzun', level: 'A1', category: 'Doğa' },
+            { it: 'Corto', tr: 'Kısa', level: 'A1', category: 'Doğa' },
+            { it: 'Caldo', tr: 'Sıcak', level: 'A1', category: 'Doğa' },
+            { it: 'Freddo', tr: 'Soğuk', level: 'A1', category: 'Doğa' },
+            { it: 'Sporco', tr: 'Kirli', level: 'A1', category: 'Doğa' },
+            { it: 'Pulito', tr: 'Temiz', level: 'A1', category: 'Doğa' },
+            { it: 'Giovane', tr: 'Genç', level: 'A1', category: 'Doğa' },
+            { it: 'Vecchio', tr: 'Yaşlı', level: 'A1', category: 'Doğa' },
+
+            // A2 Temel
+            { it: 'Mattina', tr: 'Sabah', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Pomeriggio', tr: 'Öğleden sonra', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Notte', tr: 'Gece', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Giorno', tr: 'Gün', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Ora', tr: 'Saat', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Minuto', tr: 'Dakika', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Secondo', tr: 'Saniye', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Colazione', tr: 'Kahvaltı', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Pranzo', tr: 'Öğle yemeği', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Cena', tr: 'Akşam yemeği', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Luce', tr: 'Işık', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Specchio', tr: 'Ayna', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Chiave', tr: 'Anahtar', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Telefono', tr: 'Telefon', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Televisione', tr: 'Televizyon', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Orologio', tr: 'Saat', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Calendario', tr: 'Takvim', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Mappa', tr: 'Harita', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Denaro', tr: 'Para', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Carta', tr: 'Kart', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Fratello', tr: 'Erkek kardeş', level: 'A2', category: 'Aile' },
+            { it: 'Sorella', tr: 'Kız kardeş', level: 'A2', category: 'Aile' },
+            { it: 'Nonno', tr: 'Büyükbaba', level: 'A2', category: 'Aile' },
+            { it: 'Nonna', tr: 'Büyükanneanne', level: 'A2', category: 'Aile' },
+            { it: 'Figlio', tr: 'Oğul', level: 'A2', category: 'Aile' },
+            { it: 'Figlia', tr: 'Kız', level: 'A2', category: 'Aile' },
+            { it: 'Marito', tr: 'Eş', level: 'A2', category: 'Aile' },
+            { it: 'Moglie', tr: 'Eş', level: 'A2', category: 'Aile' },
+            { it: 'Zio', tr: 'Amca/Dayı', level: 'A2', category: 'Aile' },
+            { it: 'Zia', tr: 'Tante', level: 'A2', category: 'Aile' },
+
+            // B1 Orta
+            { it: 'Caffè', tr: 'Kahve', level: 'B1', category: 'Yiyecek' },
+            { it: 'Tè', tr: 'Çay', level: 'B1', category: 'Yiyecek' },
+            { it: 'Succo', tr: 'Meyve suyu', level: 'B1', category: 'Yiyecek' },
+            { it: 'Vino', tr: 'Şarap', level: 'B1', category: 'Yiyecek' },
+            { it: 'Birra', tr: 'Bira', level: 'B1', category: 'Yiyecek' },
+            { it: 'Pollo', tr: 'Tavuk', level: 'B1', category: 'Yiyecek' },
+            { it: 'Pesce', tr: 'Balık', level: 'B1', category: 'Yiyecek' },
+            { it: 'Riso', tr: 'Pirinç', level: 'B1', category: 'Yiyecek' },
+            { it: 'Pasta', tr: 'Makarna', level: 'B1', category: 'Yiyecek' },
+            { it: 'Patata', tr: 'Patates', level: 'B1', category: 'Yiyecek' },
+            { it: 'Insalata', tr: 'Salata', level: 'B1', category: 'Yiyecek' },
+            { it: 'Uva', tr: 'Üzüm', level: 'B1', category: 'Yiyecek' },
+            { it: 'Pesca', tr: 'Şeftali', level: 'B1', category: 'Yiyecek' },
+            { it: 'Pera', tr: 'Armut', level: 'B1', category: 'Yiyecek' },
+            { it: 'Ciliegia', tr: 'Kiraz', level: 'B1', category: 'Yiyecek' },
+            { it: 'Fragola', tr: 'Çilek', level: 'B1', category: 'Yiyecek' },
+            { it: 'Limone', tr: 'Limon', level: 'B1', category: 'Yiyecek' },
+            { it: 'Anguria', tr: 'Karpuz', level: 'B1', category: 'Yiyecek' },
+            { it: 'Melone', tr: 'Kavun', level: 'B1', category: 'Yiyecek' },
+            { it: 'Carota', tr: 'Havuç', level: 'B1', category: 'Yiyecek' },
+            { it: 'Pomodoro', tr: 'Domates', level: 'B1', category: 'Yiyecek' },
+            { it: 'Cipolla', tr: 'Soğan', level: 'B1', category: 'Yiyecek' },
+            { it: 'Aglio', tr: 'Sarımsak', level: 'B1', category: 'Yiyecek' },
+            { it: 'Sale', tr: 'Tuz', level: 'B1', category: 'Yiyecek' },
+            { it: 'Zucchero', tr: 'Şeker', level: 'B1', category: 'Yiyecek' },
+            { it: 'Appartamento', tr: 'Daire', level: 'B1', category: 'Ev' },
+            { it: 'Piano', tr: 'Kat', level: 'B1', category: 'Ev' },
+            { it: 'Soffitto', tr: 'Tavan', level: 'B1', category: 'Ev' },
+            { it: 'Muro', tr: 'Duvar', level: 'B1', category: 'Ev' },
+            { it: 'Pavimento', tr: 'Zemin', level: 'B1', category: 'Ev' },
+
+            // B2 İleri
+            { it: 'Scala', tr: 'Merdiven', level: 'B2', category: 'Ev' },
+            { it: 'Ascensore', tr: 'Asansör', level: 'B2', category: 'Ev' },
+            { it: 'Corridoio', tr: 'Koridor', level: 'B2', category: 'Ev' },
+            { it: 'Cucina', tr: 'Mutfak', level: 'B2', category: 'Ev' },
+            { it: 'Camera da letto', tr: 'Yatak odası', level: 'B2', category: 'Ev' },
+            { it: 'Bagno', tr: 'Banyo', level: 'B2', category: 'Ev' },
+            { it: 'Salotto', tr: 'Oturma odası', level: 'B2', category: 'Ev' },
+            { it: 'Sala da pranzo', tr: 'Yemek odası', level: 'B2', category: 'Ev' },
+            { it: 'Dispensa', tr: 'Kiler', level: 'B2', category: 'Ev' },
+            { it: 'Cantina', tr: 'Mahzen', level: 'B2', category: 'Ev' },
+            { it: 'Lavanderia', tr: 'Çamaşır odası', level: 'B2', category: 'Ev' },
+            { it: 'Garage', tr: 'Garaj', level: 'B2', category: 'Ev' },
+            { it: 'Seminterrato', tr: 'Bodrum kat', level: 'B2', category: 'Ev' },
+            { it: 'Soffitta', tr: 'Çatı arası', level: 'B2', category: 'Ev' },
+            { it: 'Terrazza', tr: 'Teras', level: 'B2', category: 'Ev' },
+            { it: 'Balcone', tr: 'Balkon', level: 'B2', category: 'Ev' },
+            { it: 'Lampada', tr: 'Lamba', level: 'B2', category: 'Ev' },
+            { it: 'Divano', tr: 'Kanepe', level: 'B2', category: 'Ev' },
+            { it: 'Scrivania', tr: 'Çalışma masası', level: 'B2', category: 'Ev' },
+            { it: 'Armadio', tr: 'Dolap', level: 'B2', category: 'Ev' }
+        ];
+
+        // ITALIAN SENTENCES
+        const italianSentences = [
+            { it: 'Buongiorno, come stai?', tr: 'Günaydın, nasılsın?', level: 'A1', category: 'Selamlaşma' },
+            { it: 'Mi chiamo Giovanni e ho 25 anni.', tr: 'Adım Giovanni ve 25 yaşındayım.', level: 'A1', category: 'Selamlaşma' },
+            { it: 'Abito in una grande casa in città.', tr: 'Şehirde geniş bir evde yaşıyorum.', level: 'A1', category: 'Selamlaşma' },
+            { it: 'Mi piace leggere libri di fantasia.', tr: 'Kurgu kitapları okumayı çok seviyorum.', level: 'A1', category: 'Selamlaşma' },
+            { it: 'Il gatto sta dormendo nel letto.', tr: 'Kedi yatakta uyuyordu.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Dov\'è il bagno?', tr: 'Banyo nerede?', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Ho bisogno di una tazza di caffè caldo.', tr: 'Sıcak bir fincan kahve lazım.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Il prezzo della casa è molto alto.', tr: 'Evin fiyatı çok yüksek.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Ieri sono andato al cinema con i miei amici.', tr: 'Dün arkadaşlarımla sinemaya gittim.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Mi piace passeggiare sulla spiaggia nel pomeriggio.', tr: 'Öğleden sonra plajda yürümeyi seviyorum.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Il cibo è delizioso e caldo.', tr: 'Yemek lezzetli ve sıcak.', level: 'A1', category: 'Yiyecek' },
+            { it: 'Devo andare al lavoro adesso.', tr: 'Şimdi işe gitmem gerekiyor.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Qual è il tuo numero di telefono?', tr: 'Telefon numarannız nedir?', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Questo regalo è per te, buon compleanno!', tr: 'Bu hediye sana, doğum günün kutlu olsun!', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Fa molto freddo oggi, ho bisogno di una giacca.', tr: 'Bugün çok soğuk, bir ceket lazım.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'La musica è molto importante per me.', tr: 'Müzik benim için çok önemli.', level: 'A1', category: 'Hobi' },
+            { it: 'Andiamo a giocare un gioco divertente.', tr: 'Eğlenceli bir oyun oynalyalım.', level: 'A1', category: 'Hobi' },
+            { it: 'Il bambino sta giocando con i suoi giocattoli.', tr: 'Çocuk oyuncaklarıyla oynuyor.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Studio italiano tutti i giorni.', tr: 'Her gün İtalyanca öğreniyorum.', level: 'A1', category: 'Eğitim' },
+            { it: 'Mi piacerebbe viaggiare in Italia un giorno.', tr: 'Bir gün İtalya\'ya seyahat etmek isterdim.', level: 'A1', category: 'Seyahat' },
+            { it: 'Il film è stato molto bello ed emozionante.', tr: 'Film çok iyi ve heyecanlı idi.', level: 'A1', category: 'Hobi' },
+            { it: 'Voglio imparare a cucinare piatti italiani.', tr: 'İtalyan yemeklerini pişirmeyi öğrenmek istiyorum.', level: 'A1', category: 'Yiyecek' },
+            { it: 'Il giardino è pieno di fiori bellissimi.', tr: 'Bahçe güzel çiçeklerle dolu.', level: 'A1', category: 'Doğa' },
+            { it: 'Abbiamo passato un fine settimana meraviglioso insieme.', tr: 'Birlikte harika bir hafta sonu geçirdik.', level: 'A1', category: 'Günlük hayat' },
+            { it: 'Spero che tu abbia una giornata eccellente oggi.', tr: 'Bugün harika bir gün geçireceğini umuyorum.', level: 'A1', category: 'Selamlaşma' },
+            { it: 'Come stai tu?', tr: 'Sen nasılsın?', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Come è andato il tuo fine settimana?', tr: 'Hafta sonu nasıl geçti?', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Piacere, sono Maria.', tr: 'Tanıştığımıza memnun, ben Maria.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Sono felice di conoscerti.', tr: 'Seni tanımaktan mutluyum.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Qual è il tuo nome?', tr: 'Adın ne?', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Il mio nome è Carlo.', tr: 'Benim adım Carlo.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Benvenuto a casa mia.', tr: 'Evime hoş geldiniz.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Grazie per essere venuto.', tr: 'Geldiğiniz için teşekkürler.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Da dove vieni?', tr: 'Nereli misin?', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Sono dall\'Italia.', tr: 'Ben İtalya\'lıyım.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'È un piacere conoscerti.', tr: 'Seni tanımaktan memnun.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Che tu riposi bene.', tr: 'İyi istirahatler.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Come è stata la tua giornata?', tr: 'Günün nasıl geçti?', level: 'A2', category: 'Günlük hayat' },
+            { it: 'È stata una giornata molto produttiva.', tr: 'Çok verimli bir gün geçti.', level: 'A2', category: 'Günlük hayat' },
+            { it: 'Sono felice di vederti di nuovo.', tr: 'Seni yeniden görmekten mutluyum.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Quando ci vediamo di nuovo?', tr: 'Ne zaman tekrar görüşürüz?', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Spero presto.', tr: 'Yakında umuyorum.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Che tu abbia un buon viaggio.', tr: 'İyi bir yolculuk olsun.', level: 'A2', category: 'Seyahat' },
+            { it: 'Raccontami come sta tutto.', tr: 'Bana her şey nasıl olduğunu söyle.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Non ti ho visto per molto tempo.', tr: 'Seni çok uzun zamandır görmedim.', level: 'A2', category: 'Selamlaşma' },
+            { it: 'Mi sono svegliato alle 7 del mattino.', tr: 'Sabah saat 7\'de uyandım.', level: 'B1', category: 'Günlük hayat' },
+            { it: 'Ho fatto colazione con caffè e toast.', tr: 'Kahvaltıda kahve ve tost yedim.', level: 'B1', category: 'Yiyecek' },
+            { it: 'Sono andato al lavoro alle 8.', tr: 'Saat 8\'de işe gittim.', level: 'B1', category: 'Günlük hayat' },
+            { it: 'Ho lavorato al progetto tutto il giorno.', tr: 'Bütün gün projede çalıştım.', level: 'B1', category: 'İş' },
+            { it: 'Ho pranzato nella mensa.', tr: 'Kafeteryada öğle yemeği yedim.', level: 'B1', category: 'Yiyecek' },
+            { it: 'Sono tornato a casa alle 6.', tr: 'Saat 6\'da eve döndüm.', level: 'B1', category: 'Günlük hayat' },
+            { it: 'Ho cenato con la mia famiglia.', tr: 'Ailemle akşam yemeği yedim.', level: 'B1', category: 'Yiyecek' },
+            { it: 'Sono andato a letto alle 11 di sera.', tr: 'Gece saat 11\'de yattım.', level: 'B1', category: 'Günlük hayat' },
+            { it: 'Oggi è una bella giornata soleggiata.', tr: 'Bugün güneşli bir gün.', level: 'B1', category: 'Hava durumu' }
+        ];
+
+        // ITALIAN QUIZ DATA
+        const quizzesItalian = [
+            { q: 'Ciao', options: ['Merhaba', 'Hoşça kalın', 'Lütfen', 'Teşekkürler'], correct: 0 },
+            { q: 'Come stai?', options: ['Neredesin?', 'Nasılsın?', 'Adın ne?', 'Kaç yaşındasın?'], correct: 1 },
+            { q: 'Grazie', options: ['Lütfen', 'Teşekkürler', 'Özür dilerim', 'Hoşça kalın'], correct: 1 },
+            { q: 'Per favore', options: ['Teşekkürler', 'Hoşça kalın', 'Lütfen', 'Merhaba'], correct: 2 },
+            { q: 'Casa', options: ['Araba', 'Ev', 'Kitap', 'Masa'], correct: 1 },
+            { q: 'Gatto', options: ['Kedi', 'Köpek', 'Kuş', 'Balık'], correct: 0 },
+            { q: 'Acqua', options: ['Ekmek', 'Su', 'Süt', 'Kahve'], correct: 1 },
+            { q: 'Libro', options: ['Kalem', 'Kitap', 'Kağıt', 'Sandalye'], correct: 1 },
+            { q: 'Rosso', options: ['Mavi', 'Yeşil', 'Kırmızı', 'Sarı'], correct: 2 },
+            { q: 'Blu', options: ['Kırmızı', 'Sarı', 'Mavi', 'Yeşil'], correct: 2 }
+        ];
+
+        // ITALIAN GAME DATA
+        const gameDataItalian = [
+            { words: ['sto', 'Io', 'bene'], correct: 'Io sto bene', tr: 'İyiyim' },
+            { words: ['casa', 'vivi', 'Dove', 'in'], correct: 'Dove vivi in casa', tr: 'Evde nerede yaşıyorsun?' },
+            { words: ['gatto', 'un', 'Ho'], correct: 'Ho un gatto', tr: 'Bir kedim var' },
+            { words: ['felice', 'sono', 'Molto'], correct: 'Sono molto felice', tr: 'Çok mutluyum' },
+            { words: ['stai', 'Come', 'oggi', 'tu'], correct: 'Come stai tu oggi', tr: 'Bugün sen nasılsın' },
+            { words: ['piacere', 'gusto', 'Molto'], correct: 'Molto gusto', tr: 'Tanıştığımıza memnun' },
+            { words: ['vederti', 'di', 'Felice'], correct: 'Felice di vederti', tr: 'Seni görmekten mutluyum' },
+            { words: ['arrivederci', 'Arrivederci', 'amico'], correct: 'Arrivederci amico', tr: 'Hoşça kalın arkadaş' },
+            { words: ['presto', 'ci', 'Ci', 'vediamo'], correct: 'Ci vediamo presto', tr: 'Yakında görüşürüz' },
+            { words: ['giorno', 'tuo', 'Come', 'è', 'stato'], correct: 'Come è stato il tuo giorno', tr: 'Günün nasıl geçti' },
+            { words: ['nuovo', 'c\'è', 'Che', 'di'], correct: 'Che c\'è di nuovo', tr: 'Neler var yeni' },
+            { words: ['meno', 'di', 'Ti', 'sento'], correct: 'Ti sento di meno', tr: 'Seni özlüyorum' },
+            { words: ['spero', 'che', 'bene', 'stia'], correct: 'Spero che tu stia bene', tr: 'Umarım iyisin' },
+            { words: ['notte', 'Buona'], correct: 'Buona notte', tr: 'İyi geceler' },
+            { words: ['mattina', 'questa', 'Bellissima'], correct: 'Bellissima questa mattina', tr: 'Bu sabah çok güzel' },
+            { words: ['fame', 'Ho'], correct: 'Ho fame', tr: 'Açık\'um' },
+            { words: ['sete', 'Ho'], correct: 'Ho sete', tr: 'Susuzum' },
+            { words: ['cioccolato', 'il', 'piace', 'Mi'], correct: 'Mi piace il cioccolato', tr: 'Çokolata çok seviyorum' },
+            { words: ['caffè', 'Voglio'], correct: 'Voglio caffè', tr: 'Kahve istiyorum' },
+            { words: ['buono', 'è', 'Questo', 'molto'], correct: 'Questo è molto buono', tr: 'Bu çok iyi' },
+            { words: ['domani', 'Arrivederci'], correct: 'Arrivederci domani', tr: 'Yarın hoşça kalın' }
+        ];
+
+        // ITALIAN WORD FIND DATA
+        const wordFindDataItalian = [
+            { word: 'Ciao', options: ['Amore', 'Ciao', 'Casa', 'Gatto'], correct: 1, hint: 'Merhaba demek' },
+            { word: 'Casa', options: ['Gatto', 'Cane', 'Casa', 'Albero'], correct: 2, hint: 'Ev demek' },
+            { word: 'Gatto', options: ['Gatto', 'Cane', 'Uccello', 'Cavallo'], correct: 0, hint: 'Kedi demek' },
+            { word: 'Amore', options: ['Amore', 'Odio', 'Paura', 'Gioia'], correct: 0, hint: 'Sevgi demek' },
+            { word: 'Sole', options: ['Luna', 'Sole', 'Stella', 'Nuvola'], correct: 1, hint: 'Güneş demek' },
+            { word: 'Acqua', options: ['Fuoco', 'Vento', 'Acqua', 'Terra'], correct: 2, hint: 'Su demek' },
+            { word: 'Pane', options: ['Pane', 'Carne', 'Frutta', 'Verdura'], correct: 0, hint: 'Ekmek demek' },
+            { word: 'Libro', options: ['Penna', 'Carta', 'Libro', 'Tavolo'], correct: 2, hint: 'Kitap demek' },
+            { word: 'Rosso', options: ['Blu', 'Verde', 'Rosso', 'Giallo'], correct: 2, hint: 'Kırmızı demek' },
+            { word: 'Freddo', options: ['Caldo', 'Freddo', 'Tiepido', 'Bollente'], correct: 1, hint: 'Soğuk demek' },
+            { word: 'Felice', options: ['Triste', 'Felice', 'Arrabbiato', 'Stanco'], correct: 1, hint: 'Mutlu demek' },
+            { word: 'Giovane', options: ['Vecchio', 'Giovane', 'Anziano', 'Maturo'], correct: 1, hint: 'Genç demek' },
+            { word: 'Grande', options: ['Piccolo', 'Grande', 'Minuscolo', 'Medio'], correct: 1, hint: 'Büyük demek' },
+            { word: 'Notte', options: ['Mattina', 'Pomeriggio', 'Notte', 'Giorno'], correct: 2, hint: 'Gece demek' },
+            { word: 'Famiglia', options: ['Scuola', 'Lavoro', 'Famiglia', 'Ospedale'], correct: 2, hint: 'Aile demek' },
+            { word: 'Viaggio', options: ['Casa', 'Lavoro', 'Studio', 'Viaggio'], correct: 3, hint: 'Seyahat demek' },
+            { word: 'Musica', options: ['Arte', 'Musica', 'Sport', 'Danza'], correct: 1, hint: 'Müzik demek' },
+            { word: 'Giorno', options: ['Settimana', 'Mese', 'Anno', 'Giorno'], correct: 3, hint: 'Gün demek' },
+            { word: 'Montagna', options: ['Collina', 'Montagna', 'Valle', 'Pianura'], correct: 1, hint: 'Dağ demek' },
+            { word: 'Albero', options: ['Fiore', 'Albero', 'Pianta', 'Erba'], correct: 1, hint: 'Ağaç demek' }
+        ];
+
         const quizzes = [
             { q: 'Hola', options: ['Merhaba', 'Hoşça kalın', 'Lütfen', 'Teşekkürler'], correct: 0 },
             { q: '¿Cómo estás?', options: ['Neredesin?', 'Nasılsın?', 'Adın ne?', 'Kaç yaşındasın?'], correct: 1 },
@@ -2025,6 +2405,8 @@
         let wordFindQuestion = 0;
         let currentWordLevel = 'A1';
         let currentAudio = null;
+        let currentLanguage = 'es';
+        let droppedWordsItalian = [];
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -2062,8 +2444,15 @@
         }
 
         function selectLanguage(lang) {
+            currentLanguage = lang;
             if (lang === 'es') {
+                document.getElementById('wordCount').textContent = words.filter(w => w.es).length + ' İspanyolca kelime öğren';
+                document.getElementById('sentenceCount').textContent = sentences.filter(s => s.es).length + ' cümle dinle ve tekrarla';
                 showScreen('menuScreen');
+            } else if (lang === 'it') {
+                document.getElementById('italianWordCount').textContent = italianWords.filter(w => w.it).length + ' İtalyanca kelime öğren';
+                document.getElementById('italianSentenceCount').textContent = italianSentences.filter(s => s.it).length + ' cümle dinle ve tekrarla';
+                showScreen('italianMenuScreen');
             }
         }
 
@@ -2075,26 +2464,49 @@
             currentModule = module;
             document.querySelector('.back-btn').classList.add('show');
 
-            if (module === 'words') {
-                showScreen('wordsScreen');
-                initWords();
-            } else if (module === 'listening') {
-                showScreen('listeningScreen');
-                initListening();
-            } else if (module === 'game') {
-                showScreen('gameScreen');
-                initGame();
-            } else if (module === 'quiz') {
-                showScreen('quizScreen');
-                initQuiz();
-            } else if (module === 'wordFind') {
-                showScreen('wordFindScreen');
-                initWordFind();
+            if (currentLanguage === 'it') {
+                if (module === 'words') {
+                    showScreen('italianWordsScreen');
+                    initWordsItalian();
+                } else if (module === 'listening') {
+                    showScreen('italianListeningScreen');
+                    initListeningItalian();
+                } else if (module === 'game') {
+                    showScreen('italianGameScreen');
+                    initGameItalian();
+                } else if (module === 'quiz') {
+                    showScreen('italianQuizScreen');
+                    initQuizItalian();
+                } else if (module === 'wordFind') {
+                    showScreen('italianWordFindScreen');
+                    initWordFindItalian();
+                }
+            } else {
+                if (module === 'words') {
+                    showScreen('wordsScreen');
+                    initWords();
+                } else if (module === 'listening') {
+                    showScreen('listeningScreen');
+                    initListening();
+                } else if (module === 'game') {
+                    showScreen('gameScreen');
+                    initGame();
+                } else if (module === 'quiz') {
+                    showScreen('quizScreen');
+                    initQuiz();
+                } else if (module === 'wordFind') {
+                    showScreen('wordFindScreen');
+                    initWordFind();
+                }
             }
         }
 
         function goBack() {
-            showScreen('menuScreen');
+            if (currentLanguage === 'it') {
+                showScreen('italianMenuScreen');
+            } else {
+                showScreen('menuScreen');
+            }
             currentModule = null;
             document.querySelector('.back-btn').classList.remove('show');
         }
@@ -2184,20 +2596,27 @@
             speechSynthesis.cancel();
 
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
+            utterance.lang = currentLanguage === 'it' ? 'it-IT' : 'es-ES';
             utterance.pitch = 1.4;
             utterance.rate = 0.85;
 
             const voices = speechSynthesis.getVoices();
-            const googleEspanol = voices.find(v => v.name.includes('Google español de Estados Unidos'));
+            let preferredVoice = null;
 
-            if (googleEspanol) {
-                utterance.voice = googleEspanol;
-            } else {
-                const fallback = voices.find(v => v.name.includes('Google español'));
-                if (fallback) {
-                    utterance.voice = fallback;
+            if (currentLanguage === 'it') {
+                preferredVoice = voices.find(v => v.name.includes('Google italiano'));
+                if (!preferredVoice) {
+                    preferredVoice = voices.find(v => v.lang.startsWith('it'));
                 }
+            } else {
+                preferredVoice = voices.find(v => v.name.includes('Google español de Estados Unidos'));
+                if (!preferredVoice) {
+                    preferredVoice = voices.find(v => v.name.includes('Google español'));
+                }
+            }
+
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
             }
 
             speechSynthesis.speak(utterance);
@@ -2438,6 +2857,254 @@
             }
 
         });
+
+        // ==================== ITALIAN MODULE FUNCTIONS ====================
+
+        // ITALIAN WORDS
+        function setWordLevelItalian(level) {
+            currentWordLevel = level;
+            document.querySelectorAll('#italianWordsScreen .level-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('level' + level + 'It').classList.add('active');
+            initWordsItalian();
+        }
+
+        function initWordsItalian() {
+            const grid = document.getElementById('italianWordsGrid');
+            grid.innerHTML = '';
+            const filteredWords = italianWords.filter(w => w.level === currentWordLevel);
+            filteredWords.forEach(word => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `<div class="word-es">${word.it}</div><div class="word-tr">${word.tr}</div>`;
+                card.onclick = () => speakItalian(word.it);
+                grid.appendChild(card);
+            });
+        }
+
+        function speakItalian(text) {
+            speechSynthesis.cancel();
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=it&client=tw-ob`;
+            const audio = new Audio(url);
+            currentAudio = audio;
+            audio.onerror = () => speakWithWebSpeechAPI(text);
+            audio.onabort = () => speakWithWebSpeechAPI(text);
+            audio.play().catch(() => speakWithWebSpeechAPI(text));
+        }
+
+        // ITALIAN LISTENING
+        function initListeningItalian() {
+            const container = document.getElementById('italianListeningContainer');
+            container.innerHTML = '';
+            italianSentences.forEach(s => {
+                const item = document.createElement('div');
+                item.className = 'listening-item';
+                item.innerHTML = `
+                    <div class="listening-text">${s.it}</div>
+                    <div class="listening-translation">${s.tr}</div>
+                    <button class="listen-btn" onclick="speakItalian('${s.it.replace(/'/g, "\\'")}')">🔊 Dinle</button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // ITALIAN GAME
+        let currentGameItalian = 0;
+
+        function initGameItalian() {
+            currentGameItalian = Math.floor(Math.random() * gameDataItalian.length);
+            const game = gameDataItalian[currentGameItalian];
+            const dragContainer = document.getElementById('italianDragItems');
+            const dropZone = document.getElementById('italianDropZone');
+            const gameMessage = document.getElementById('italianGameMessage');
+
+            dragContainer.innerHTML = '';
+            dropZone.innerHTML = 'Kelimeyi buraya sürükle';
+            dropZone.classList.remove('filled', 'success', 'error');
+            gameMessage.textContent = '';
+            droppedWordsItalian = [];
+
+            game.words.forEach(word => {
+                const item = document.createElement('div');
+                item.className = 'drag-item';
+                item.draggable = true;
+                item.textContent = word;
+                item.ondragstart = (e) => {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('text/plain', word);
+                };
+                dragContainer.appendChild(item);
+            });
+
+            dropZone.ondragover = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.dataTransfer.dropEffect = 'copy';
+                dropZone.classList.add('dragover');
+            };
+            dropZone.ondragleave = (e) => {
+                if (e.target === dropZone) {
+                    dropZone.classList.remove('dragover');
+                }
+            };
+            dropZone.ondrop = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('dragover');
+                const word = e.dataTransfer.getData('text/plain');
+                if (word) {
+                    droppedWordsItalian.push(word);
+                    renderDropZoneItalian();
+                }
+            };
+        }
+
+        function renderDropZoneItalian() {
+            const dropZone = document.getElementById('italianDropZone');
+            if (droppedWordsItalian.length === 0) {
+                dropZone.innerHTML = 'Kelimeyi buraya sürükle';
+                dropZone.classList.remove('filled');
+            } else {
+                dropZone.innerHTML = droppedWordsItalian.map((w, idx) =>
+                    `<span style="color: white; background: #6c63ff; padding: 8px 16px; border-radius: 8px; margin: 5px 5px; display: inline-block; cursor: pointer; font-weight: 600;" onclick="removeWordItalian(${idx})">${w} ✕</span>`
+                ).join('');
+                dropZone.classList.add('filled');
+            }
+        }
+
+        function removeWordItalian(index) {
+            droppedWordsItalian.splice(index, 1);
+            renderDropZoneItalian();
+        }
+
+        function checkGameItalian() {
+            const game = gameDataItalian[currentGameItalian];
+            const answer = droppedWordsItalian.join(' ');
+            const dropZone = document.getElementById('italianDropZone');
+            const gameMessage = document.getElementById('italianGameMessage');
+
+            if (answer === game.correct) {
+                dropZone.classList.remove('error');
+                dropZone.classList.add('success');
+                gameMessage.textContent = '✅ Doğru! Bravo!';
+                gameMessage.style.color = '#51cf66';
+                setTimeout(() => {
+                    dropZone.classList.remove('success');
+                    gameMessage.textContent = '';
+                    initGameItalian();
+                }, 1500);
+            } else {
+                dropZone.classList.add('error');
+                gameMessage.textContent = '❌ Yanlış. Doğru cevap: ' + game.correct;
+                gameMessage.style.color = '#ff6b6b';
+            }
+        }
+
+        function resetGameItalian() {
+            const dropZone = document.getElementById('italianDropZone');
+            const gameMessage = document.getElementById('italianGameMessage');
+            droppedWordsItalian = [];
+            dropZone.classList.remove('error', 'success');
+            gameMessage.textContent = '';
+            renderDropZoneItalian();
+        }
+
+        // ITALIAN QUIZ
+        let quizScoreItalian = 0;
+        let currentQuestionItalian = 0;
+
+        function initQuizItalian() {
+            quizScoreItalian = 0;
+            currentQuestionItalian = 0;
+            showQuizQuestionItalian();
+        }
+
+        function showQuizQuestionItalian() {
+            const content = document.getElementById('italianQuizContent');
+
+            if (currentQuestionItalian >= quizzesItalian.length) {
+                const percentage = (quizScoreItalian / quizzesItalian.length * 100).toFixed(0);
+                content.innerHTML = `
+                    <div class="quiz-result">
+                        <h3>Tamamlandı! 🎉</h3>
+                        <p>Skor: ${quizScoreItalian}/${quizzesItalian.length} (${percentage}%)</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="initQuizItalian()">Tekrar Yap</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const quiz = quizzesItalian[currentQuestionItalian];
+            const progress = (currentQuestionItalian / quizzesItalian.length) * 100;
+
+            content.innerHTML = `
+                <div class="progress">
+                    <div class="progress-bar" style="width: ${progress}%"></div>
+                </div>
+                <div class="question-title">Soru ${currentQuestionItalian + 1}/${quizzesItalian.length}</div>
+                <p style="margin-bottom: 20px; font-size: 16px;">${quiz.q}</p>
+                <div class="options">
+                    ${quiz.options.map((opt, idx) => `
+                        <button class="option-btn" onclick="answerQuizItalian(${idx}, ${quiz.correct})">${opt}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function answerQuizItalian(selected, correct) {
+            if (selected === correct) quizScoreItalian++;
+            currentQuestionItalian++;
+            showQuizQuestionItalian();
+        }
+
+        // ITALIAN WORD FIND
+        let wordFindScoreItalian = 0;
+        let wordFindQuestionItalian = 0;
+
+        function initWordFindItalian() {
+            wordFindScoreItalian = 0;
+            wordFindQuestionItalian = 0;
+            showWordFindQuestionItalian();
+        }
+
+        function showWordFindQuestionItalian() {
+            if (wordFindQuestionItalian >= wordFindDataItalian.length) {
+                document.getElementById('italianWordFindContent').innerHTML = `
+                    <div class="quiz-result">
+                        <h3>Oyun Bitti! 🎉</h3>
+                        <p>Skor: ${wordFindScoreItalian}/${wordFindDataItalian.length}</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="initWordFindItalian()">Tekrar Yap</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const question = wordFindDataItalian[wordFindQuestionItalian];
+            document.getElementById('italianWordFindScore').textContent = `Puan: ${wordFindScoreItalian}`;
+            document.getElementById('italianWordFindProgress').textContent = `Soru ${wordFindQuestionItalian + 1}/${wordFindDataItalian.length}`;
+
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            document.getElementById('italianWordFindContent').innerHTML = `
+                <div style="margin-bottom: 20px; padding: 20px; border-radius: 10px; background: ${isDarkMode ? '#4d4d4d' : '#F5F8FF'}; text-align: center;">
+                    <p style="color: ${isDarkMode ? '#ffffff' : '#4A90D9'}; font-size: 14px; margin-bottom: 10px;">İpucu: ${question.hint}</p>
+                    <p style="color: ${isDarkMode ? '#ffffff' : '#2C3E50'}; font-size: 16px; font-weight: 600;">"${question.word}" kelimesini seç:</p>
+                </div>
+                <div class="options">
+                    ${question.options.map((opt, idx) => `
+                        <button class="option-btn" onclick="answerWordFindItalian(${idx}, ${question.correct})">${opt}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function answerWordFindItalian(selected, correct) {
+            if (selected === correct) wordFindScoreItalian++;
+            wordFindQuestionItalian++;
+            showWordFindQuestionItalian();
+        }
     </script>
 </body>
 </html>
