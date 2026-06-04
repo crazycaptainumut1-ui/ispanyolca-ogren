@@ -821,16 +821,16 @@
         ];
 
         const quizzes = [
-            { q: 'Hola means:', options: ['Hello', 'Goodbye', 'Please', 'Thank you'], correct: 0 },
-            { q: '¿Cómo estás? means:', options: ['How are you', 'Where are you', 'What is your name', 'How old are you'], correct: 0 },
-            { q: 'Gracias means:', options: ['Please', 'Thank you', 'Sorry', 'Goodbye'], correct: 1 },
-            { q: 'Por favor means:', options: ['Thank you', 'Goodbye', 'Please', 'Hello'], correct: 2 },
-            { q: 'Casa means:', options: ['Car', 'House', 'Book', 'Table'], correct: 1 },
-            { q: 'Gato means:', options: ['Cat', 'Dog', 'Bird', 'Fish'], correct: 0 },
-            { q: 'Agua means:', options: ['Bread', 'Water', 'Milk', 'Coffee'], correct: 1 },
-            { q: 'Libro means:', options: ['Pen', 'Book', 'Paper', 'Chair'], correct: 1 },
-            { q: 'Rojo means:', options: ['Blue', 'Green', 'Red', 'Yellow'], correct: 2 },
-            { q: 'Azul means:', options: ['Red', 'Yellow', 'Blue', 'Green'], correct: 2 }
+            { q: 'Hola', options: ['Merhaba', 'Hoşça kalın', 'Lütfen', 'Teşekkürler'], correct: 0 },
+            { q: '¿Cómo estás?', options: ['Neredesin?', 'Nasılsın?', 'Adın ne?', 'Kaç yaşındasın?'], correct: 1 },
+            { q: 'Gracias', options: ['Lütfen', 'Teşekkürler', 'Özür dilerim', 'Hoşça kalın'], correct: 1 },
+            { q: 'Por favor', options: ['Teşekkürler', 'Hoşça kalın', 'Lütfen', 'Merhaba'], correct: 2 },
+            { q: 'Casa', options: ['Araba', 'Ev', 'Kitap', 'Masa'], correct: 1 },
+            { q: 'Gato', options: ['Kedi', 'Köpek', 'Kuş', 'Balık'], correct: 0 },
+            { q: 'Agua', options: ['Ekmek', 'Su', 'Süt', 'Kahve'], correct: 1 },
+            { q: 'Libro', options: ['Kalem', 'Kitap', 'Kağıt', 'Sandalye'], correct: 1 },
+            { q: 'Rojo', options: ['Mavi', 'Yeşil', 'Kırmızı', 'Sarı'], correct: 2 },
+            { q: 'Azul', options: ['Kırmızı', 'Sarı', 'Mavi', 'Yeşil'], correct: 2 }
         ];
 
         const gameData = [
@@ -1009,6 +1009,8 @@
         }
 
         // OYUN
+        let droppedWords = [];
+
         function initGame() {
             currentGame = Math.floor(Math.random() * gameData.length);
             const game = gameData[currentGame];
@@ -1018,6 +1020,7 @@
             dragContainer.innerHTML = '';
             dropZone.innerHTML = 'Kelimeyi buraya sürükle';
             dropZone.classList.remove('filled');
+            droppedWords = [];
 
             game.words.forEach(word => {
                 const item = document.createElement('div');
@@ -1037,15 +1040,32 @@
                 e.preventDefault();
                 dropZone.classList.remove('dragover');
                 const word = e.dataTransfer.getData('word');
-                dropZone.innerHTML = word;
-                dropZone.classList.add('filled');
+                droppedWords.push(word);
+                renderDropZone();
             };
+        }
+
+        function renderDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            if (droppedWords.length === 0) {
+                dropZone.innerHTML = 'Kelimeyi buraya sürükle';
+                dropZone.classList.remove('filled');
+            } else {
+                dropZone.innerHTML = droppedWords.map((w, idx) =>
+                    `<span style="background: #667eea; padding: 5px 12px; border-radius: 5px; margin: 5px 5px; display: inline-block; cursor: pointer;" onclick="removeWord(${idx})">${w} ✕</span>`
+                ).join('');
+                dropZone.classList.add('filled');
+            }
+        }
+
+        function removeWord(index) {
+            droppedWords.splice(index, 1);
+            renderDropZone();
         }
 
         function checkGame() {
             const game = gameData[currentGame];
-            const dropZone = document.getElementById('dropZone');
-            const answer = dropZone.textContent.trim();
+            const answer = droppedWords.join(' ');
 
             if (answer === game.correct) {
                 alert('✅ Doğru!');
@@ -1056,7 +1076,8 @@
         }
 
         function resetGame() {
-            initGame();
+            droppedWords = [];
+            renderDropZone();
         }
 
         // QUIZ
@@ -1129,18 +1150,24 @@
             document.getElementById('wordFindScore').textContent = `Puan: ${wordFindScore}`;
             document.getElementById('wordFindProgress').textContent = `Soru ${wordFindQuestion + 1}/${wordFindData.length}`;
 
+            const optionsHtml = shuffledOptions.map((option, idx) => `
+                <button class="option-btn" data-index="${idx}">
+                    ${option}
+                </button>
+            `).join('');
+
             document.getElementById('wordFindContent').innerHTML = `
                 <div style="background: rgba(102, 126, 234, 0.1); padding: 25px; border-radius: 10px; margin-bottom: 25px; text-align: center;">
                     <p style="font-size: 18px; color: #e0e0e0; margin-bottom: 15px;">${game.sentence}</p>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
-                        ${shuffledOptions.map((option, idx) => `
-                            <button class="option-btn" onclick="answerWordFind('${option}', '${game.hidden}')">
-                                ${option}
-                            </button>
-                        `).join('')}
+                        ${optionsHtml}
                     </div>
                 </div>
             `;
+
+            document.querySelectorAll('#wordFindContent .option-btn').forEach((btn, idx) => {
+                btn.onclick = () => answerWordFind(shuffledOptions[idx], game.hidden);
+            });
         }
 
         function answerWordFind(selected, correct) {
