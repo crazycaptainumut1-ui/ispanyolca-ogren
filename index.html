@@ -1060,7 +1060,7 @@
                 dropZone.classList.remove('filled');
             } else {
                 dropZone.innerHTML = droppedWords.map((w, idx) =>
-                    `<span style="background: #667eea; padding: 5px 12px; border-radius: 5px; margin: 5px 5px; display: inline-block; cursor: pointer;" onclick="removeWord(${idx})">${w} ✕</span>`
+                    `<span style="color: white; background: #6c63ff; padding: 8px 16px; border-radius: 8px; margin: 5px 5px; display: inline-block; cursor: pointer; font-weight: 600;" onclick="removeWord(${idx})">${w} ✕</span>`
                 ).join('');
                 dropZone.classList.add('filled');
             }
