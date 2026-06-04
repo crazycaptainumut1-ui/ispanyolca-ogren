@@ -633,7 +633,6 @@
         <!-- GİRİŞ SAYFASI -->
         <div id="introScreen" class="screen active">
             <div class="intro-screen">
-                <div class="logo-big">🇪🇸</div>
                 <div>
                     <h1>HablaTurco</h1>
                     <p>İspanyolcaya hazır mısın?</p>
@@ -2023,8 +2022,14 @@
             }
 
             // Menüdeki dinamik sayıları güncelle
-            document.getElementById('wordCount').textContent = `${words.length} İspanyolca kelime öğren`;
-            document.getElementById('sentenceCount').textContent = `${sentences.length} cümle dinle ve tekrarla`;
+            const wordCountEl = document.getElementById('wordCount');
+            const sentenceCountEl = document.getElementById('sentenceCount');
+            if (wordCountEl) {
+                wordCountEl.textContent = `${words.length} İspanyolca kelime öğren`;
+            }
+            if (sentenceCountEl) {
+                sentenceCountEl.textContent = `${sentences.length} cümle dinle ve tekrarla`;
+            }
         });
     </script>
 </body>
