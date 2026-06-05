@@ -2596,7 +2596,7 @@
             { word: 'Albero', options: ['Fiore', 'Albero', 'Pianta', 'Erba'], correct: 1, hint: 'Ağaç demek' }
         ];
 
-        const quizzes = [
+        const quiz1 = [
             { q: 'Hola', options: ['Merhaba', 'Hoşça kalın', 'Lütfen', 'Teşekkürler'], correct: 0 },
             { q: '¿Cómo estás?', options: ['Neredesin?', 'Nasılsın?', 'Adın ne?', 'Kaç yaşındasın?'], correct: 1 },
             { q: 'Gracias', options: ['Lütfen', 'Teşekkürler', 'Özür dilerim', 'Hoşça kalın'], correct: 1 },
@@ -2638,7 +2638,10 @@
             { q: 'Cinco', options: ['Altı', 'Beş', 'Yedi', 'Dört'], correct: 1 },
             { q: 'Diez', options: ['Dokuz', 'Sekiz', 'On', 'Onbir'], correct: 2 },
             { q: 'Veinte', options: ['On dokuz', 'Yirmi bir', 'Yirmi', 'Yirmi iki'], correct: 2 },
-            { q: 'Cien', options: ['Doksan dokuz', 'Yüz bir', 'Yüz', 'Yüz iki'], correct: 2 },
+            { q: 'Cien', options: ['Doksan dokuz', 'Yüz bir', 'Yüz', 'Yüz iki'], correct: 2 }
+        ];
+
+        const quiz2 = [
             { q: '3 + 4 = ?', options: ['Altı', 'Sekiz', 'Yedi', 'Dokuz'], correct: 2 },
             { q: '10 - 5 = ?', options: ['Üç', 'Dört', 'Beş', 'Altı'], correct: 2 },
             { q: '6 + 6 = ?', options: ['On iki', 'Onbir', 'On', 'Dokuz'], correct: 0 },
@@ -2666,7 +2669,58 @@
             { q: 'Correr', options: ['Yürümek', 'Koşmak', 'Durmmak', 'Oturmak'], correct: 1 },
             { q: 'Caminar', options: ['Koşmak', 'Yürümek', 'Atlamak', 'Uçmak'], correct: 1 },
             { q: 'Jugar', options: ['Çalışmak', 'Oynamak', 'Ders çalmak', 'Antrenman'], correct: 1 },
-            { q: 'Amar', options: ['Nefret etmek', 'Sevmek', 'Korkamk', 'İstememek'], correct: 1 }
+            { q: 'Amar', options: ['Nefret etmek', 'Sevmek', 'Korkamk', 'İstememek'], correct: 1 },
+
+            // Hobi (10 soru)
+            { q: 'Me encanta la música', options: ['Sporu seviyorum', 'Müzik seviyorum', 'Kitabı seviyorum', 'Yemeği seviyorum'], correct: 1 },
+            { q: 'Juego fútbol', options: ['Futbol oynuyorum', 'Futbolu izliyorum', 'Futbol yazıyorum', 'Futbol konuşuyorum'], correct: 0 },
+            { q: 'Pinto', options: ['Boyacıyım', 'Resim yapıyorum', 'Yazıyorum', 'Okuyorum'], correct: 1 },
+            { q: 'Me gusta leer', options: ['Okumayı seviyorum', 'Yazı seviyorum', 'Konuşmayı seviyorum', 'Dinlemeyi seviyorum'], correct: 0 },
+            { q: 'Juego ajedrez', options: ['Satranç oynuyorum', 'Satranç öğreniyorum', 'Satranç yazıyorum', 'Satranç yerim'], correct: 0 },
+            { q: 'Toco la guitarra', options: ['Gitarı dinliyorum', 'Gitar çalıyorum', 'Gitar öğreniyorum', 'Gitar satıyorum'], correct: 1 }
+        ];
+
+        const quiz3 = [
+            { q: 'Voy al cine', options: ['Sinemaya gidiyorum', 'Sinemada uyuyorum', 'Sinemayı yapıyorum', 'Sinemayı seviyorum'], correct: 0 },
+            { q: 'Me encanta nadar', options: ['Yüzmeyi seviyorum', 'Yüzmedim', 'Yüzmek istemiyorum', 'Yüzme saat'], correct: 0 },
+            { q: 'Dibujo', options: ['Çiziyorum', 'Boyuyorum', 'Yazıyorum', 'Okuyorum'], correct: 0 },
+            { q: 'Me gusta bailar', options: ['Dansı seviyorum', 'Dansçıyım', 'Dansı öğreniyorum', 'Dansı izliyorum'], correct: 0 },
+
+            // Seyahat (10 soru)
+            { q: 'Voy a viajar', options: ['Seyahat ettim', 'Seyahat edeceğim', 'Seyahat ediyorum', 'Seyahat edemiyor'], correct: 1 },
+            { q: 'El vuelo sale a las 10', options: ['Uçak 10\'da kalkıyor', 'Uçak 10\'da iniyor', 'Uçak 10 saat sürüyor', 'Uçak 10 kez geliyor'], correct: 0 },
+            { q: 'Necesito mi pasaporte', options: ['Pasaportum var', 'Pasaportuma ihtiyacım var', 'Pasaportum kötü', 'Pasaportum eski'], correct: 1 },
+            { q: 'He reservado un hotel', options: ['Otel buldum', 'Otel ayırttım', 'Otel aldım', 'Otel temizledim'], correct: 1 },
+            { q: 'La estación está cerca', options: ['İstasyon uzak', 'İstasyon yakın', 'İstasyon gidiyor', 'İstasyon bitti'], correct: 1 },
+            { q: 'Quiero un asiento de ventana', options: ['Aisle koltuk istiyorum', 'Pencere kenarı koltuk istiyorum', 'Orta koltuk istiyorum', 'Arka koltuk istiyorum'], correct: 1 },
+            { q: 'El tren llegó con retraso', options: ['Tren zamanında geldi', 'Tren erken geldi', 'Tren geç geldi', 'Tren gelmedi'], correct: 2 },
+            { q: '¿Cuánto cuesta el boleto?', options: ['Bilet nerede?', 'Bilet kaç tane?', 'Bilet ne kadar?', 'Bilet kimin?'], correct: 2 },
+            { q: 'El aeropuerto está lejos', options: ['Havaalanı yakın', 'Havaalanı uzak', 'Havaalanı burada', 'Havaalanı gidiyor'], correct: 1 },
+            { q: 'La playa es hermosa', options: ['Plaj çirkin', 'Plaj güzel', 'Plaj soğuk', 'Plaj kuru'], correct: 1 },
+
+            // Alışveriş (10 soru)
+            { q: 'Voy de compras', options: ['Alışverişten geldim', 'Alışverişe gidiyorum', 'Alışveriş ettim', 'Alışveriş beğenmiyorum'], correct: 1 },
+            { q: '¿Cuánto cuesta esto?', options: ['Ne var?', 'Nerede?', 'Bunun fiyatı ne kadar?', 'Kimin?'], correct: 2 },
+            { q: 'Es muy caro', options: ['Çok ucuz', 'Çok pahalı', 'Çok güzel', 'Çok kötü'], correct: 1 },
+            { q: '¿Hay un descuento?', options: ['İndirim yok', 'İndirim var mı?', 'İndirim geliyorum', 'İndirim bitti'], correct: 1 },
+            { q: 'Acepto tarjeta de crédito', options: ['Kredi kartı kabul etmem', 'Kredi kartını kabul ederim', 'Kredi kartı kırık', 'Kredi kartı var'], correct: 1 },
+            { q: 'Necesito un regalo', options: ['Hediye verdim', 'Hediye lazım', 'Hediye aldım', 'Hediye yaparım'], correct: 1 },
+            { q: 'Este vestido me queda bien', options: ['Elbise bana uymuyor', 'Elbise bana uyuyor', 'Elbise güzel değil', 'Elbise pahalı'], correct: 1 },
+            { q: 'La talla está disponible', options: ['Beden yok', 'Beden mevcuttur', 'Beden küçük', 'Beden büyük'], correct: 1 },
+            { q: 'Necesito zapatillas deportivas', options: ['Ayakkabı satıyorum', 'Spor ayakkabısı lazım', 'Ayakkabı alsam', 'Ayakkabı yapılıyor'], correct: 1 },
+            { q: 'Estos pantalones son cómodos', options: ['Pantolonlar rahatsız', 'Pantolonlar rahat', 'Pantolonlar kırık', 'Pantolonlar soğuk'], correct: 1 },
+
+            // Aile (10 soru)
+            { q: 'Tengo una hermana', options: ['Kız kardeşim yok', 'Kız kardeşim var', 'Erkek kardeşim var', 'Kardeşim öldü'], correct: 1 },
+            { q: 'Mi padre es ingeniero', options: ['Babam doktor', 'Babam mühendis', 'Babam öğretmen', 'Babam polis'], correct: 1 },
+            { q: 'Mi madre es médica', options: ['Annem polis', 'Annem doktor', 'Annem avukat', 'Annem öğretmen'], correct: 1 },
+            { q: 'Mis abuelos viven en el campo', options: ['Büyüklerim şehirde yaşıyor', 'Büyüklerim köyde yaşıyor', 'Büyüklerim denizde yaşıyor', 'Büyüklerim ormanda yaşıyor'], correct: 1 },
+            { q: 'Tengo dos hermanos', options: ['Bir kardeşim var', 'İki kardeşim var', 'Üç kardeşim var', 'Kardeşim yok'], correct: 1 },
+            { q: 'Mi hijo tiene 5 años', options: ['Oğlum 3 yaşında', 'Oğlum 5 yaşında', 'Oğlum 7 yaşında', 'Oğlum 10 yaşında'], correct: 1 },
+            { q: 'Mi hija estudia en primaria', options: ['Kızım üniversiteye gidiyor', 'Kızım ilkokula gidiyor', 'Kızım liseye gidiyor', 'Kızım çalışıyor'], correct: 1 },
+            { q: 'Mi esposo trabaja en la ciudad', options: ['Kocam köyde çalışıyor', 'Kocam şehirde çalışıyor', 'Kocam evde çalışıyor', 'Kocam hiç çalışmıyor'], correct: 1 },
+            { q: 'Mi esposa es abogada', options: ['Karım doktor', 'Karım avukat', 'Karım öğretmen', 'Karım hemşire'], correct: 1 },
+            { q: 'Amo a mi familia', options: ['Ailemden nefret ediyorum', 'Ailemden seviyorum', 'Ailem beni seviyor', 'Aile iyiyim'], correct: 1 }
         ];
 
         const gameData = [
@@ -2831,6 +2885,8 @@
         let currentAudio = null;
         let currentLanguage = 'es';
         let droppedWordsItalian = [];
+        let currentQuizSection = 1;
+        let currentQuiz = quiz1;
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -3152,32 +3208,41 @@
         function initQuiz() {
             quizScore = 0;
             currentQuestion = 0;
+            if (currentQuizSection === 1) currentQuiz = quiz1;
+            else if (currentQuizSection === 2) currentQuiz = quiz2;
+            else currentQuiz = quiz3;
             showQuizQuestion();
         }
 
         function showQuizQuestion() {
             const content = document.getElementById('quizContent');
 
-            if (currentQuestion >= quizzes.length) {
-                const percentage = (quizScore / quizzes.length * 100).toFixed(0);
-                content.innerHTML = `
+            if (currentQuestion >= currentQuiz.length) {
+                const percentage = (quizScore / currentQuiz.length * 100).toFixed(0);
+                let resultHTML = `
                     <div class="quiz-result">
-                        <h3>Tamamlandı! 🎉</h3>
-                        <p>Skor: ${quizScore}/${quizzes.length} (${percentage}%)</p>
-                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="initQuiz()">Tekrar Yap</button>
-                    </div>
-                `;
+                        <h3>Test ${currentQuizSection}/3 Tamamlandı! 🎉</h3>
+                        <p>Skor: ${quizScore}/${currentQuiz.length} (${percentage}%)</p>`;
+
+                if (currentQuizSection < 3) {
+                    resultHTML += `<button class="btn btn-primary" style="margin-top: 20px;" onclick="nextQuizSection()">Sonraki Test</button>`;
+                } else {
+                    resultHTML += `<button class="btn btn-primary" style="margin-top: 20px;" onclick="location.reload()">Baştan Başla</button>`;
+                }
+                resultHTML += `</div>`;
+                content.innerHTML = resultHTML;
                 return;
             }
 
-            const quiz = quizzes[currentQuestion];
-            const progress = (currentQuestion / quizzes.length) * 100;
+            const quiz = currentQuiz[currentQuestion];
+            const progress = (currentQuestion / currentQuiz.length) * 100;
 
             content.innerHTML = `
+                <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #2C7BE5;">Test ${currentQuizSection}/3</div>
                 <div class="progress">
                     <div class="progress-bar" style="width: ${progress}%"></div>
                 </div>
-                <div class="question-title">Soru ${currentQuestion + 1}/${quizzes.length}</div>
+                <div class="question-title">Soru ${currentQuestion + 1}/${currentQuiz.length}</div>
                 <p style="margin-bottom: 20px; font-size: 16px;">${quiz.q}</p>
                 <div class="options">
                     ${quiz.options.map((opt, idx) => `
@@ -3191,6 +3256,13 @@
             if (selected === correct) quizScore++;
             currentQuestion++;
             showQuizQuestion();
+        }
+
+        function nextQuizSection() {
+            currentQuizSection++;
+            quizScore = 0;
+            currentQuestion = 0;
+            initQuiz();
         }
 
         // KELIME BUL
