@@ -2707,17 +2707,10 @@
             { q: 'Necesito zapatillas deportivas', options: ['Ayakkabı satıyorum', 'Spor ayakkabısı lazım', 'Ayakkabı alsam', 'Ayakkabı yapılıyor'], correct: 1 },
             { q: 'Estos pantalones son cómodos', options: ['Pantolonlar rahatsız', 'Pantolonlar rahat', 'Pantolonlar kırık', 'Pantolonlar soğuk'], correct: 1 },
 
-            // Aile (10 soru)
+            // Aile (3 soru)
             { q: 'Tengo una hermana', options: ['Kız kardeşim yok', 'Kız kardeşim var', 'Erkek kardeşim var', 'Kardeşim öldü'], correct: 1 },
             { q: 'Mi padre es ingeniero', options: ['Babam doktor', 'Babam mühendis', 'Babam öğretmen', 'Babam polis'], correct: 1 },
-            { q: 'Mi madre es médica', options: ['Annem polis', 'Annem doktor', 'Annem avukat', 'Annem öğretmen'], correct: 1 },
-            { q: 'Mis abuelos viven en el campo', options: ['Büyüklerim şehirde yaşıyor', 'Büyüklerim köyde yaşıyor', 'Büyüklerim denizde yaşıyor', 'Büyüklerim ormanda yaşıyor'], correct: 1 },
-            { q: 'Tengo dos hermanos', options: ['Bir kardeşim var', 'İki kardeşim var', 'Üç kardeşim var', 'Kardeşim yok'], correct: 1 },
-            { q: 'Mi hijo tiene 5 años', options: ['Oğlum 3 yaşında', 'Oğlum 5 yaşında', 'Oğlum 7 yaşında', 'Oğlum 10 yaşında'], correct: 1 },
-            { q: 'Mi hija estudia en primaria', options: ['Kızım üniversiteye gidiyor', 'Kızım ilkokula gidiyor', 'Kızım liseye gidiyor', 'Kızım çalışıyor'], correct: 1 },
-            { q: 'Mi esposo trabaja en la ciudad', options: ['Kocam köyde çalışıyor', 'Kocam şehirde çalışıyor', 'Kocam evde çalışıyor', 'Kocam hiç çalışmıyor'], correct: 1 },
-            { q: 'Mi esposa es abogada', options: ['Karım doktor', 'Karım avukat', 'Karım öğretmen', 'Karım hemşire'], correct: 1 },
-            { q: 'Amo a mi familia', options: ['Ailemden nefret ediyorum', 'Ailemden seviyorum', 'Ailem beni seviyor', 'Aile iyiyim'], correct: 1 }
+            { q: 'Mi madre es médica', options: ['Annem polis', 'Annem doktor', 'Annem avukat', 'Annem öğretmen'], correct: 1 }
         ];
 
         const gameData = [
@@ -2883,7 +2876,12 @@
         let currentLanguage = 'es';
         let droppedWordsItalian = [];
         let currentQuizSection = 1;
-        let currentQuiz = quiz1;
+        let allQuizzesArray = [];
+        let currentQuiz = [];
+
+        function initAllQuizzesArray() {
+            allQuizzesArray = quiz1.concat(quiz2).concat(quiz3);
+        }
 
         // EKRAN GEÇIŞLERI
         function showScreen(screenId) {
@@ -3205,9 +3203,11 @@
         function initQuiz() {
             quizScore = 0;
             currentQuestion = 0;
-            if (currentQuizSection === 1) currentQuiz = quiz1;
-            else if (currentQuizSection === 2) currentQuiz = quiz2;
-            else currentQuiz = quiz3;
+            initAllQuizzesArray();
+            const questionsPerTest = 20;
+            const startIdx = (currentQuizSection - 1) * questionsPerTest;
+            const endIdx = startIdx + questionsPerTest;
+            currentQuiz = allQuizzesArray.slice(startIdx, endIdx);
             showQuizQuestion();
         }
 
@@ -3218,10 +3218,10 @@
                 const percentage = (quizScore / currentQuiz.length * 100).toFixed(0);
                 let resultHTML = `
                     <div class="quiz-result">
-                        <h3>Test ${currentQuizSection}/3 Tamamlandı! 🎉</h3>
+                        <h3>Test ${currentQuizSection}/5 Tamamlandı! 🎉</h3>
                         <p>Skor: ${quizScore}/${currentQuiz.length} (${percentage}%)</p>`;
 
-                if (currentQuizSection < 3) {
+                if (currentQuizSection < 5) {
                     resultHTML += `<button class="btn btn-primary" style="margin-top: 20px;" onclick="nextQuizSection()">Sonraki Test</button>`;
                 } else {
                     resultHTML += `<button class="btn btn-primary" style="margin-top: 20px;" onclick="location.reload()">Baştan Başla</button>`;
@@ -3235,7 +3235,7 @@
             const progress = (currentQuestion / currentQuiz.length) * 100;
 
             content.innerHTML = `
-                <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #2C7BE5;">Test ${currentQuizSection}/3</div>
+                <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #2C7BE5;">Test ${currentQuizSection}/5</div>
                 <div class="progress">
                     <div class="progress-bar" style="width: ${progress}%"></div>
                 </div>
