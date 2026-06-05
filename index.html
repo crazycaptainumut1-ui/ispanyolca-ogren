@@ -2606,7 +2606,67 @@
             { q: 'Agua', options: ['Ekmek', 'Su', 'Süt', 'Kahve'], correct: 1 },
             { q: 'Libro', options: ['Kalem', 'Kitap', 'Kağıt', 'Sandalye'], correct: 1 },
             { q: 'Rojo', options: ['Mavi', 'Yeşil', 'Kırmızı', 'Sarı'], correct: 2 },
-            { q: 'Azul', options: ['Kırmızı', 'Sarı', 'Mavi', 'Yeşil'], correct: 2 }
+            { q: 'Azul', options: ['Kırmızı', 'Sarı', 'Mavi', 'Yeşil'], correct: 2 },
+
+            // Günlük Hayat (10 soru)
+            { q: '¿Cuál es tu nombre?', options: ['Mavi', 'Benim adım Juan', 'Adını sorma', 'Evim var'], correct: 1 },
+            { q: 'Buenos días', options: ['İyi akşamlar', 'Günaydın', 'Hoşça kalın', 'Lütfen'], correct: 1 },
+            { q: '¿Cómo te llamas?', options: ['Benim adım Pedro', 'Nasılsın', 'Çok iyi', 'Teşekkür ederim'], correct: 0 },
+            { q: '¿Dónde vives?', options: ['Madrid\'te yaşıyorum', 'Futbol oynuyorum', 'Yiyorum', 'Uyuyorum'], correct: 0 },
+            { q: 'Me llamo Carlos', options: ['Carlos beni seviyor', 'Benim adım Carlos', 'Carlos\'un evi var', 'Carlos iyiyim'], correct: 1 },
+            { q: '¿Qué hora es?', options: ['Saat üç', 'Hava güzel', 'Ben iyi', 'Kitap okuorum'], correct: 0 },
+            { q: 'Tengo 25 años', options: ['Yirmi beş yaşında değilim', '25 yaşındayım', '25 kitap okuduk', '25 euro var'], correct: 1 },
+            { q: '¿De dónde eres?', options: ['Türkiye\'deniz', 'Ben futbolculuyum', 'Polis olabilirim', 'Soğuk hava var'], correct: 0 },
+            { q: 'Encantado de conocerte', options: ['Seni tanımaktan mutluyum', 'Seni seviyorum', 'Seni aradım', 'Seninle oynuyorum'], correct: 0 },
+            { q: '¿Hablas español?', options: ['Insan konuşuyor', 'İspanyolca konuşuyor musun?', 'Ben Türkçe', 'Şarkı söylüyorum'], correct: 1 },
+
+            // Yiyecek (10 soru)
+            { q: 'Pan', options: ['Tavuk', 'Ekmek', 'Baklava', 'Tatlı'], correct: 1 },
+            { q: 'Tengo hambre', options: ['Aç değilim', 'Aç\'ım', 'Susuzum', 'Hasta\'yım'], correct: 1 },
+            { q: 'Quiero comer', options: ['Yatmak istiyorum', 'Almak istiyorum', 'Yemek istiyorum', 'Gülemek istiyorum'], correct: 2 },
+            { q: '¿Te gusta la comida?', options: ['Yemek hoşuna mı gidiyor?', 'Kitap hoşuna mı gidiyor?', 'Müzik hoşuna mı gidiyor?', 'Spor hoşuna mı gidiyor?'], correct: 0 },
+            { q: 'Pollo', options: ['Balık', 'Tavuk', 'Keçi', 'Köpek'], correct: 1 },
+            { q: 'Leche', options: ['Peynir', 'Ekmek', 'Süt', 'Yumurta'], correct: 2 },
+            { q: 'Me encanta la pizza', options: ['Pizzayı sevmiyorum', 'Pizzayı çok seviyorum', 'Pizza iyiyim', 'Pizza akşam'], correct: 1 },
+            { q: 'Frutas', options: ['Sebzeler', 'Meyveler', 'Peynirler', 'Unlar'], correct: 1 },
+            { q: 'Café caliente', options: ['Soğuk kahve', 'Sıcak kahve', 'Kahve saati', 'Kahve fincan'], correct: 1 },
+            { q: 'Tengo sed', options: ['Susuzum', 'Aç\'ım', 'Asılıyım', 'Yorgunum'], correct: 0 },
+
+            // Sayılar (10 soru)
+            { q: 'Uno', options: ['Sekiz', 'Bir', 'On', 'Yüz'], correct: 1 },
+            { q: 'Dos', options: ['İki', 'Dokuz', 'Üç', 'Dört'], correct: 0 },
+            { q: 'Cinco', options: ['Altı', 'Beş', 'Yedi', 'Dört'], correct: 1 },
+            { q: 'Diez', options: ['Dokuz', 'Sekiz', 'On', 'Onbir'], correct: 2 },
+            { q: 'Veinte', options: ['On dokuz', 'Yirmi bir', 'Yirmi', 'Yirmi iki'], correct: 2 },
+            { q: 'Cien', options: ['Doksan dokuz', 'Yüz bir', 'Yüz', 'Yüz iki'], correct: 2 },
+            { q: '3 + 4 = ?', options: ['Altı', 'Sekiz', 'Yedi', 'Dokuz'], correct: 2 },
+            { q: '10 - 5 = ?', options: ['Üç', 'Dört', 'Beş', 'Altı'], correct: 2 },
+            { q: '6 + 6 = ?', options: ['On iki', 'Onbir', 'On', 'Dokuz'], correct: 0 },
+            { q: 'Tengo 7 gatos', options: ['Sekiz kaedi var', 'Yedi kedim var', 'Altı kedim var', 'Dokuz kedim var'], correct: 1 },
+
+            // Renkler (10 soru)
+            { q: 'Negro', options: ['Beyaz', 'Sarı', 'Siyah', 'Turuncu'], correct: 2 },
+            { q: 'Blanco', options: ['Beyaz', 'Gri', 'Koyu', 'Pembeli'], correct: 0 },
+            { q: 'Verde', options: ['Mavi', 'Yeşil', 'Kırmızı', 'Sarı'], correct: 1 },
+            { q: 'Amarillo', options: ['Turuncu', 'Sarı', 'Yeşil', 'Mavi'], correct: 1 },
+            { q: 'Naranja', options: ['Sarı', 'Mavi', 'Turuncu', 'Kırmızı'], correct: 2 },
+            { q: 'Rosa', options: ['Kırmızı', 'Pembe', 'Turuncu', 'Mor'], correct: 1 },
+            { q: 'Púrpura', options: ['Sarı', 'Mavi', 'Mor', 'Yeşil'], correct: 2 },
+            { q: 'Gris', options: ['Siyah', 'Gri', 'Koyu', 'Açık'], correct: 1 },
+            { q: 'Marrón', options: ['Kahverengi', 'Siyah', 'Gri', 'Beyaz'], correct: 0 },
+            { q: 'Mi coche es rojo', options: ['Benim araba mavi', 'Benim araba kırmızı', 'Benim araba yeşil', 'Benim araba sarı'], correct: 1 },
+
+            // Fiiller (10 soru)
+            { q: 'Comer', options: ['İçmek', 'Yemek', 'Uyumak', 'Koşmak'], correct: 1 },
+            { q: 'Beber', options: ['Yemek', 'İçmek', 'Oyun oynamak', 'Çalışmak'], correct: 1 },
+            { q: 'Dormir', options: ['Uyumak', 'Uyandırmak', 'Uzanmak', 'Dinlenmek'], correct: 0 },
+            { q: 'Hablar', options: ['Dinlemek', 'Konuşmak', 'Yazmak', 'Okumak'], correct: 1 },
+            { q: 'Escuchar', options: ['Konuşmak', 'Dinlemek', 'Söylemek', 'Anlamak'], correct: 1 },
+            { q: 'Escribir', options: ['Yazmak', 'Okuymak', 'Okumak', 'Silmek'], correct: 0 },
+            { q: 'Correr', options: ['Yürümek', 'Koşmak', 'Durmmak', 'Oturmak'], correct: 1 },
+            { q: 'Caminar', options: ['Koşmak', 'Yürümek', 'Atlamak', 'Uçmak'], correct: 1 },
+            { q: 'Jugar', options: ['Çalışmak', 'Oynamak', 'Ders çalmak', 'Antrenman'], correct: 1 },
+            { q: 'Amar', options: ['Nefret etmek', 'Sevmek', 'Korkamk', 'İstememek'], correct: 1 }
         ];
 
         const gameData = [
