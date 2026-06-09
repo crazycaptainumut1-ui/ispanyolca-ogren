@@ -939,17 +939,17 @@
                 <div class="menu-card" onclick="goToModule('game')">
                     <div class="menu-card-icon">🎯</div>
                     <h3>Oyun</h3>
-                    <p>Cümleleri sıraya koy</p>
+                    <p id="italianGameCount">... cümle</p>
                 </div>
                 <div class="menu-card" onclick="goToModule('quiz')">
                     <div class="menu-card-icon">📝</div>
                     <h3>Quiz</h3>
-                    <p>Bilgini test et</p>
+                    <p id="italianQuizCount">... soru</p>
                 </div>
                 <div class="menu-card" onclick="goToModule('wordFind')">
                     <div class="menu-card-icon">🔍</div>
                     <h3>Kelime Bul</h3>
-                    <p>Gizli kelimeyi bul</p>
+                    <p id="italianWordFindCount">... soru</p>
                 </div>
             </div>
         </div>
@@ -3174,6 +3174,9 @@
             } else if (lang === 'it') {
                 document.getElementById('italianWordCount').textContent = italianWords.filter(w => w.it).length + ' İtalyanca kelime öğren';
                 document.getElementById('italianSentenceCount').textContent = italianSentences.filter(s => s.it).length + ' cümle dinle ve tekrarla';
+                document.getElementById('italianGameCount').textContent = gameDataItalian.length + ' cümle';
+                document.getElementById('italianQuizCount').textContent = quizzesItalian.length + ' soru';
+                document.getElementById('italianWordFindCount').textContent = italianFindWords.length + ' soru';
                 showScreen('italianMenuScreen');
             }
         }
