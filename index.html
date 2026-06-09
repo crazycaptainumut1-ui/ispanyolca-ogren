@@ -3892,6 +3892,8 @@
             showQuizQuestionItalian();
         }
 
+        let quizAnsweredItalian = false;
+
         function showQuizQuestionItalian() {
             const content = document.getElementById('italianQuizContent');
 
@@ -3907,6 +3909,7 @@
                 return;
             }
 
+            quizAnsweredItalian = false;
             const quiz = quizzesItalian[currentQuestionItalian];
             const progress = (currentQuestionItalian / quizzesItalian.length) * 100;
 
@@ -3916,7 +3919,8 @@
                 </div>
                 <div class="question-title">Soru ${currentQuestionItalian + 1}/${quizzesItalian.length}</div>
                 <p style="margin-bottom: 20px; font-size: 16px;">${quiz.q}</p>
-                <div class="options">
+                <div id="quizMessageItalian" style="text-align: center; margin-bottom: 15px; font-size: 16px; font-weight: bold; min-height: 30px;"></div>
+                <div class="options" id="quizOptionsItalian">
                     ${quiz.options.map((opt, idx) => `
                         <button class="option-btn" onclick="answerQuizItalian(${idx}, ${quiz.correct})">${opt}</button>
                     `).join('')}
@@ -3925,9 +3929,25 @@
         }
 
         function answerQuizItalian(selected, correct) {
-            if (selected === correct) quizScoreItalian++;
-            currentQuestionItalian++;
-            showQuizQuestionItalian();
+            if (quizAnsweredItalian) return;
+            quizAnsweredItalian = true;
+
+            const messageEl = document.getElementById('quizMessageItalian');
+            const optionsEl = document.getElementById('quizOptionsItalian');
+
+            if (selected === correct) {
+                quizScoreItalian++;
+                messageEl.innerHTML = `<span style="color: #51cf66;">✅ Doğru bildin Ahu!</span>`;
+            } else {
+                messageEl.innerHTML = `<span style="color: #ff6b6b;">❌ Bu sefer bilemedin Ahu!</span>`;
+            }
+
+            optionsEl.style.opacity = '0.5';
+
+            setTimeout(() => {
+                currentQuestionItalian++;
+                showQuizQuestionItalian();
+            }, 1000);
         }
 
         // ITALIAN WORD FIND
