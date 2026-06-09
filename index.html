@@ -3814,50 +3814,71 @@
 
         // ITALIAN WORD FIND
         let wordFindScoreItalian = 0;
-        let wordFindQuestionItalian = 0;
-        let wordFindQuestionsItalian = [];
+        let wordFindCurrentTestItalian = 0;
+        let wordFindQuestionInTestItalian = 0;
+        let wordFindTestsItalian = [];
         let wordFindCurrentQuestionItalian = {};
+        let wordFindAnsweredItalian = false;
 
         function generateWordFindQuestionsItalian() {
-            wordFindQuestionsItalian = [];
+            wordFindTestsItalian = [];
+            const questionsToUse = italianFindWords.slice(0, 150);
 
-            italianFindWords.forEach(question => {
-                const correctTranslation = question.tr;
-                const wrongOptions = question.wrong;
+            for (let testIdx = 0; testIdx < 15; testIdx++) {
+                const testQuestions = [];
+                for (let i = 0; i < 10; i++) {
+                    const question = questionsToUse[testIdx * 10 + i];
+                    const correctTranslation = question.tr;
+                    const wrongOptions = question.wrong;
+                    let options = [correctTranslation, ...wrongOptions];
+                    options = options.sort(() => Math.random() - 0.5);
 
-                let options = [correctTranslation, ...wrongOptions];
-                options = options.sort(() => Math.random() - 0.5);
-
-                wordFindQuestionsItalian.push({
-                    word: question.it,
-                    translation: correctTranslation,
-                    options: options
-                });
-            });
+                    testQuestions.push({
+                        word: question.it,
+                        translation: correctTranslation,
+                        options: options
+                    });
+                }
+                wordFindTestsItalian.push(testQuestions);
+            }
         }
 
         function initWordFindItalian() {
             wordFindScoreItalian = 0;
-            wordFindQuestionItalian = 0;
+            wordFindCurrentTestItalian = 0;
+            wordFindQuestionInTestItalian = 0;
+            wordFindAnsweredItalian = false;
             generateWordFindQuestionsItalian();
             showWordFindQuestionItalian();
         }
 
         function showWordFindQuestionItalian() {
-            if (wordFindQuestionItalian >= wordFindQuestionsItalian.length) {
+            if (wordFindCurrentTestItalian >= 15) {
                 document.getElementById('italianWordFindContent').innerHTML = `
                     <div class="quiz-result">
-                        <h3>Oyun Bitti! 🎉</h3>
-                        <p>Skor: ${wordFindScoreItalian}/${wordFindQuestionsItalian.length}</p>
+                        <h3>Tüm Testler Bitti! 🎉</h3>
+                        <p>Toplam Skor: ${wordFindScoreItalian}/150</p>
                         <button class="btn btn-primary" style="margin-top: 20px;" onclick="initWordFindItalian()">Tekrar Yap</button>
                     </div>
                 `;
                 return;
             }
 
-            wordFindCurrentQuestionItalian = wordFindQuestionsItalian[wordFindQuestionItalian];
+            if (wordFindQuestionInTestItalian >= 10) {
+                document.getElementById('italianWordFindContent').innerHTML = `
+                    <div class="quiz-result">
+                        <h3>Test ${wordFindCurrentTestItalian + 1} Bitti! ✅</h3>
+                        <p>Test Skoru: ${wordFindScoreItalian}/150</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="goToNextTestItalian()">Sonraki Test →</button>
+                    </div>
+                `;
+                return;
+            }
+
+            wordFindCurrentQuestionItalian = wordFindTestsItalian[wordFindCurrentTestItalian][wordFindQuestionInTestItalian];
+            wordFindAnsweredItalian = false;
             document.getElementById('italianWordFindScore').textContent = `Puan: ${wordFindScoreItalian}`;
-            document.getElementById('italianWordFindProgress').textContent = `Soru ${wordFindQuestionItalian + 1}/${wordFindQuestionsItalian.length}`;
+            document.getElementById('italianWordFindProgress').textContent = `Test ${wordFindCurrentTestItalian + 1}/15 - Soru ${wordFindQuestionInTestItalian + 1}/10`;
 
             const isDarkMode = document.body.classList.contains('dark-mode');
             document.getElementById('italianWordFindContent').innerHTML = `
@@ -3867,7 +3888,8 @@
                 <div style="text-align: center; margin-bottom: 20px; color: ${isDarkMode ? '#ffffff' : '#a0a0a0'};">
                     <p>Doğru Türkçe karşılığını seç:</p>
                 </div>
-                <div class="options">
+                <div id="wordFindMessage" style="text-align: center; margin-bottom: 15px; font-size: 16px; font-weight: bold; min-height: 30px;"></div>
+                <div class="options" id="wordFindOptions">
                     ${wordFindCurrentQuestionItalian.options.map((opt) => `
                         <button class="option-btn" onclick="answerWordFindItalian('${opt}')">${opt}</button>
                     `).join('')}
@@ -3876,10 +3898,30 @@
         }
 
         function answerWordFindItalian(selected) {
+            if (wordFindAnsweredItalian) return;
+            wordFindAnsweredItalian = true;
+
+            const messageEl = document.getElementById('wordFindMessage');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+
             if (selected === wordFindCurrentQuestionItalian.translation) {
                 wordFindScoreItalian++;
+                messageEl.innerHTML = `<span style="color: #51cf66;">✅ Doğru bildin Ahu!</span>`;
+            } else {
+                messageEl.innerHTML = `<span style="color: #ff6b6b;">❌ Bu sefer bilemedin Ahu!</span>`;
             }
-            wordFindQuestionItalian++;
+
+            document.getElementById('wordFindOptions').style.opacity = '0.5';
+
+            setTimeout(() => {
+                wordFindQuestionInTestItalian++;
+                showWordFindQuestionItalian();
+            }, 1000);
+        }
+
+        function goToNextTestItalian() {
+            wordFindCurrentTestItalian++;
+            wordFindQuestionInTestItalian = 0;
             showWordFindQuestionItalian();
         }
     </script>
