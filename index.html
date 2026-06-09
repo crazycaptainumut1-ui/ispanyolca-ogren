@@ -3768,9 +3768,24 @@
         let quizScoreItalian = 0;
         let currentQuestionItalian = 0;
 
+        function generateQuizzesItalian() {
+            quizzesItalian = [];
+            italianFindWords.forEach(question => {
+                const options = [question.it, ...question.wrong].sort(() => Math.random() - 0.5);
+                const correctIndex = options.indexOf(question.it);
+
+                quizzesItalian.push({
+                    q: question.tr,
+                    options: options,
+                    correct: correctIndex
+                });
+            });
+        }
+
         function initQuizItalian() {
             quizScoreItalian = 0;
             currentQuestionItalian = 0;
+            generateQuizzesItalian();
             showQuizQuestionItalian();
         }
 
