@@ -3264,6 +3264,7 @@
 
         function selectLanguage(lang) {
             currentLanguage = lang;
+            localStorage.setItem('currentLanguage', lang);
             if (lang === 'es') {
                 document.getElementById('wordCount').textContent = words.filter(w => w.es).length + ' İspanyolca kelime öğren';
                 document.getElementById('sentenceCount').textContent = sentences.filter(s => s.es).length + ' cümle dinle ve tekrarla';
@@ -4062,6 +4063,16 @@
             wordFindQuestionInTestItalian = 0;
             showWordFindQuestionItalian();
         }
+
+        // Sayfa yüklenince localStorage'dan dil seçimini al
+        window.addEventListener('load', function() {
+            const savedLanguage = localStorage.getItem('currentLanguage');
+            if (savedLanguage) {
+                selectLanguage(savedLanguage);
+            } else {
+                showScreen('languageScreen');
+            }
+        });
     </script>
 </body>
 </html>
