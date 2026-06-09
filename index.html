@@ -1089,8 +1089,8 @@
         <div id="italianWordFindScreen" class="screen">
             <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
             <div class="module-header">
-                <h2>🔍 Kelime Bul</h2>
-                <p style="margin-top: 8px; color: #a0a0a0;">Gizli kelimeyi doğru seçerek bulunuz</p>
+                <h2>🔍 İtalyanca Kelime Bul</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">İtalyanca kelimeye uygun Türkçe çevirişi seç</p>
             </div>
             <div class="game-container">
                 <div style="text-align: center; margin-bottom: 20px;">
@@ -3652,45 +3652,75 @@
         // ITALIAN WORD FIND
         let wordFindScoreItalian = 0;
         let wordFindQuestionItalian = 0;
+        let wordFindQuestionsItalian = [];
+        let wordFindCurrentQuestionItalian = {};
+
+        function generateWordFindQuestionsItalian() {
+            wordFindQuestionsItalian = [];
+            const selectedWords = italianWords.slice(0, Math.min(20, italianWords.length));
+
+            selectedWords.forEach(word => {
+                const correctTranslation = word.tr;
+                const wrongOptions = italianWords
+                    .filter(w => w.it !== word.it && w.tr !== word.tr)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(w => w.tr);
+
+                let options = [correctTranslation, ...wrongOptions];
+                options = options.sort(() => Math.random() - 0.5);
+
+                wordFindQuestionsItalian.push({
+                    word: word.it,
+                    translation: correctTranslation,
+                    options: options
+                });
+            });
+        }
 
         function initWordFindItalian() {
             wordFindScoreItalian = 0;
             wordFindQuestionItalian = 0;
+            generateWordFindQuestionsItalian();
             showWordFindQuestionItalian();
         }
 
         function showWordFindQuestionItalian() {
-            if (wordFindQuestionItalian >= wordFindDataItalian.length) {
+            if (wordFindQuestionItalian >= wordFindQuestionsItalian.length) {
                 document.getElementById('italianWordFindContent').innerHTML = `
                     <div class="quiz-result">
                         <h3>Oyun Bitti! 🎉</h3>
-                        <p>Skor: ${wordFindScoreItalian}/${wordFindDataItalian.length}</p>
+                        <p>Skor: ${wordFindScoreItalian}/${wordFindQuestionsItalian.length}</p>
                         <button class="btn btn-primary" style="margin-top: 20px;" onclick="initWordFindItalian()">Tekrar Yap</button>
                     </div>
                 `;
                 return;
             }
 
-            const question = wordFindDataItalian[wordFindQuestionItalian];
+            wordFindCurrentQuestionItalian = wordFindQuestionsItalian[wordFindQuestionItalian];
             document.getElementById('italianWordFindScore').textContent = `Puan: ${wordFindScoreItalian}`;
-            document.getElementById('italianWordFindProgress').textContent = `Soru ${wordFindQuestionItalian + 1}/${wordFindDataItalian.length}`;
+            document.getElementById('italianWordFindProgress').textContent = `Soru ${wordFindQuestionItalian + 1}/${wordFindQuestionsItalian.length}`;
 
             const isDarkMode = document.body.classList.contains('dark-mode');
             document.getElementById('italianWordFindContent').innerHTML = `
-                <div style="margin-bottom: 20px; padding: 20px; border-radius: 10px; background: ${isDarkMode ? '#4d4d4d' : '#F5F8FF'}; text-align: center;">
-                    <p style="color: ${isDarkMode ? '#ffffff' : '#4A90D9'}; font-size: 14px; margin-bottom: 10px;">İpucu: ${question.hint}</p>
-                    <p style="color: ${isDarkMode ? '#ffffff' : '#2C3E50'}; font-size: 16px; font-weight: 600;">"${question.word}" kelimesini seç:</p>
+                <div style="margin-bottom: 30px; padding: 30px; border-radius: 10px; background: ${isDarkMode ? '#4d4d4d' : '#F5F8FF'}; text-align: center;">
+                    <p style="color: ${isDarkMode ? '#ffffff' : '#2C3E50'}; font-size: 28px; font-weight: bold;">${wordFindCurrentQuestionItalian.word}</p>
+                </div>
+                <div style="text-align: center; margin-bottom: 20px; color: ${isDarkMode ? '#ffffff' : '#a0a0a0'};">
+                    <p>Doğru Türkçe karşılığını seç:</p>
                 </div>
                 <div class="options">
-                    ${question.options.map((opt, idx) => `
-                        <button class="option-btn" onclick="answerWordFindItalian(${idx}, ${question.correct})">${opt}</button>
+                    ${wordFindCurrentQuestionItalian.options.map((opt) => `
+                        <button class="option-btn" onclick="answerWordFindItalian('${opt}')">${opt}</button>
                     `).join('')}
                 </div>
             `;
         }
 
-        function answerWordFindItalian(selected, correct) {
-            if (selected === correct) wordFindScoreItalian++;
+        function answerWordFindItalian(selected) {
+            if (selected === wordFindCurrentQuestionItalian.translation) {
+                wordFindScoreItalian++;
+            }
             wordFindQuestionItalian++;
             showWordFindQuestionItalian();
         }
