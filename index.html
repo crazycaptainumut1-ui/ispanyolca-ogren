@@ -3143,6 +3143,13 @@
 
             // Llamar a funciones de inicialización según la pantalla
             switch(screenId) {
+                case 'italianMenuScreen':
+                    document.getElementById('italianWordCount').textContent = italianWords.filter(w => w.it).length + ' İtalyanca kelime öğren';
+                    document.getElementById('italianSentenceCount').textContent = italianSentences.filter(s => s.it).length + ' cümle dinle ve tekrarla';
+                    document.getElementById('italianGameCount').textContent = gameDataItalian.length + ' cümle';
+                    document.getElementById('italianQuizCount').textContent = quizzesItalian.length + ' soru';
+                    document.getElementById('italianWordFindCount').textContent = italianFindWords.length + ' soru';
+                    break;
                 case 'wordsScreen':
                     initWords();
                     break;
