@@ -2667,6 +2667,39 @@
         ];
 
         // ITALIAN WORD FIND DATA
+        const italianFindWords = [
+            {it:'casa', tr:'ev', wrong:['okul','araba','kitap']},
+            {it:'scuola', tr:'okul', wrong:['hastane','ev','market']},
+            {it:'macchina', tr:'araba', wrong:['uçak','masa','ev']},
+            {it:'libro', tr:'kitap', wrong:['defter','çanta','kalem']},
+            {it:'penna', tr:'kalem', wrong:['silgi','masa','kapı']},
+            {it:'tavolo', tr:'masa', wrong:['sandalye','kapı','halı']},
+            {it:'sedia', tr:'sandalye', wrong:['masa','dolap','halı']},
+            {it:'porta', tr:'kapı', wrong:['pencere','çatı','duvar']},
+            {it:'finestra', tr:'pencere', wrong:['kapı','masa','sandalye']},
+            {it:'acqua', tr:'su', wrong:['süt','kahve','çay']},
+            {it:'latte', tr:'süt', wrong:['su','meyve suyu','kahve']},
+            {it:'caffè', tr:'kahve', wrong:['çay','süt','su']},
+            {it:'pane', tr:'ekmek', wrong:['peynir','elma','et']},
+            {it:'formaggio', tr:'peynir', wrong:['ekmek','tereyağı','yoğurt']},
+            {it:'mela', tr:'elma', wrong:['armut','muz','çilek']},
+            {it:'arancia', tr:'portakal', wrong:['limon','üzüm','elma']},
+            {it:'banana', tr:'muz', wrong:['armut','şeftali','erik']},
+            {it:'carne', tr:'et', wrong:['balık','ekmek','pirinç']},
+            {it:'pesce', tr:'balık', wrong:['et','tavuk','peynir']},
+            {it:'pollo', tr:'tavuk', wrong:['ördek','balık','et']},
+            {it:'famiglia', tr:'aile', wrong:['arkadaş','komşu','öğretmen']},
+            {it:'madre', tr:'anne', wrong:['hala','abla','teyze']},
+            {it:'padre', tr:'baba', wrong:['dayı','amca','abi']},
+            {it:'fratello', tr:'erkek kardeş', wrong:['kuzen','baba','arkadaş']},
+            {it:'sorella', tr:'kız kardeş', wrong:['anne','hala','teyze']},
+            {it:'amico', tr:'erkek arkadaş/dost', wrong:['doktor','öğretmen','komşu']},
+            {it:'amica', tr:'kız arkadaş/dost', wrong:['öğrenci','doktor','komşu']},
+            {it:'uomo', tr:'erkek', wrong:['kadın','çocuk','bebek']},
+            {it:'donna', tr:'kadın', wrong:['erkek','çocuk','bebek']},
+            {it:'bambino', tr:'erkek çocuk', wrong:['dede','baba','erkek']}
+        ];
+
         const wordFindDataItalian = [
             { word: 'Ciao', options: ['Amore', 'Ciao', 'Casa', 'Gatto'], correct: 1, hint: 'Merhaba demek' },
             { word: 'Casa', options: ['Gatto', 'Cane', 'Casa', 'Albero'], correct: 2, hint: 'Ev demek' },
@@ -3657,21 +3690,16 @@
 
         function generateWordFindQuestionsItalian() {
             wordFindQuestionsItalian = [];
-            const selectedWords = italianWords.slice(0, Math.min(20, italianWords.length));
 
-            selectedWords.forEach(word => {
-                const correctTranslation = word.tr;
-                const wrongOptions = italianWords
-                    .filter(w => w.it !== word.it && w.tr !== word.tr)
-                    .sort(() => Math.random() - 0.5)
-                    .slice(0, 3)
-                    .map(w => w.tr);
+            italianFindWords.forEach(question => {
+                const correctTranslation = question.tr;
+                const wrongOptions = question.wrong;
 
                 let options = [correctTranslation, ...wrongOptions];
                 options = options.sort(() => Math.random() - 0.5);
 
                 wordFindQuestionsItalian.push({
-                    word: word.it,
+                    word: question.it,
                     translation: correctTranslation,
                     options: options
                 });
