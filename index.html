@@ -884,7 +884,7 @@
                     <div style="display: flex; flex-direction: column; gap: 20px; max-width: 400px; margin: 0 auto;">
                         <button class="language-btn" onclick="selectLanguage('es')"><img src="ispanya.png" alt="İspanyolca" style="width: 40px; height: 27px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> İspanyolca</button>
                         <button class="language-btn" onclick="selectLanguage('it')"><img src="italya.png" alt="İtalyanca" style="width: 40px; height: 27px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> İtalyanca</button>
-                        <button class="language-btn" onclick="showAlert('Yunanca yakında eklenecek!')"><img src="yunan.png" alt="Yunanca" style="width: 40px; height: 27px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> Yunanca</button>
+                        <button class="language-btn" onclick="selectLanguage('gr')"><img src="yunan.png" alt="Yunanca" style="width: 40px; height: 27px; border-radius: 4px; margin-right: 8px; vertical-align: middle;"> Yunanca</button>
                     </div>
                 </div>
             </div>
@@ -950,6 +950,23 @@
                     <div class="menu-card-icon">🔍</div>
                     <h3>Kelime Bul</h3>
                     <p id="italianWordFindCount">... soru</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- YUNANCA ANA MENÜ -->
+        <div id="greekMenuScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 20px;" onclick="showScreen('languageScreen')">← Geri</button>
+            <div class="menu-screen">
+                <div class="menu-card" onclick="goToModule('words')">
+                    <div class="menu-card-icon">📚</div>
+                    <h3>Kelimeler</h3>
+                    <p id="greekWordCount">... Yunanca kelime öğren</p>
+                </div>
+                <div class="menu-card" onclick="goToModule('listening')">
+                    <div class="menu-card-icon">🎧</div>
+                    <h3>Dinleme</h3>
+                    <p id="greekSentenceCount">... cümle dinle ve tekrarla</p>
                 </div>
             </div>
         </div>
@@ -1052,6 +1069,32 @@
                 <p style="margin-top: 8px; color: #a0a0a0;">Cümleleri dinle ve tekrarlamayı dene</p>
             </div>
             <div id="italianListeningContainer"></div>
+        </div>
+
+        <!-- YUNANCA KELİMELER MODÜLÜ -->
+        <div id="greekWordsScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>📚 Kelime Kartları</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Her kelimeye tıklayarak seslendirimini dinle</p>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button id="levelA1Gr" class="level-btn active" onclick="setWordLevelGreek('A1')">A1 Başlangıç</button>
+                <button id="levelA2Gr" class="level-btn" onclick="setWordLevelGreek('A2')">A2 Temel</button>
+                <button id="levelB1Gr" class="level-btn" onclick="setWordLevelGreek('B1')">B1 Orta</button>
+                <button id="levelB2Gr" class="level-btn" onclick="setWordLevelGreek('B2')">B2 İleri</button>
+            </div>
+            <div class="cards-grid" id="greekWordsGrid"></div>
+        </div>
+
+        <!-- YUNANCA DİNLEME MODÜLÜ -->
+        <div id="greekListeningScreen" class="screen">
+            <button class="nav-btn" style="margin-bottom: 15px;" onclick="goBack()">← Geri</button>
+            <div class="module-header">
+                <h2>🎧 Dinleme Egzersizi</h2>
+                <p style="margin-top: 8px; color: #a0a0a0;">Cümleleri dinle ve tekrarlamayı dene</p>
+            </div>
+            <div id="greekListeningContainer"></div>
         </div>
 
         <!-- İTALYAN OYUN MODÜLÜ -->
@@ -2544,6 +2587,159 @@
             { it: 'Mi piacerebbe combinare queste passioni in futuro.', tr: 'Gelecekte bu tutkuları birleştirmek isterdim.', level: 'B1', category: 'Geleceği' }
         ];
 
+        // GREEK WORDS
+        const greekWords = [
+            {"gr":"γεια","tr":"merhaba","level":"A1","category":"selamlaşma"},
+            {"gr":"καλημέρα","tr":"günaydın","level":"A1","category":"selamlaşma"},
+            {"gr":"καλησπέρα","tr":"iyi akşamlar","level":"A1","category":"selamlaşma"},
+            {"gr":"καληνύχτα","tr":"iyi geceler","level":"A1","category":"selamlaşma"},
+            {"gr":"αντίο","tr":"hoşça kal","level":"A1","category":"selamlaşma"},
+            {"gr":"παρακαλώ","tr":"lütfen","level":"A1","category":"selamlaşma"},
+            {"gr":"ευχαριστώ","tr":"teşekkür ederim","level":"A1","category":"selamlaşma"},
+            {"gr":"συγγνώμη","tr":"afedersiniz","level":"A1","category":"selamlaşma"},
+            {"gr":"μητέρα","tr":"anne","level":"A1","category":"aile"},
+            {"gr":"πατέρας","tr":"baba","level":"A1","category":"aile"},
+            {"gr":"αδελφός","tr":"erkek kardeş","level":"A1","category":"aile"},
+            {"gr":"αδελφή","tr":"kız kardeş","level":"A1","category":"aile"},
+            {"gr":"γιος","tr":"oğul","level":"A1","category":"aile"},
+            {"gr":"κόρη","tr":"kız evlat","level":"A1","category":"aile"},
+            {"gr":"παππούς","tr":"dede","level":"A1","category":"aile"},
+            {"gr":"γιαγιά","tr":"babaanne/anneanne","level":"A1","category":"aile"},
+            {"gr":"νερό","tr":"su","level":"A1","category":"yiyecek"},
+            {"gr":"ψωμί","tr":"ekmek","level":"A1","category":"yiyecek"},
+            {"gr":"γάλα","tr":"süt","level":"A1","category":"yiyecek"},
+            {"gr":"τυρί","tr":"peynir","level":"A1","category":"yiyecek"},
+            {"gr":"μήλο","tr":"elma","level":"A1","category":"yiyecek"},
+            {"gr":"πορτοκάλι","tr":"portakal","level":"A1","category":"yiyecek"},
+            {"gr":"κρέας","tr":"et","level":"A1","category":"yiyecek"},
+            {"gr":"ρύζι","tr":"pirinç","level":"A1","category":"yiyecek"},
+            {"gr":"κόκκινο","tr":"kırmızı","level":"A1","category":"renkler"},
+            {"gr":"μπλε","tr":"mavi","level":"A1","category":"renkler"},
+            {"gr":"πράσινο","tr":"yeşil","level":"A1","category":"renkler"},
+            {"gr":"κίτρινο","tr":"sarı","level":"A1","category":"renkler"},
+            {"gr":"μαύρο","tr":"siyah","level":"A1","category":"renkler"},
+            {"gr":"άσπρο","tr":"beyaz","level":"A1","category":"renkler"},
+            {"gr":"ένα","tr":"bir","level":"A1","category":"sayılar"},
+            {"gr":"δύο","tr":"iki","level":"A1","category":"sayılar"},
+            {"gr":"τρία","tr":"üç","level":"A1","category":"sayılar"},
+            {"gr":"τέσσερα","tr":"dört","level":"A1","category":"sayılar"},
+            {"gr":"πέντε","tr":"beş","level":"A1","category":"sayılar"},
+            {"gr":"δέκα","tr":"on","level":"A1","category":"sayılar"},
+            {"gr":"είκοσι","tr":"yirmi","level":"A1","category":"sayılar"},
+            {"gr":"εκατό","tr":"yüz","level":"A2","category":"sayılar"},
+            {"gr":"είμαι","tr":"olmak","level":"A1","category":"fiiller"},
+            {"gr":"έχω","tr":"sahip olmak","level":"A1","category":"fiiller"},
+            {"gr":"πηγαίνω","tr":"gitmek","level":"A1","category":"fiiller"},
+            {"gr":"έρχομαι","tr":"gelmek","level":"A1","category":"fiiller"},
+            {"gr":"τρώω","tr":"yemek yemek","level":"A1","category":"fiiller"},
+            {"gr":"πίνω","tr":"içmek","level":"A1","category":"fiiller"},
+            {"gr":"βλέπω","tr":"görmek","level":"A1","category":"fiiller"},
+            {"gr":"μιλάω","tr":"konuşmak","level":"A1","category":"fiiller"},
+            {"gr":"αεροδρόμιο","tr":"havaalanı","level":"A1","category":"seyahat"},
+            {"gr":"ξενοδοχείο","tr":"otel","level":"A1","category":"seyahat"},
+            {"gr":"σταθμός","tr":"istasyon","level":"A1","category":"seyahat"},
+            {"gr":"εισιτήριο","tr":"bilet","level":"A1","category":"seyahat"},
+            {"gr":"βαλίτσα","tr":"bavul","level":"A1","category":"seyahat"},
+            {"gr":"ταξί","tr":"taksi","level":"A1","category":"seyahat"},
+            {"gr":"λεωφορείο","tr":"otobüs","level":"A1","category":"seyahat"},
+            {"gr":"χάρτης","tr":"harita","level":"A2","category":"seyahat"},
+            {"gr":"σπίτι","tr":"ev","level":"A1","category":"günlük hayat"},
+            {"gr":"δωμάτιο","tr":"oda","level":"A1","category":"günlük hayat"},
+            {"gr":"δουλειά","tr":"iş","level":"A1","category":"günlük hayat"},
+            {"gr":"σχολείο","tr":"okul","level":"A1","category":"günlük hayat"},
+            {"gr":"φίλος","tr":"erkek arkadaş/dost","level":"A1","category":"günlük hayat"},
+            {"gr":"φίλη","tr":"kadın arkadaş/dost","level":"A1","category":"günlük hayat"},
+            {"gr":"χρόνος","tr":"zaman","level":"A2","category":"günlük hayat"},
+            {"gr":"χρήματα","tr":"para","level":"A2","category":"günlük hayat"},
+            {"gr":"εργάζομαι","tr":"çalışmak","level":"A2","category":"fiiller"},
+            {"gr":"μαθαίνω","tr":"öğrenmek","level":"A2","category":"fiiller"},
+            {"gr":"διαβάζω","tr":"okumak","level":"A2","category":"fiiller"},
+            {"gr":"γράφω","tr":"yazmak","level":"A2","category":"fiiller"},
+            {"gr":"αγοράζω","tr":"satın almak","level":"A2","category":"fiiller"},
+            {"gr":"πουλάω","tr":"satmak","level":"A2","category":"fiiller"},
+            {"gr":"ανοίγω","tr":"açmak","level":"A2","category":"fiiller"},
+            {"gr":"κλείνω","tr":"kapatmak","level":"A2","category":"fiiller"},
+            {"gr":"νοσοκομείο","tr":"hastane","level":"A2","category":"günlük hayat"},
+            {"gr":"φαρμακείο","tr":"eczane","level":"A2","category":"günlük hayat"},
+            {"gr":"τράπεζα","tr":"banka","level":"A2","category":"günlük hayat"},
+            {"gr":"αγορά","tr":"pazar/çarşı","level":"A2","category":"günlük hayat"},
+            {"gr":"παραλία","tr":"plaj","level":"A2","category":"seyahat"},
+            {"gr":"νησί","tr":"ada","level":"A2","category":"seyahat"},
+            {"gr":"βουνό","tr":"dağ","level":"A2","category":"seyahat"},
+            {"gr":"δάσος","tr":"orman","level":"A2","category":"seyahat"},
+            {"gr":"μωβ","tr":"mor","level":"B1","category":"renkler"},
+            {"gr":"απόφαση","tr":"karar","level":"B1","category":"günlük hayat"},
+            {"gr":"ευκαιρία","tr":"fırsat","level":"B1","category":"günlük hayat"},
+            {"gr":"εμπειρία","tr":"deneyim","level":"B1","category":"günlük hayat"},
+            {"gr":"γνώση","tr":"bilgi","level":"B1","category":"günlük hayat"},
+            {"gr":"συζητώ","tr":"tartışmak","level":"B1","category":"fiiller"},
+            {"gr":"προτείνω","tr":"önermek","level":"B1","category":"fiiller"},
+            {"gr":"εξηγώ","tr":"açıklamak","level":"B1","category":"fiiller"},
+            {"gr":"συμφωνώ","tr":"katılmak","level":"B1","category":"fiiller"},
+            {"gr":"διαφωνώ","tr":"aynı fikirde olmamak","level":"B1","category":"fiiller"},
+            {"gr":"πολιτισμός","tr":"kültür","level":"B1","category":"günlük hayat"},
+            {"gr":"παράδοση","tr":"gelenek","level":"B1","category":"günlük hayat"},
+            {"gr":"οικονομία","tr":"ekonomi","level":"B2","category":"günlük hayat"},
+            {"gr":"περιβάλλον","tr":"çevre","level":"B2","category":"günlük hayat"},
+            {"gr":"τεχνολογία","tr":"teknoloji","level":"B2","category":"günlük hayat"},
+            {"gr":"ανάπτυξη","tr":"gelişim","level":"B2","category":"günlük hayat"},
+            {"gr":"βελτιώνω","tr":"iyileştirmek","level":"B2","category":"fiiller"},
+            {"gr":"αναλύω","tr":"analiz etmek","level":"B2","category":"fiiller"},
+            {"gr":"επιτυγχάνω","tr":"başarmak","level":"B2","category":"fiiller"},
+            {"gr":"υπευθυνότητα","tr":"sorumluluk","level":"B2","category":"günlük hayat"}
+        ];
+
+        // GREEK SENTENCES
+        const greekSentences = [
+            {"gr":"Τι κάνεις;","tr":"Nasılsın?"},
+            {"gr":"Είμαι καλά, ευχαριστώ.","tr":"İyiyim, teşekkür ederim."},
+            {"gr":"Πώς σε λένε;","tr":"Adın ne?"},
+            {"gr":"Με λένε Γιάννη.","tr":"Benim adım Yannis."},
+            {"gr":"Χαίρω πολύ.","tr":"Tanıştığımıza memnun oldum."},
+            {"gr":"Από πού είσαι;","tr":"Nerelisin?"},
+            {"gr":"Είμαι από την Τουρκία.","tr":"Türkiye'denim."},
+            {"gr":"Μιλάς ελληνικά;","tr":"Yunanca konuşuyor musun?"},
+            {"gr":"Μιλάω λίγο ελληνικά.","tr":"Biraz Yunanca konuşuyorum."},
+            {"gr":"Δεν καταλαβαίνω.","tr":"Anlamıyorum."},
+            {"gr":"Μπορείτε να μιλήσετε πιο αργά;","tr":"Daha yavaş konuşabilir misiniz?"},
+            {"gr":"Πού είναι η τουαλέτα;","tr":"Tuvalet nerede?"},
+            {"gr":"Θέλω έναν καφέ.","tr":"Bir kahve istiyorum."},
+            {"gr":"Πόσο κάνει αυτό;","tr":"Bu ne kadar?"},
+            {"gr":"Έχω κράτηση.","tr":"Rezervasyonum var."},
+            {"gr":"Πού είναι το ξενοδοχείο;","tr":"Otel nerede?"},
+            {"gr":"Χρειάζομαι βοήθεια.","tr":"Yardıma ihtiyacım var."},
+            {"gr":"Τι ώρα είναι;","tr":"Saat kaç?"},
+            {"gr":"Σήμερα έχει καλό καιρό.","tr":"Bugün hava güzel."},
+            {"gr":"Μου αρέσει η Ελλάδα.","tr":"Yunanistan'ı seviyorum."},
+            {"gr":"Πηγαίνω στη δουλειά.","tr":"İşe gidiyorum."},
+            {"gr":"Διαβάζω ένα βιβλίο.","tr":"Bir kitap okuyorum."},
+            {"gr":"Γράφω ένα μήνυμα.","tr":"Bir mesaj yazıyorum."},
+            {"gr":"Τρώμε μαζί απόψε;","tr":"Bu akşam birlikte yemek yiyor muyuz?"},
+            {"gr":"Θα έρθω αύριο.","tr":"Yarın geleceğim."},
+            {"gr":"Πού μένεις;","tr":"Nerede yaşıyorsun?"},
+            {"gr":"Έχω δύο αδέλφια.","tr":"İki kardeşim var."},
+            {"gr":"Η μητέρα μου είναι δασκάλα.","tr":"Annem öğretmen."},
+            {"gr":"Μου αρέσουν τα ταξίδια.","tr":"Seyahat etmeyi seviyorum."},
+            {"gr":"Πάμε στην παραλία.","tr":"Plaja gidelim."},
+            {"gr":"Το λεωφορείο φεύγει στις οκτώ.","tr":"Otobüs sekizde kalkıyor."},
+            {"gr":"Έχασα το εισιτήριό μου.","tr":"Biletimi kaybettim."},
+            {"gr":"Θα ήθελα ένα δωμάτιο.","tr":"Bir oda isterdim."},
+            {"gr":"Μπορώ να πληρώσω με κάρτα;","tr":"Kartla ödeyebilir miyim?"},
+            {"gr":"Μαθαίνω ελληνικά κάθε μέρα.","tr":"Her gün Yunanca öğreniyorum."},
+            {"gr":"Ποια είναι η γνώμη σου;","tr":"Senin fikrin nedir?"},
+            {"gr":"Συμφωνώ μαζί σου.","tr":"Seninle aynı fikirdeyim."},
+            {"gr":"Διαφωνώ σε αυτό το θέμα.","tr":"Bu konuda aynı fikirde değilim."},
+            {"gr":"Μπορείς να το εξηγήσεις;","tr":"Bunu açıklayabilir misin?"},
+            {"gr":"Αυτή είναι μια καλή ευκαιρία.","tr":"Bu iyi bir fırsat."},
+            {"gr":"Η εμπειρία ήταν ενδιαφέρουσα.","tr":"Deneyim ilginçti."},
+            {"gr":"Πρέπει να πάρουμε μια απόφαση.","tr":"Bir karar vermeliyiz."},
+            {"gr":"Η τεχνολογία αλλάζει γρήγορα.","tr":"Teknoloji hızlı değişiyor."},
+            {"gr":"Πρέπει να προστατεύσουμε το περιβάλλον.","tr":"Çevreyi korumalıyız."},
+            {"gr":"Η οικονομία αναπτύσσεται.","tr":"Ekonomi gelişiyor."},
+            {"gr":"Βελτιώνω τις γλωσσικές μου δεξιότητες.","tr":"Dil becerilerimi geliştiriyorum."},
+            {"gr":"Επιτυγχάνουμε τους στόχους μας.","tr":"Hedeflerimize ulaşıyoruz."}
+        ];
+
         // ITALIAN QUIZ DATA
         let quizzesItalian = [
             {tr:'Merhaba', it:'Ciao', wrong:['Arrivederci','Grazie','Prego']},
@@ -3276,6 +3472,10 @@
                 document.getElementById('italianQuizCount').textContent = quizzesItalian.length + ' soru';
                 document.getElementById('italianWordFindCount').textContent = italianFindWords.length + ' soru';
                 showScreen('italianMenuScreen');
+            } else if (lang === 'gr') {
+                document.getElementById('greekWordCount').textContent = greekWords.length + ' Yunanca kelime öğren';
+                document.getElementById('greekSentenceCount').textContent = greekSentences.length + ' cümle dinle ve tekrarla';
+                showScreen('greekMenuScreen');
             }
         }
 
@@ -3304,6 +3504,14 @@
                     showScreen('italianWordFindScreen');
                     initWordFindItalian();
                 }
+            } else if (currentLanguage === 'gr') {
+                if (module === 'words') {
+                    showScreen('greekWordsScreen');
+                    initWordsGreek();
+                } else if (module === 'listening') {
+                    showScreen('greekListeningScreen');
+                    initListeningGreek();
+                }
             } else {
                 if (module === 'words') {
                     showScreen('wordsScreen');
@@ -3327,6 +3535,8 @@
         function goBack() {
             if (currentLanguage === 'it') {
                 showScreen('italianMenuScreen');
+            } else if (currentLanguage === 'gr') {
+                showScreen('greekMenuScreen');
             } else {
                 showScreen('menuScreen');
             }
@@ -3749,6 +3959,57 @@
                     <div class="listening-text">${s.it}</div>
                     <div class="listening-translation">${s.tr}</div>
                     <button class="listen-btn" onclick="speakItalian('${s.it.replace(/'/g, "\\'")}')">🔊 Dinle</button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // GREEK WORDS
+        function setWordLevelGreek(level) {
+            currentWordLevel = level;
+            document.querySelectorAll('#greekWordsScreen .level-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('level' + level + 'Gr').classList.add('active');
+            initWordsGreek();
+        }
+
+        function initWordsGreek() {
+            const grid = document.getElementById('greekWordsGrid');
+            grid.innerHTML = '';
+            const filteredWords = greekWords.filter(w => w.level === currentWordLevel);
+            filteredWords.forEach(word => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `<div class="word-es">${word.gr}</div><div class="word-tr">${word.tr}</div>`;
+                card.onclick = () => speakGreek(word.gr);
+                grid.appendChild(card);
+            });
+        }
+
+        function speakGreek(text) {
+            speechSynthesis.cancel();
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=el&client=tw-ob`;
+            const audio = new Audio(url);
+            currentAudio = audio;
+            audio.onerror = () => speakWithWebSpeechAPI(text);
+            audio.onabort = () => speakWithWebSpeechAPI(text);
+            audio.play().catch(() => speakWithWebSpeechAPI(text));
+        }
+
+        // GREEK LISTENING
+        function initListeningGreek() {
+            const container = document.getElementById('greekListeningContainer');
+            container.innerHTML = '';
+            greekSentences.forEach(s => {
+                const item = document.createElement('div');
+                item.className = 'listening-item';
+                item.innerHTML = `
+                    <div class="listening-text">${s.gr}</div>
+                    <div class="listening-translation">${s.tr}</div>
+                    <button class="listen-btn" onclick="speakGreek('${s.gr.replace(/'/g, "\\'")}')">🔊 Dinle</button>
                 `;
                 container.appendChild(item);
             });
